@@ -30,11 +30,11 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp
-    - Cinemachine
     - Assembly-CSharp-firstpass
-    - Sirenix.OdinInspector.CompatibilityLayer
+    - Cinemachine
     - AllIn1VfxAssmebly
     - AllIn1VfxDemoScriptAssemblies
+    - Sirenix.OdinInspector.CompatibilityLayer
     - AllIn1VfxTexDemoAssembly
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
