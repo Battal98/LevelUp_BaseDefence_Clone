@@ -47,7 +47,7 @@ namespace Managers
         private void GetReferences()
         {
             Data = GetPlayerData();
-            PlayerSignals.Instance.onSetAnimation?.Invoke(PlayerAnimationStates.Idle);
+            PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
         }
 
         #region Event Subscription
@@ -55,6 +55,7 @@ namespace Managers
         private void OnEnable()
         {
             Subscribe();
+            CoreGameSignals.Instance.onSetCameraTarget?.Invoke(this.transform);
         }
 
         private void Subscribe()
@@ -68,7 +69,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
 
-            PlayerSignals.Instance.onSetAnimation += playerAnimationController.OnChangePlayerAnimationState;
+            PlayerSignals.Instance.onChangePlayerAnimationState += playerAnimationController.OnChangePlayerAnimationState;
 
             //ScoreSignals.Instance.onSetPlayerScore += OnSetScore;
         }
@@ -86,7 +87,9 @@ namespace Managers
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
 
-            PlayerSignals.Instance.onSetAnimation -= playerAnimationController.OnChangePlayerAnimationState;
+            PlayerSignals.Instance.onChangePlayerAnimationState -= playerAnimationController.OnChangePlayerAnimationState;
+
+
 
            // ScoreSignals.Instance.onSetPlayerScore -= OnSetScore;
         }
@@ -128,13 +131,13 @@ namespace Managers
             playerMovementController.UpdateInputValue(InputParam);
             if (Mathf.Abs(InputParam.Values.x) + (int)Mathf.Abs(InputParam.Values.y) > 0)
             {
-                PlayerSignals.Instance.onSetAnimation?.Invoke(PlayerAnimationStates.Run);
+                PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Run);
             }
         }
 
         private void OnInputRelease()
         {
-            PlayerSignals.Instance.onSetAnimation?.Invoke(PlayerAnimationStates.Idle);
+            PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
         }
 
         private void OnLevelFailed()

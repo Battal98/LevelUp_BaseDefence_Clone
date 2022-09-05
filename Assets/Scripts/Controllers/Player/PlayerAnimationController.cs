@@ -18,34 +18,14 @@ namespace Controllers
 
         #endregion
 
-        public void SetPlayerAnimation(PlayerAnimationStates states)
+        public void OnChangePlayerAnimationState(PlayerAnimationStates states)
         {
             if (State != states)
             {
                 State = states;
                 playerAnimatorController.SetTrigger(states.ToString());
-                Debug.Log(states.ToString());
             }
         }
-
-        public void OnChangePlayerAnimationState(PlayerAnimationStates states)
-        {
-            switch (states)
-            {
-                case PlayerAnimationStates.Idle:
-                    SetPlayerAnimation(PlayerAnimationStates.Idle);
-                    break;
-                case PlayerAnimationStates.Run:
-                    SetPlayerAnimation(PlayerAnimationStates.Run);
-                    break;
-                case PlayerAnimationStates.Dead:
-                    SetPlayerAnimation(PlayerAnimationStates.Dead);
-                    break;
-                default:
-                    break;
-            }
-        }
-
 
     }
 }

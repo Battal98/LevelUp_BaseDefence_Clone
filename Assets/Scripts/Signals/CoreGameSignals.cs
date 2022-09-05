@@ -11,5 +11,6 @@ namespace Signals
         public UnityAction onReset = delegate { };
         public UnityAction<Transform> onSetCameraTarget = delegate { };
         public UnityAction<GameStates> onGetGameState = delegate { };
+        public UnityAction<GameStates> onSetGameState = delegate { };
     }
 }

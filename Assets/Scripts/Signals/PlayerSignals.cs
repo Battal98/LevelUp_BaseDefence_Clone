@@ -6,6 +6,6 @@ namespace Signals
 {
     public class PlayerSignals : MonoSingleton<PlayerSignals>
     {
-        public UnityAction<PlayerAnimationStates> onSetAnimation = delegate { };
+        public UnityAction<PlayerAnimationStates> onChangePlayerAnimationState = delegate { };
     }
 }
