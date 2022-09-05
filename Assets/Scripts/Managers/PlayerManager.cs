@@ -31,7 +31,7 @@ namespace Managers
         #region Private Variables
 
         //private int _score;
-        [ShowInInspector]
+        [ShowInInspector] [SerializeField]
         private PlayerAnimationStates _animationState;
 
         #endregion
@@ -47,6 +47,7 @@ namespace Managers
         private void GetReferences()
         {
             Data = GetPlayerData();
+            PlayerSignals.Instance.onSetAnimation?.Invoke(PlayerAnimationStates.Idle);
         }
 
         #region Event Subscription
@@ -61,10 +62,14 @@ namespace Managers
             InputSignals.Instance.onInputTaken += playerMovementController.EnableMovement;
             InputSignals.Instance.onInputReleased += playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputDragged += OnInputDragged;
+            InputSignals.Instance.onInputReleased += OnInputRelease;
+
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
-            
+
+            PlayerSignals.Instance.onSetAnimation += playerAnimationController.OnChangePlayerAnimationState;
+
             //ScoreSignals.Instance.onSetPlayerScore += OnSetScore;
         }
 
@@ -74,9 +79,14 @@ namespace Managers
             InputSignals.Instance.onInputTaken -= playerMovementController.EnableMovement;
             InputSignals.Instance.onInputReleased -= playerMovementController.DeactiveMovement;
             InputSignals.Instance.onInputDragged -= OnInputDragged;
+            InputSignals.Instance.onInputReleased -= OnInputRelease;
+
+
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
+
+            PlayerSignals.Instance.onSetAnimation -= playerAnimationController.OnChangePlayerAnimationState;
 
            // ScoreSignals.Instance.onSetPlayerScore -= OnSetScore;
         }
@@ -116,17 +126,15 @@ namespace Managers
         private void OnInputDragged(InputParams InputParam)
         {
             playerMovementController.UpdateInputValue(InputParam);
-            PlayAnim(Mathf.Abs(InputParam.Values.x + InputParam.Values.y));
+            if (Mathf.Abs(InputParam.Values.x) + (int)Mathf.Abs(InputParam.Values.y) > 0)
+            {
+                PlayerSignals.Instance.onSetAnimation?.Invoke(PlayerAnimationStates.Run);
+            }
         }
 
-        private void PlayAnim(float value)
+        private void OnInputRelease()
         {
-            playerAnimationController.PlayAnim(value);
-        }
-
-        private void ChangePlayerAnim()
-        {
-            playerAnimationController.ChangePlayerAnimation(_animationState, true);
+            PlayerSignals.Instance.onSetAnimation?.Invoke(PlayerAnimationStates.Idle);
         }
 
         private void OnLevelFailed()
@@ -134,10 +142,9 @@ namespace Managers
             playerMovementController.IsReadyToPlay(false);
         }
 
-
         private void OnPlay()
         {
-            //playerMovementController.IsReadyToPlay(true);
+            playerMovementController.IsReadyToPlay(true);
         }
 
         private void OnReset()
