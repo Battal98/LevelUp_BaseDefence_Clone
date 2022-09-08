@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     MovementData:
-      PlayerJoystickSpeed: 10
+      PlayerJoystickSpeed: 7

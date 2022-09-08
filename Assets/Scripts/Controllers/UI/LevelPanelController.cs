@@ -13,7 +13,7 @@ namespace Controllers
 
         #region Serialized Variables
 
-        [SerializeField] private TextMeshProUGUI levelText;
+        //[SerializeField] private TextMeshProUGUI levelText;
 
         #endregion
 

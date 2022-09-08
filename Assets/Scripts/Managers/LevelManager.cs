@@ -101,12 +101,7 @@ namespace Managers
 
         private int GetLevelCount()
         {
-            return _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
-        }
-
-        private int GetStageCount()
-        {
-            return _stageCountID % Resources.Load<CD_Level>("Data/CD_Level").LevelStageData.StageCount;
+            return _levelID % Resources.Load<CD_Level>("Data/CD_Level").LevelDatas.Count;
         }
 
         private void OnInitializeLevel()
