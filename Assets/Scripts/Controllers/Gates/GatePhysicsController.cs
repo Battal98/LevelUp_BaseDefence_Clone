@@ -12,7 +12,7 @@ namespace Controllers
             if (other.CompareTag("Player") || other.CompareTag("Hostile"))
             {
                 gateWallCollider.enabled = false;
-                GateSignals.Instance.onChangeGateState(GateState.Open);
+                GateSignals.Instance.onChangeGateState(GateType.Open);
             }
         }
 
@@ -21,7 +21,7 @@ namespace Controllers
             if (other.CompareTag("Player") || other.CompareTag("Hostile"))
             {
                 gateWallCollider.enabled = true;
-                GateSignals.Instance.onChangeGateState(GateState.Close);
+                GateSignals.Instance.onChangeGateState(GateType.Close);
             }
         }
     } 

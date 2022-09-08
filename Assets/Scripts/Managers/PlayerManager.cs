@@ -110,7 +110,7 @@ namespace Managers
 
         private void SendPlayerDataToControllers()
         {
-            playerMovementController.SetMovementData(Data.MovementData);
+            playerMovementController.SetMovementData(Data.PlayerDatas);
             playerMovementController.IsReadyToPlay(true);
         }
 

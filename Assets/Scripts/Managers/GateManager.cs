@@ -10,7 +10,7 @@ namespace Managers
 
         #region Public Variables
 
-        public GateState CurrentGateState = GateState.Close;
+        public GateType CurrentGateState = GateType.Close;
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace Managers
             UnsubscribeEvents();
         }
 
-        private void OnChangeGateState(GateState state)
+        private void OnChangeGateState(GateType state)
         {
             CurrentGateState = state;
             gateAnimationController.ChangeAnimationState(state);

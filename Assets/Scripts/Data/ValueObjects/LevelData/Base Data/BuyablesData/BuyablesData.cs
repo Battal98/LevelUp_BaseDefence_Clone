@@ -1,4 +1,5 @@
 using System;
+using Enums;
 
 namespace Data.ValueObject.LevelDatas
 {
@@ -9,10 +10,9 @@ namespace Data.ValueObject.LevelDatas
         public int MoneyWorkerPayedAmount;
         public int AmmoWorkerCost;
         public int AmmoWorkerPayedAmount;
-        public int BoughtMoneyWorkerAmount;
-        public int BoughtAmmoWorkerAmount;
+
         public int MoneyWorkerLevel;
         public int AmmoWorkerLevel;
-        public bool IsUpgradeButtonLocked;
+        public AvabilityState AvabilityState;
     }
 }

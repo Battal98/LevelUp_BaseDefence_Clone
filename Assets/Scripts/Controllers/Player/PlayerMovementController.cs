@@ -25,7 +25,7 @@ namespace Controllers
 
         #region Private Variables
 
-        [ShowInInspector] [Header("Data")] private PlayerMovementData _playerMovementData;
+        [ShowInInspector] [Header("Data")] private PlayerDatas _playerMovementData;
         [SerializeField]
         private bool _isReadyToMove, _isReadyToPlay;
         private InputParams _inputParams;
@@ -34,7 +34,7 @@ namespace Controllers
 
         #endregion
 
-        public void SetMovementData(PlayerMovementData dataMovementData)
+        public void SetMovementData(PlayerDatas dataMovementData)
         {
             _playerMovementData = dataMovementData;
         }

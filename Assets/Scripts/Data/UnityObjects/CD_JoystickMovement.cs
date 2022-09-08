@@ -10,7 +10,7 @@ namespace Data.UnityObject
         public override void DoMovement( ref bool _isReadyToMove,
           ref Rigidbody _rigidbody,
           ref InputParams inputParams,
-          ref PlayerMovementData _moveData)
+          ref PlayerDatas _moveData)
         {
             JoystickMove(ref _rigidbody,
                 ref _moveData,
@@ -18,7 +18,7 @@ namespace Data.UnityObject
         }
 
         private void JoystickMove(ref Rigidbody _rigidbody,
-            ref PlayerMovementData _playerMovementData,
+            ref PlayerDatas _playerMovementData,
             ref InputParams _inputParams)
         {
             Vector3 _movement = new Vector3(_inputParams.Values.x * _playerMovementData.PlayerJoystickSpeed,

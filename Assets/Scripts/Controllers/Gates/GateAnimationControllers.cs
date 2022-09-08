@@ -9,9 +9,9 @@ public class GateAnimationControllers : MonoBehaviour
     [Space]
     [SerializeField]
     private Vector3 CloseRotateAngle = Vector3.zero;
-    public void ChangeAnimationState(GateState state)
+    public void ChangeAnimationState(GateType state)
     {
-        if (state != GateState.Close)
+        if (state != GateType.Close)
             DoCloseGateAnim();
         else
             DoOpenGateAnim();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data.ValueObject.LevelDatas
@@ -13,7 +14,7 @@ namespace Data.ValueObject.LevelDatas
         public int SoldierSlotCost;
         public int SoldierSlotAmount;
         public int AttackTime;
-        public Transform SlotTransform;
+        public List<Transform> SlotTransform;
 
     }
 }

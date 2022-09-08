@@ -1,6 +1,6 @@
 namespace Enums
 {
-    public enum GateState
+    public enum GateType
     {
         Open,
         Close,

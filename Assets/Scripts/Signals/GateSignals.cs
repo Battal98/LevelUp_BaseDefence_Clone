@@ -7,5 +7,5 @@ using Enums;
 
 public class GateSignals : MonoSingleton<GateSignals>
 {
-    public UnityAction<GateState> onChangeGateState = delegate { };
+    public UnityAction<GateType> onChangeGateState = delegate { };
 }

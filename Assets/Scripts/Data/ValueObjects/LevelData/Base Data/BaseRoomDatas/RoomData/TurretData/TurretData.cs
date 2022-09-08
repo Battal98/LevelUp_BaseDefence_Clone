@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using Enums;
 
 namespace Data.ValueObject.LevelDatas
 {
     [Serializable]
     public class TurretData/*: SavableEntity*/
     {
-        public bool IsActive;
+        public AvabilityState AvabilityState;
         public bool HasTurretSoldier;
         public int SoldierCost;
         public int SoldierPayedAmount;
