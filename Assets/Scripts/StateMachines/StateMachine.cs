@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
 using Interfaces;
 using System;
 
 namespace StateMachines
 {
-    public class StateMachine : MonoBehaviour
+    public class StateMachine
     {
         private IState _currentState;
         private Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>();
