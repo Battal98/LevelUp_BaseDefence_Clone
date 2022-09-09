@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentGateState: 1
   gateAnimationController: {fileID: 846479522124191115}
-  gateObject: {fileID: 2406062573035745514}
 --- !u!1 &2799773049798329164
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +259,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6075688399456815583}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5e658f141deaabf4ab4962abf8016596, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -518,7 +517,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8058319779709020490}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5e658f141deaabf4ab4962abf8016596, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -634,11 +633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2467b4c497b318c4e9ba58b2df43032f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2406062573035745514 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7737400085556345159, guid: f87d7848c580c4047a606109afab6f18, type: 3}
-  m_PrefabInstance: {fileID: 5333609185584204205}
-  m_PrefabAsset: {fileID: 0}
 --- !u!65 &3066561407460538265 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 6956465010178178612, guid: f87d7848c580c4047a606109afab6f18, type: 3}

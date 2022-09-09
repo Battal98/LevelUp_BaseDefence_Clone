@@ -24,6 +24,7 @@ namespace Controllers
             {
                 State = states;
                 playerAnimatorController.SetTrigger(states.ToString());
+                Debug.Log(states.ToString());   
             }
         }
 

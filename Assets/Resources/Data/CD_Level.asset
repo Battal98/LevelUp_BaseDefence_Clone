@@ -15,7 +15,17 @@ MonoBehaviour:
   LevelDatas:
   - BaseData:
       BaseRoomDatas:
-        Rooms: []
+        Rooms:
+        - RoomCost: 0
+          RoomPayedAmount: 0
+          TurretData:
+            AvabilityState: 0
+            HasTurretSoldier: 0
+            SoldierCost: 0
+            SoldierPayedAmount: 0
+            TurretAmmoCapacity: 0
+            TurretDamage: 0
+            TurretParticle: {fileID: 0}
       MineBaseData:
         MaxWorkerAmount: 0
         CurrentWorkerAmount: 0
