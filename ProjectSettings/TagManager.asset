@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Gate
   - Hostile
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,7 @@ MonoBehaviour:
   EnemyAIData:
     EnemyList:
     - EnemyType: 0
-      ScaleSize: {x: 0.5, y: 0.5, z: 0.5}
+      ScaleSize: {x: 0.2, y: 0.2, z: 0.2}
       BodyColor: {r: 1, g: 0.5587921, b: 0, a: 1}
       Health: 30
       Damage: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
       MoveSpeed: 1.5
       ChaseSpeed: 3
     - EnemyType: 1
-      ScaleSize: {x: 1, y: 1, z: 1}
+      ScaleSize: {x: 0.4, y: 0.4, z: 0.4}
       BodyColor: {r: 1, g: 0, b: 0, a: 1}
       Health: 50
       Damage: 2
@@ -33,7 +33,7 @@ MonoBehaviour:
       MoveSpeed: 1
       ChaseSpeed: 2
     - EnemyType: 2
-      ScaleSize: {x: 1.5, y: 1.5, z: 1.5}
+      ScaleSize: {x: 1, y: 1, z: 1}
       BodyColor: {r: 0.31132078, g: 0, b: 0, a: 1}
       Health: 100
       Damage: 10

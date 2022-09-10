@@ -3,32 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
+using StateMachines.AIBrain.Enemy;
 
 namespace StateMachines.AIBrain.Enemy.States
 {
     public class ChaseState : IState
     {
+        private readonly EnemyAIBrain _enemyAIBrain;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
+        private readonly float _attackRange;
 
-        public ChaseState(NavMeshAgent navMeshAgent, Animator animator)
+        private bool _inAttack = false;
+        public bool InPlayerAttackRange() => _inAttack;
+
+        public ChaseState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain, float attackRange)
         {
             _navMeshAgent = navMeshAgent;
             _animator = animator;
+            _enemyAIBrain = enemyAIBrain;
+            _attackRange = attackRange;
         }
         public void OnEnter()
         {
-            throw new System.NotImplementedException();
+            _inAttack = false;
+            _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
         }
 
         public void OnExit()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void Tick()
         {
-            throw new System.NotImplementedException();
+            _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+            CheckDistanceChase();
+        }
+        private void CheckDistanceChase()
+        {
+            if (_navMeshAgent.remainingDistance <= _attackRange)
+                _inAttack = true;
         }
     }
 }

@@ -164,18 +164,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3361640918342956094}
     m_Modifications:
-    - target: {fileID: 4018328297724662943, guid: 870c18642239ef54e93bc50a8457dec9, type: 3}
-      propertyPath: m_Height
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4018328297724662943, guid: 870c18642239ef54e93bc50a8457dec9, type: 3}
-      propertyPath: m_Center.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5028967127253791380, guid: 870c18642239ef54e93bc50a8457dec9, type: 3}
-      propertyPath: m_Center.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5028967127253791402, guid: 870c18642239ef54e93bc50a8457dec9, type: 3}
       propertyPath: m_Name
       value: PlayerManager

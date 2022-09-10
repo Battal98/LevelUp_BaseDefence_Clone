@@ -18,24 +18,24 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public float TimeStuck;
 
-        public MoveState(NavMeshAgent navMeshAgent, Animator animator)
+        public MoveState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain)
         {
             _navMeshAgent = navMeshAgent;
             _animator = animator;
+            _enemyAIBrain = enemyAIBrain;
         }
         public void OnEnter()
         {
-            TimeStuck = 0; 
-            _navMeshAgent.enabled = true; 
-            //_enemyAIBrain.Target = 
-            _navMeshAgent.SetDestination(_enemyAIBrain.Target.transform.position);
-            _animator.SetInteger(Speed, 1);
+            TimeStuck = 0;
+            _navMeshAgent.enabled = true;
+            var randomTarget = Random.Range(0, _enemyAIBrain.TurretTargetList.Count);
+            _navMeshAgent.SetDestination(_enemyAIBrain.TurretTargetList[randomTarget].position);
+            //_animator.SetInteger(Speed, 1);
         }
 
         public void OnExit()
         {
-            _navMeshAgent.enabled = false;
-            _animator.SetInteger(Speed, 0);
+            //_animator.SetInteger(Speed, 0);
         }
 
         public void Tick()

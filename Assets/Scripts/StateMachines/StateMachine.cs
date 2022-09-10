@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Interfaces;
 using System;
+using UnityEngine;
 
 namespace StateMachines
 {
@@ -20,6 +21,7 @@ namespace StateMachines
                 SetState(transition.To);
 
             _currentState?.Tick();
+            Debug.Log(_currentState) ;
         }
 
         public void SetState(IState state)
