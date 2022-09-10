@@ -11,6 +11,8 @@ namespace StateMachines.AIBrain.Enemy.States
         private readonly EnemyAIBrain _enemyAIBrain;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
+        private readonly float _moveSpeed;
+
 
         private Vector3 _lastPos = Vector3.zero;
 
@@ -18,16 +20,18 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public float TimeStuck;
 
-        public MoveState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain)
+        public MoveState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain , float moveSpeed)
         {
             _navMeshAgent = navMeshAgent;
             _animator = animator;
             _enemyAIBrain = enemyAIBrain;
+            _moveSpeed = moveSpeed; 
         }
         public void OnEnter()
         {
             TimeStuck = 0;
             _navMeshAgent.enabled = true;
+            _navMeshAgent.speed = _moveSpeed;
             var randomTarget = Random.Range(0, _enemyAIBrain.TurretTargetList.Count);
             _navMeshAgent.SetDestination(_enemyAIBrain.TurretTargetList[randomTarget].position);
             //_animator.SetInteger(Speed, 1);

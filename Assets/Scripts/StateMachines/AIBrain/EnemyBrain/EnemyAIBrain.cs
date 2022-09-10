@@ -97,7 +97,7 @@ namespace StateMachines.AIBrain.Enemy
 
         private void InitEnemy()
         {
-            _navmeshAgent.speed = _moveSpeed;
+            //mesh controller olusturulabilir
             this.GetComponentInChildren<SkinnedMeshRenderer>().material.color = _myColor;
         }
         #endregion
@@ -108,8 +108,8 @@ namespace StateMachines.AIBrain.Enemy
             _navmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
 
-            _moveState = new MoveState(_navmeshAgent, _animator, this);
-            _chaseState = new ChaseState(_navmeshAgent, _animator, this, _attackRange);
+            _moveState = new MoveState(_navmeshAgent, _animator, this, _moveSpeed);
+            _chaseState = new ChaseState(_navmeshAgent, _animator, this, _attackRange, _chaseSpeed);
             _attackState = new AttackState(_navmeshAgent, _animator, this, _attackRange);
             _moveToBombState = new MoveToBombState(_navmeshAgent, _animator);
             _deathState = new DeathState(_navmeshAgent, _animator);
