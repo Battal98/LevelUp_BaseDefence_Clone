@@ -6,8 +6,9 @@ using StateMachines.AIBrain.Enemy;
 
 public class EnemyPhysicController : MonoBehaviour
 {
-    public Transform _detectedPlayer;
+    private Transform _detectedPlayer;
     private Transform _detectedMine;
+
     private EnemyAIBrain _enemyAIBrain;
     public bool IsPlayerInRange() => _detectedPlayer != null;
     public bool IsBombInRange() => _detectedMine != null;
@@ -19,9 +20,7 @@ public class EnemyPhysicController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player is Found!");
             _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
-
             //sinyalle çakmayý dene
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
         }
@@ -46,9 +45,4 @@ public class EnemyPhysicController : MonoBehaviour
         }*/
     }
 
-
-    public Vector3 GetNearestPosition(GameObject gO)
-    {
-        return gO?.transform.position ?? Vector3.zero;
-    }
 }

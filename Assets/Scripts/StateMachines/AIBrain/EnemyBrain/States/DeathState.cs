@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
@@ -19,7 +17,7 @@ namespace StateMachines.AIBrain.Enemy.States
         }
         public void OnEnter()
         {
-            throw new System.NotImplementedException();
+            _animator.SetTrigger("Die");
         }
 
         public void OnExit()

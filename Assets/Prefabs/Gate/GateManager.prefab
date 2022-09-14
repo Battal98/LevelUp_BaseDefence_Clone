@@ -47,6 +47,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentGateState: 1
   gateAnimationController: {fileID: 846479522124191115}
+--- !u!1 &1329963775270848064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8970101455138541108}
+  - component: {fileID: 4982705023741397811}
+  m_Layer: 0
+  m_Name: FrontGateEntry
+  m_TagString: GateEntry
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8970101455138541108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329963775270848064}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -4.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5563807569096675672}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4982705023741397811
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329963775270848064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0425448, y: 1.5264407, z: 0.10647583}
+  m_Center: {x: 0.015228987, y: -0.26322037, z: 0.19771194}
 --- !u!1 &2799773049798329164
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +119,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4528217932939882866}
+  - {fileID: 8970101455138541108}
   m_Father: {fileID: 2821334081658701513}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -90,8 +136,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.734574, y: 2.533344, z: 8.350232}
-  m_Center: {x: 0.032727838, y: 0.116978765, z: -0.3239379}
+  m_Size: {x: 2.734574, y: 1.6411583, z: 8.678374}
+  m_Center: {x: 0.032727838, y: -0.32911408, z: -0.34644365}
 --- !u!114 &3478457223286928477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +570,50 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 392412146387873687, guid: 270e59aa2dbd7154191956046ae2e109, type: 3}
+--- !u!1 &8211953870037703534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4528217932939882866}
+  - component: {fileID: 3069676790548440656}
+  m_Layer: 0
+  m_Name: FrontGateExit
+  m_TagString: GateExit
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4528217932939882866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211953870037703534}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -4.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5563807569096675672}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3069676790548440656
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211953870037703534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0425448, y: 1.5264407, z: 0.10647583}
+  m_Center: {x: 0.015228987, y: -0.26322037, z: 0.19771194}
 --- !u!1 &8697429424785833748
 GameObject:
   m_ObjectHideFlags: 0

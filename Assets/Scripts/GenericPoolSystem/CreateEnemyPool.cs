@@ -1,9 +1,9 @@
 
 using System.Collections.Generic;
-using FrameworkGoat;
+using Managers;
 using UnityEngine;
 
-namespace PoolDenemesi
+namespace Pool
 {
     public class CreateEnemyPool : MonoBehaviour
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
@@ -26,8 +24,12 @@ namespace StateMachines.AIBrain.Enemy.States
         }
         public void OnEnter()
         {
-            _inAttack = true;
-            _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
+            if (_enemyAIBrain.PlayerTarget)
+            {
+                _inAttack = true;
+                _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
+                _animator.SetTrigger("Attack");
+            }
         }
 
         public void OnExit()
@@ -36,11 +38,16 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public void Tick()
         {
-            _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
-            CheckDistanceAttack();
+            if (_enemyAIBrain.PlayerTarget)
+            {
+                _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+                CheckDistanceAttack();
+            }
+            Debug.Log("Dist: " + _navMeshAgent.remainingDistance);
         }
         private void CheckDistanceAttack()
         {
+
             if (_navMeshAgent.remainingDistance > _attackRange)
                 _inAttack = false;
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
@@ -28,9 +26,15 @@ namespace StateMachines.AIBrain.Enemy.States
         }
         public void OnEnter()
         {
-            _inAttack = false;
-            _navMeshAgent.speed = _chaseSpeed;
-            _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
+            if (_enemyAIBrain.PlayerTarget)
+            {
+                _inAttack = false;
+                _navMeshAgent.speed = _chaseSpeed;
+                _animator.SetTrigger("Run");
+                _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
+
+            }
+
         }
 
         public void OnExit()
@@ -40,8 +44,11 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public void Tick()
         {
-            _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
-            CheckDistanceChase();
+            if (_enemyAIBrain.PlayerTarget)
+            {
+                _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+                CheckDistanceChase();
+            }
         }
         private void CheckDistanceChase()
         {

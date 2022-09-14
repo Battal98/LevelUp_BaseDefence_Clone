@@ -8,6 +8,8 @@ using System;
 using Data.ValueObject.AIDatas;
 using Sirenix.OdinInspector;
 using Enums;
+using Managers;
+using Signals;
 
 namespace StateMachines.AIBrain.Enemy
 {
@@ -20,8 +22,11 @@ namespace StateMachines.AIBrain.Enemy
         [BoxGroup("Targets")]
         public Transform PlayerTarget;
         [BoxGroup("Targets")]
-        public List<Transform> TurretTargetList;
+        public Transform TurretTarget;
+        [BoxGroup("Targets")]
+        public Transform MineTarget;
 
+        public NavMeshAgent _navmeshAgent;
         #endregion
 
         #region Serilizable Variables
@@ -39,13 +44,14 @@ namespace StateMachines.AIBrain.Enemy
         #region Private Variables
 
         [ShowInInspector]
-        private EnemyTypeData EnemyTypeDatas;
+        private EnemyTypeData _enemyTypeData;
         private StateMachine _stateMachine;
-        private NavMeshAgent _navmeshAgent;
         private Animator _animator;
+        private int _levelID;
 
         #region States
 
+        private BirthState _birthState;
         private MoveState _moveState;
         private ChaseState _chaseState;
         private AttackState _attackState;
@@ -63,6 +69,12 @@ namespace StateMachines.AIBrain.Enemy
         private float _moveSpeed;
         private float _chaseSpeed;
         private Color _myColor;
+        private Vector3 _scaleSize;
+        private float _navmeshRadius;
+        private float _navmeshHeight;
+        private Transform _spawnPoint;
+        [ShowInInspector]
+        private Transform _turretTarget;
 
         #endregion
 
@@ -72,10 +84,11 @@ namespace StateMachines.AIBrain.Enemy
 
         private void Awake()
         {
-            EnemyTypeDatas = GetData();
+            _enemyTypeData = GetData();
+            _levelID = LevelSignals.Instance.onGetLevel();
             SetEnemyVariables();
-            GetReferenceStates();
             InitEnemy();
+            GetReferenceStates();
         }
 
         #region Data Jobs
@@ -86,56 +99,69 @@ namespace StateMachines.AIBrain.Enemy
 
         private void SetEnemyVariables()
         {
-            _health = EnemyTypeDatas.Health;
-            _damage = EnemyTypeDatas.Damage;
-            _attackRange = EnemyTypeDatas.AttackRange;
-            _attackSpeed = EnemyTypeDatas.AttackSpeed;
-            _chaseSpeed = EnemyTypeDatas.ChaseSpeed;
-            _moveSpeed = EnemyTypeDatas.MoveSpeed;
-            _myColor = EnemyTypeDatas.BodyColor;
+            _navmeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponentInChildren<Animator>();
+
+            _health = _enemyTypeData.Health;
+            _damage = _enemyTypeData.Damage;
+            _attackRange = _enemyTypeData.AttackRange;
+            _attackSpeed = _enemyTypeData.AttackSpeed;
+            _chaseSpeed = _enemyTypeData.ChaseSpeed;
+            _moveSpeed = _enemyTypeData.MoveSpeed;
+            _myColor = _enemyTypeData.BodyColor;
+            _scaleSize = _enemyTypeData.ScaleSize;
+            _navmeshRadius = _enemyTypeData.NavMeshRadius;
+            _navmeshHeight = _enemyTypeData.NavMeshHeight;
+            _spawnPoint = _enemyTypeData.SpawnPoint[_levelID];
+            _turretTarget = _enemyTypeData.SpawnPoint[_levelID].GetChild(UnityEngine.Random.Range(0, _enemyTypeData.SpawnPoint[_levelID].childCount)) ;
         }
 
         private void InitEnemy()
         {
             //mesh controller olusturulabilir
             this.GetComponentInChildren<SkinnedMeshRenderer>().material.color = _myColor;
+            //
+            this.transform.localScale = _scaleSize;
+            _navmeshAgent.height = _navmeshHeight;
+            _navmeshAgent.radius = _navmeshRadius;
         }
         #endregion
 
         #region AI State Jobs
         private void GetReferenceStates()
         {
-            _navmeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponent<Animator>();
 
-            _moveState = new MoveState(_navmeshAgent, _animator, this, _moveSpeed);
+            _birthState = new BirthState(_navmeshAgent,_animator,this,_spawnPoint); 
+            _moveState = new MoveState(_navmeshAgent, _animator, this, _moveSpeed, ref _turretTarget);
             _chaseState = new ChaseState(_navmeshAgent, _animator, this, _attackRange, _chaseSpeed);
             _attackState = new AttackState(_navmeshAgent, _animator, this, _attackRange);
             _moveToBombState = new MoveToBombState(_navmeshAgent, _animator);
             _deathState = new DeathState(_navmeshAgent, _animator);
 
-            //Statemachine statelerden sonra tanýmlanmalý ?
+            //Statemachine statelerden sonra tanimlanmali ?
             _stateMachine = new StateMachine();
 
-            At(_moveState, _chaseState, HasTarget()); // playerinrange
-            At(_chaseState, _attackState, AmIAttackPlayer()); // remaining distance<1f and playerinattackrange
-            At(_chaseState, _moveState, HasNoTarget());
-            At(_attackState, _chaseState, () => _attackState.InPlayerAttackRange() == false); // remaining distance> 1f// remaining distance> 1f
+            At(_birthState, _moveState, HasTargetTurret());
+            At(_moveState, _chaseState, HasTargetPlayer()); // playerinrange
+            At(_chaseState, _attackState, IAttackPlayer()); // remaining distance<1f and playerinattackrange
+            At(_chaseState, _moveState, HasNoTargetPlayer());
+            At(_attackState, _chaseState, INoAttackPlayer()); // remaining distance> 1f// remaining distance> 1f
 
             _stateMachine.AddAnyTransition(_deathState, _deathState.AmIDead);
             _stateMachine.AddAnyTransition(_moveToBombState, detector.IsBombInRange);
-            At(_moveToBombState, _attackState, AmIAttackBomb());
+            //At(_moveToBombState, _attackState, AmIAttackBomb());
 
-            //SetState state durumlarý belirlendikten sonra default deger cagýrilmali
-            _stateMachine.SetState(_moveState);
+            //SetState state durumlari belirlendikten sonra default deger cagirilmali
+            _stateMachine.SetState(_birthState);
 
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
-
-            Func<bool> HasTarget() => () => PlayerTarget != null;
-            Func<bool> HasNoTarget() => () => PlayerTarget == null;
-            Func<bool> AmIAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
-            Func<bool> AmIAttackBomb() => () => detector.IsBombInRange() &&
-                                                        PlayerTarget == null;
+            Func<bool> HasTargetTurret() => () => _turretTarget != null /*&& TurretTarget.TryGetComponent(out TurretManager turret)*/;
+            Func<bool> HasTargetPlayer() => () => PlayerTarget != null && PlayerTarget.TryGetComponent(out PlayerManager player);
+            Func<bool> HasNoTargetPlayer() => () => PlayerTarget == null;
+            Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
+            Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
+            /*Func<bool> AmIAttackBomb() => () => detector.IsBombInRange() &&
+                                                        PlayerTarget == null;*/
             //Func<bool> AmIStuck() => () => _moveState.TimeStuck > 1f;
 
         }

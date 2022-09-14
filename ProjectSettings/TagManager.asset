@@ -7,19 +7,21 @@ TagManager:
   - Gate
   - Hostile
   - Enemy
+  - GateExit
+  - GateEntry
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Walls
+  - 
   - Water
   - UI
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Base
+  - BattleYard
+  - EnemyAI
   - 
   - 
   - 

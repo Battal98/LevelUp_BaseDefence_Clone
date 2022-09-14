@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
@@ -12,28 +10,26 @@ namespace StateMachines.AIBrain.Enemy.States
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
         private readonly float _moveSpeed;
-
-
-        private Vector3 _lastPos = Vector3.zero;
-
+        private readonly Transform _turretTarget;
         private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public float TimeStuck;
-
-        public MoveState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain , float moveSpeed)
+        public MoveState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain , float moveSpeed, ref Transform turretTarget)
         {
             _navMeshAgent = navMeshAgent;
             _animator = animator;
             _enemyAIBrain = enemyAIBrain;
-            _moveSpeed = moveSpeed; 
+            _moveSpeed = moveSpeed;
+            _turretTarget = turretTarget;
         }
         public void OnEnter()
         {
-            TimeStuck = 0;
-            _navMeshAgent.enabled = true;
-            _navMeshAgent.speed = _moveSpeed;
-            var randomTarget = Random.Range(0, _enemyAIBrain.TurretTargetList.Count);
-            _navMeshAgent.SetDestination(_enemyAIBrain.TurretTargetList[randomTarget].position);
+            if (_turretTarget)
+            {
+                _navMeshAgent.enabled = true;
+                _navMeshAgent.speed = _moveSpeed;
+                _navMeshAgent.SetDestination(_turretTarget.position);
+                _animator.SetTrigger("Walk");
+            }
             //_animator.SetInteger(Speed, 1);
         }
 
@@ -44,10 +40,7 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public void Tick()
         {
-            if (Vector3.Distance(_enemyAIBrain.transform.position, _lastPos) <= 0f)
-                TimeStuck += Time.deltaTime;
 
-            _lastPos = _enemyAIBrain.transform.position;
         }
     } 
 }

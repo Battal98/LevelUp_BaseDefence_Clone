@@ -108,6 +108,7 @@ namespace Managers
         {
             var newLevelData = GetLevelCount();
             _levelLoader.Execute(newLevelData);
+            LevelSignals.Instance.onLevelInitDone?.Invoke();
         }
 
         private void OnClearActiveLevel()

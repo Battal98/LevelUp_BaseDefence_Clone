@@ -869,7 +869,8 @@ GameObject:
   - component: {fileID: 5028967126704523247}
   - component: {fileID: 5979709451822653951}
   - component: {fileID: 4018328297724662943}
-  m_Layer: 0
+  - component: {fileID: 4743585228567332699}
+  m_Layer: 9
   m_Name: PlayerPhysics
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -916,10 +917,22 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4743585228567332699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5028967126704523246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e649367eab790343891063bc9326a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5028967126819205893
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,7 +1094,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_Extents: {x: 0.14, y: 1, z: 0.14}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1

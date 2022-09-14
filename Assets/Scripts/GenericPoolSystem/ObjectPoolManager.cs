@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-namespace FrameworkGoat
+namespace Managers
 {
     public class ObjectPoolManager
     {
@@ -104,6 +104,7 @@ namespace FrameworkGoat
         
         public void RemovePool<T>()
         {
+
             _pools[typeof(T) + "ByType"] = null;
         }
 

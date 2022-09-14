@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Enums;
+using System.Collections.Generic;
 
 namespace Data.ValueObject.AIDatas
 {
@@ -16,5 +17,9 @@ namespace Data.ValueObject.AIDatas
         public float AttackSpeed;
         public float MoveSpeed;
         public float ChaseSpeed;
+        public float NavMeshRadius;
+        public float NavMeshHeight;
+        public List<Transform> SpawnPoint;
+        //public List<List<Transform>> TurretTargetList;
     } 
 }
