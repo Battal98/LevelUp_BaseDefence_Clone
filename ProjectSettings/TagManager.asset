@@ -7,8 +7,7 @@ TagManager:
   - Gate
   - Hostile
   - Enemy
-  - GateExit
-  - GateEntry
+  - Bullet
   layers:
   - Default
   - TransparentFX

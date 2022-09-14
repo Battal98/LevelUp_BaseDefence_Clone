@@ -6,6 +6,8 @@ using StateMachines.AIBrain.Enemy;
 
 public class EnemyPhysicController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject collisionColliderObj;
     private Transform _detectedPlayer;
     private Transform _detectedMine;
 
@@ -23,6 +25,12 @@ public class EnemyPhysicController : MonoBehaviour
             _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
             //sinyalle çakmayý dene
             _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
+        }
+
+        if (other.CompareTag("Bullet"))
+        {
+            _enemyAIBrain._health = 0;
+            collisionColliderObj.SetActive(false);
         }
 
         /*if (other.GetComponent<Mine>())

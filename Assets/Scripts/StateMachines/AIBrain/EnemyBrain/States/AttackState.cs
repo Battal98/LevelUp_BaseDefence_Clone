@@ -27,7 +27,6 @@ namespace StateMachines.AIBrain.Enemy.States
             if (_enemyAIBrain.PlayerTarget)
             {
                 _inAttack = true;
-                _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
                 _animator.SetTrigger("Attack");
             }
         }
@@ -40,10 +39,14 @@ namespace StateMachines.AIBrain.Enemy.States
         {
             if (_enemyAIBrain.PlayerTarget)
             {
-                _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+                if (_navMeshAgent.remainingDistance == 0)
+                {
+                    //destination or setdestination kullanilacak
+                    _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
+                    Debug.Log("Dist: " + _navMeshAgent.remainingDistance);
+                }
                 CheckDistanceAttack();
             }
-            Debug.Log("Dist: " + _navMeshAgent.remainingDistance);
         }
         private void CheckDistanceAttack()
         {

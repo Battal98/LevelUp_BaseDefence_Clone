@@ -62,7 +62,7 @@ namespace StateMachines.AIBrain.Enemy
 
         #region Enemy Game Variables
 
-        private int _health;
+        public int _health;
         private int _damage;
         private float _attackRange;
         private float _attackSpeed;
@@ -147,7 +147,7 @@ namespace StateMachines.AIBrain.Enemy
             At(_chaseState, _moveState, HasNoTargetPlayer());
             At(_attackState, _chaseState, INoAttackPlayer()); // remaining distance> 1f// remaining distance> 1f
 
-            _stateMachine.AddAnyTransition(_deathState, _deathState.AmIDead);
+            _stateMachine.AddAnyTransition(_deathState, AmIDead());
             _stateMachine.AddAnyTransition(_moveToBombState, detector.IsBombInRange);
             //At(_moveToBombState, _attackState, AmIAttackBomb());
 
@@ -160,6 +160,7 @@ namespace StateMachines.AIBrain.Enemy
             Func<bool> HasNoTargetPlayer() => () => PlayerTarget == null;
             Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
             Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
+            Func<bool> AmIDead() => () => _health <= 0;
             /*Func<bool> AmIAttackBomb() => () => detector.IsBombInRange() &&
                                                         PlayerTarget == null;*/
             //Func<bool> AmIStuck() => () => _moveState.TimeStuck > 1f;
