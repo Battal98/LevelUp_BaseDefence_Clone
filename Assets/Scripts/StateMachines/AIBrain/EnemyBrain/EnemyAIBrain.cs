@@ -22,8 +22,6 @@ namespace StateMachines.AIBrain.Enemy
         [BoxGroup("Targets")]
         public Transform PlayerTarget;
         [BoxGroup("Targets")]
-        public Transform TurretTarget;
-        [BoxGroup("Targets")]
         public Transform MineTarget;
 
         public NavMeshAgent _navmeshAgent;
@@ -45,6 +43,7 @@ namespace StateMachines.AIBrain.Enemy
 
         [ShowInInspector]
         private EnemyTypeData _enemyTypeData;
+        private EnemyAIData _enemyAIData;
         private StateMachine _stateMachine;
         private Animator _animator;
         private int _levelID;
@@ -84,17 +83,22 @@ namespace StateMachines.AIBrain.Enemy
 
         private void Awake()
         {
-            _enemyTypeData = GetData();
             _levelID = LevelSignals.Instance.onGetLevel();
+            _enemyAIData = GetAIData();
+            _enemyTypeData = GetEnemyType();
             SetEnemyVariables();
             InitEnemy();
             GetReferenceStates();
         }
 
         #region Data Jobs
-        private EnemyTypeData GetData()
+        private EnemyTypeData GetEnemyType()
         {
-            return Resources.Load<CD_EnemyAI>("Data/CD_EnemyAI").EnemyAIData.EnemyList[(int)enemyType];
+            return _enemyAIData.EnemyList[(int)enemyType];
+        }
+        private EnemyAIData GetAIData()
+        {
+            return Resources.Load<CD_EnemyAI>("Data/CD_EnemyAI").EnemyAIData;
         }
 
         private void SetEnemyVariables()
@@ -112,8 +116,8 @@ namespace StateMachines.AIBrain.Enemy
             _scaleSize = _enemyTypeData.ScaleSize;
             _navmeshRadius = _enemyTypeData.NavMeshRadius;
             _navmeshHeight = _enemyTypeData.NavMeshHeight;
-            _spawnPoint = _enemyTypeData.SpawnPoint[_levelID];
-            _turretTarget = _enemyTypeData.SpawnPoint[_levelID].GetChild(UnityEngine.Random.Range(0, _enemyTypeData.SpawnPoint[_levelID].childCount)) ;
+            _spawnPoint = _enemyAIData.SpawnPosList[_levelID];
+            _turretTarget = _enemyAIData.SpawnPosList[_levelID].GetChild(UnityEngine.Random.Range(0, _enemyAIData.SpawnPosList[_levelID].childCount)) ;
         }
 
         private void InitEnemy()

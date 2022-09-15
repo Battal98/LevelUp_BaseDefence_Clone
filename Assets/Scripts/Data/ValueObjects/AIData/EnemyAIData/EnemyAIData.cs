@@ -9,5 +9,6 @@ namespace Data.ValueObject.AIDatas
     public class EnemyAIData
     {
         public List<EnemyTypeData> EnemyList;
+        public List<Transform> SpawnPosList;
     }
 }

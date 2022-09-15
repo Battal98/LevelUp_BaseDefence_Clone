@@ -32,21 +32,6 @@ namespace Managers
 
         #endregion
 
-        #region Private Variables
-
-        private EnemyType enemyType;
-
-        private List<EnemyAIBrain> enemyScripts = new List<EnemyAIBrain>();
-
-        private NavMeshTriangulation triangulation;
-
-        private GameObject _EnemyAIObj;
-        private EnemyAIBrain _EnemyAIBrain;
-
-
-
-
-        #endregion
         #endregion
 
         #region Event Subscriptions
@@ -74,19 +59,9 @@ namespace Managers
         {
             for (int i = 0; i < enemies.Count; i++)
             {
-                ObjectPoolManager.Instance.AddObjectPool(() => Instantiate(enemies[i]), TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 50, true);
+                ObjectPoolManager.Instance.AddObjectPool(() => Instantiate(enemies[i], spawnPos), TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 50, true);
             }
             StartCoroutine(SpawnEnemies());
-        }
-
-        private void Awake()
-        {
-            //InitEnemyPool();
-        }
-
-        private void Start()
-        {
-            
         }
 
         private void TurnOnEnemyAI(GameObject enemy)
@@ -122,7 +97,7 @@ namespace Managers
         private void DoSpawnEnemy()
         {
 
-            int randomType = Random.Range(0, Enum.GetNames(typeof(EnemyType)).Length);
+            int randomType = Random.Range(0, Enum.GetNames(typeof(EnemyType)).Length-1);
             int randomPercentage = Random.Range(0, 101);
             if (randomType == (int)EnemyType.LargeRedEnemy)
             {

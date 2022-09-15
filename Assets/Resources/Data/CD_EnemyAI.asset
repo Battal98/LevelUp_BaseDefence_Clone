@@ -15,41 +15,37 @@ MonoBehaviour:
   EnemyAIData:
     EnemyList:
     - EnemyType: 0
-      ScaleSize: {x: 0.5, y: 0.5, z: 0.5}
-      BodyColor: {r: 1, g: 0.5587921, b: 0, a: 1}
       Health: 30
       Damage: 1
       AttackRange: 0.8
       AttackSpeed: 0.5
-      MoveSpeed: 1.5
+      ScaleSize: {x: 0.5, y: 0.5, z: 0.5}
+      BodyColor: {r: 1, g: 0.5587921, b: 0, a: 1}
       ChaseSpeed: 3
+      MoveSpeed: 1.5
       NavMeshRadius: 0.3
       NavMeshHeight: 2
-      SpawnPoint:
-      - {fileID: 2657516974325152671, guid: e43d4933910e9584b96d8832baf95247, type: 3}
     - EnemyType: 1
-      ScaleSize: {x: 0.7, y: 0.7, z: 0.7}
-      BodyColor: {r: 1, g: 0.19339621, b: 0.19339621, a: 1}
       Health: 50
       Damage: 2
       AttackRange: 1
       AttackSpeed: 1
-      MoveSpeed: 1
+      ScaleSize: {x: 0.7, y: 0.7, z: 0.7}
+      BodyColor: {r: 1, g: 0.19339621, b: 0.19339621, a: 1}
       ChaseSpeed: 2
+      MoveSpeed: 1
       NavMeshRadius: 0.5
       NavMeshHeight: 2
-      SpawnPoint:
-      - {fileID: 2657516974325152671, guid: e43d4933910e9584b96d8832baf95247, type: 3}
     - EnemyType: 2
-      ScaleSize: {x: 1, y: 1, z: 1}
-      BodyColor: {r: 0.68235296, g: 0, b: 0, a: 1}
       Health: 100
       Damage: 10
       AttackRange: 1.3
       AttackSpeed: 3
-      MoveSpeed: 1
+      ScaleSize: {x: 1, y: 1, z: 1}
+      BodyColor: {r: 0.68235296, g: 0, b: 0, a: 1}
       ChaseSpeed: 1.3
+      MoveSpeed: 1
       NavMeshRadius: 0.7
       NavMeshHeight: 2.5
-      SpawnPoint:
-      - {fileID: 2657516974325152671, guid: e43d4933910e9584b96d8832baf95247, type: 3}
+    SpawnPosList:
+    - {fileID: 2657516974325152671, guid: e43d4933910e9584b96d8832baf95247, type: 3}

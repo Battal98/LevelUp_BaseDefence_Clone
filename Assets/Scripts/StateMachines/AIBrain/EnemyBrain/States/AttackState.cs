@@ -39,12 +39,8 @@ namespace StateMachines.AIBrain.Enemy.States
         {
             if (_enemyAIBrain.PlayerTarget)
             {
-                if (_navMeshAgent.remainingDistance == 0)
-                {
-                    //destination or setdestination kullanilacak
-                    _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
-                    Debug.Log("Dist: " + _navMeshAgent.remainingDistance);
-                }
+                _navMeshAgent.destination =_enemyAIBrain.PlayerTarget.transform.position;
+                Debug.Log("Dist: " + _navMeshAgent.remainingDistance);
                 CheckDistanceAttack();
             }
         }
