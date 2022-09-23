@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using UnityEngine;
 
 public class ObjectPool<T> : AbstractObjectPool
     {
@@ -44,13 +45,19 @@ public class ObjectPool<T> : AbstractObjectPool
         public T GetObject()
         {
             var result = default(T);
+            Debug.Log(_currentStock.Count);
             if (_currentStock.Count > 0)
             {
                 result = _currentStock[0];
                 _currentStock.RemoveAt(0);
             }
             else if (_isDynamic)
+            {
+                Debug.Log("before dynamic: " + result);
                 result = _factoryMethod();
+                Debug.Log("after dynamic: " + result);
+            }
+
             _turnOnCallback(result);
             return result;
         }

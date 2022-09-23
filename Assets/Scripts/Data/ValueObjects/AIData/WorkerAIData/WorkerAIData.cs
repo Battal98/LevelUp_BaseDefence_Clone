@@ -6,6 +6,6 @@ namespace Data.ValueObject.AIDatas
     [Serializable]
     public class WorkerAIData
     {
-        public List<WorkerAITypeData> workerAITypes;
+        public List<WorkerAITypeData> WorkerAITypes;
     } 
 }

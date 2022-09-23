@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
@@ -10,6 +8,7 @@ using Sirenix.OdinInspector;
 using Enums;
 using Managers;
 using Signals;
+using Controllers;
 
 namespace StateMachines.AIBrain.Enemy
 {
@@ -24,7 +23,6 @@ namespace StateMachines.AIBrain.Enemy
         [BoxGroup("Targets")]
         public Transform MineTarget;
 
-        public NavMeshAgent _navmeshAgent;
         #endregion
 
         #region Serilizable Variables
@@ -46,6 +44,7 @@ namespace StateMachines.AIBrain.Enemy
         private EnemyAIData _enemyAIData;
         private StateMachine _stateMachine;
         private Animator _animator;
+        private NavMeshAgent _navmeshAgent;
         private int _levelID;
 
         #region States
@@ -61,16 +60,6 @@ namespace StateMachines.AIBrain.Enemy
 
         #region Enemy Game Variables
 
-        public int _health;
-        private int _damage;
-        private float _attackRange;
-        private float _attackSpeed;
-        private float _moveSpeed;
-        private float _chaseSpeed;
-        private Color _myColor;
-        private Vector3 _scaleSize;
-        private float _navmeshRadius;
-        private float _navmeshHeight;
         private Transform _spawnPoint;
         [ShowInInspector]
         private Transform _turretTarget;
@@ -94,7 +83,7 @@ namespace StateMachines.AIBrain.Enemy
         #region Data Jobs
         private EnemyTypeData GetEnemyType()
         {
-            return _enemyAIData.EnemyList[(int)enemyType];
+            return EnemySignals.Instance.onGetEnemyAIData?.Invoke(enemyType);
         }
         private EnemyAIData GetAIData()
         {
@@ -105,17 +94,7 @@ namespace StateMachines.AIBrain.Enemy
         {
             _navmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponentInChildren<Animator>();
-
-            _health = _enemyTypeData.Health;
-            _damage = _enemyTypeData.Damage;
-            _attackRange = _enemyTypeData.AttackRange;
-            _attackSpeed = _enemyTypeData.AttackSpeed;
-            _chaseSpeed = _enemyTypeData.ChaseSpeed;
-            _moveSpeed = _enemyTypeData.MoveSpeed;
-            _myColor = _enemyTypeData.BodyColor;
-            _scaleSize = _enemyTypeData.ScaleSize;
-            _navmeshRadius = _enemyTypeData.NavMeshRadius;
-            _navmeshHeight = _enemyTypeData.NavMeshHeight;
+            //datadan health'ý tekrar çekmen gerekebilir
             _spawnPoint = _enemyAIData.SpawnPosList[_levelID];
             _turretTarget = _enemyAIData.SpawnPosList[_levelID].GetChild(UnityEngine.Random.Range(0, _enemyAIData.SpawnPosList[_levelID].childCount)) ;
         }
@@ -123,11 +102,11 @@ namespace StateMachines.AIBrain.Enemy
         private void InitEnemy()
         {
             //mesh controller olusturulabilir
-            this.GetComponentInChildren<SkinnedMeshRenderer>().material.color = _myColor;
+            this.GetComponentInChildren<SkinnedMeshRenderer>().material.color = _enemyTypeData.BodyColor;
             //
-            this.transform.localScale = _scaleSize;
-            _navmeshAgent.height = _navmeshHeight;
-            _navmeshAgent.radius = _navmeshRadius;
+            this.transform.localScale = _enemyTypeData.ScaleSize;
+            _navmeshAgent.height = _enemyTypeData.NavMeshHeight;
+            _navmeshAgent.radius = _enemyTypeData.NavMeshRadius;
         }
         #endregion
 
@@ -136,11 +115,11 @@ namespace StateMachines.AIBrain.Enemy
         {
 
             _birthState = new BirthState(_navmeshAgent,_animator,this,_spawnPoint); 
-            _moveState = new MoveState(_navmeshAgent, _animator, this, _moveSpeed, ref _turretTarget);
-            _chaseState = new ChaseState(_navmeshAgent, _animator, this, _attackRange, _chaseSpeed);
-            _attackState = new AttackState(_navmeshAgent, _animator, this, _attackRange);
+            _moveState = new MoveState(_navmeshAgent, _animator, this, _enemyTypeData.MoveSpeed, ref _turretTarget);
+            _chaseState = new ChaseState(_navmeshAgent, _animator, this, _enemyTypeData.AttackRange, _enemyTypeData.ChaseSpeed);
+            _attackState = new AttackState(_navmeshAgent, _animator, this, _enemyTypeData.AttackRange);
             _moveToBombState = new MoveToBombState(_navmeshAgent, _animator);
-            _deathState = new DeathState(_navmeshAgent, _animator);
+            _deathState = new DeathState(_navmeshAgent, _animator, this);
 
             //Statemachine statelerden sonra tanimlanmali ?
             _stateMachine = new StateMachine();
@@ -164,7 +143,7 @@ namespace StateMachines.AIBrain.Enemy
             Func<bool> HasNoTargetPlayer() => () => PlayerTarget == null;
             Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
             Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
-            Func<bool> AmIDead() => () => _health <= 0;
+            Func<bool> AmIDead() => () => _enemyTypeData.Health <= 0;
             /*Func<bool> AmIAttackBomb() => () => detector.IsBombInRange() &&
                                                         PlayerTarget == null;*/
             //Func<bool> AmIStuck() => () => _moveState.TimeStuck > 1f;

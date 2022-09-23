@@ -8,6 +8,7 @@ TagManager:
   - Hostile
   - Enemy
   - Bullet
+  - Collectables
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Base
   - BattleYard
   - EnemyAI
-  - 
-  - 
+  - Collectables
+  - Workers/MoneyWorker
   - 
   - 
   - 

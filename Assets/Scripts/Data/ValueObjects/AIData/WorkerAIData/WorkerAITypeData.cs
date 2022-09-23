@@ -1,5 +1,6 @@
 using System;
 using Enums;
+using UnityEngine;
 
 namespace Data.ValueObject.AIDatas
 {
@@ -9,6 +10,7 @@ namespace Data.ValueObject.AIDatas
         public WorkerType WorkerType;
         public int CapacityOrDamage;
         public float Speed;
+        public Transform StartTarget;
     }
 
 }

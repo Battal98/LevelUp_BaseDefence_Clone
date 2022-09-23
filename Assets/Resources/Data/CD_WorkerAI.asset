@@ -13,16 +13,20 @@ MonoBehaviour:
   m_Name: CD_WorkerAI
   m_EditorClassIdentifier: 
   WorkerAIData:
-    workerAITypes:
+    WorkerAITypes:
     - WorkerType: 0
       CapacityOrDamage: 3
       Speed: 1
+      StartTarget: {fileID: 0}
     - WorkerType: 1
       CapacityOrDamage: 3
       Speed: 1
+      StartTarget: {fileID: 586447469113759446, guid: 216d85a0348f8f84da179f41dc3a445c, type: 3}
     - WorkerType: 2
-      CapacityOrDamage: 1
+      CapacityOrDamage: 3
       Speed: 1
+      StartTarget: {fileID: 0}
     - WorkerType: 3
-      CapacityOrDamage: 2
-      Speed: 2
+      CapacityOrDamage: 3
+      Speed: 1
+      StartTarget: {fileID: 0}

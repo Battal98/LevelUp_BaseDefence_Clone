@@ -55,13 +55,20 @@ namespace Managers
         }
         #endregion
 
+        private int _listCache;
         private void InitEnemyPool()
         {
             for (int i = 0; i < enemies.Count; i++)
             {
-                ObjectPoolManager.Instance.AddObjectPool(() => Instantiate(enemies[i], spawnPos), TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 50, true);
+                _listCache = i;
+                ObjectPoolManager.Instance.AddObjectPool(EnemyFac, TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 2, true);
             }
             StartCoroutine(SpawnEnemies());
+        }
+
+        private GameObject EnemyFac()
+        {
+            return Instantiate(enemies[_listCache], spawnPos);
         }
 
         private void TurnOnEnemyAI(GameObject enemy)
@@ -99,6 +106,7 @@ namespace Managers
 
             int randomType = Random.Range(0, Enum.GetNames(typeof(EnemyType)).Length-1);
             int randomPercentage = Random.Range(0, 101);
+            _listCache = randomType;
             if (randomType == (int)EnemyType.LargeRedEnemy)
             {
                 if (randomPercentage < 30)

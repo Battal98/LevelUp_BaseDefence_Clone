@@ -314,8 +314,8 @@ MonoBehaviour:
   - {fileID: 4887529004602154887, guid: 9e4df148fe5b6734f8fa30b1c86ac0a8, type: 3}
   - {fileID: 7502888729200349618, guid: 08912a5bfccf7aa4cb6388c520ce8d4e, type: 3}
   - {fileID: 8926747106399480730, guid: 424df22148b70934aa17b3862036dc2c, type: 3}
-  NumberOfEnemiesToSpawn: 15
-  SpawnDelay: 1.2
+  NumberOfEnemiesToSpawn: 20
+  SpawnDelay: 0.2
   spawnPos: {fileID: 2132905841}
 --- !u!1001 &205281159
 PrefabInstance:
@@ -1682,7 +1682,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.26
+      scalar: 0.41
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -6143,13 +6143,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024832190}
-  m_LocalRotation: {x: -0, y: -0.001810463, z: -0, w: 0.9999984}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.73, y: 0.83, z: 28.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: -0.207, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1042760350
 GameObject:
   m_ObjectHideFlags: 0
