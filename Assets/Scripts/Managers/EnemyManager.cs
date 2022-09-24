@@ -39,13 +39,11 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            EnemySignals.Instance.onGetTransform += OnGetDeadEnemyPosition;
             EnemySignals.Instance.onGetEnemyAIData += OnGetEnemyAIData;
         }
 
         private void UnsubscribeEvents()
         {
-            EnemySignals.Instance.onGetTransform -= OnGetDeadEnemyPosition;
             EnemySignals.Instance.onGetEnemyAIData -= OnGetEnemyAIData;
         }
 
@@ -55,10 +53,6 @@ namespace Managers
         }
 
         #endregion
-        private Vector3 OnGetDeadEnemyPosition(Transform enemyTransform)
-        {
-            return enemyTransform.position;
-        }
         private EnemyTypeData OnGetEnemyAIData(EnemyType enemyType)
         {
             return Resources.Load<CD_EnemyAI>("Data/CD_EnemyAI").EnemyAIData.EnemyList[(int)enemyType];

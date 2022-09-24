@@ -13,9 +13,8 @@ namespace Signals
     public class EnemySignals : MonoSingleton<EnemySignals>
     {
 
-        public UnityAction<Vector3> onEnemyDead = delegate { };
+        public UnityAction<Transform> onEnemyDead = delegate { };
         public Func<EnemyType,EnemyTypeData> onGetEnemyAIData = delegate { return null; };
-        public Func<Transform, Vector3> onGetTransform = delegate { return Vector3.zero; };
 
     } 
 }

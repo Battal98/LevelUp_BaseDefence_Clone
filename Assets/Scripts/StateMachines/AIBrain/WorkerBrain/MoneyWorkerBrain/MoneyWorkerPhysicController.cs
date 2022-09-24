@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachines.AIBrain.Workers;
+using Signals;
 
 namespace Controllers
 {
@@ -12,10 +13,8 @@ namespace Controllers
         {
             if(other.CompareTag("Collectables"))
             {
-                /*if (!_moneyWorkerBrain.MoneyList.Contains(other.gameObject))
-                {
-                }*/
-                    //stacking yapacak 
+                Debug.Log("entry");
+                MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke(other.transform);
             }
         }
     } 

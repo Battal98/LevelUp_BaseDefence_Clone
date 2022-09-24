@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3093b510a0ebbac4aa969b167a50e7f1, type: 3}
+  m_Name: CD_Pool
+  m_EditorClassIdentifier: 
+  PoolDataDic:
+    m_Keys: 000000000100000003000000020000000700000004000000060000000500000008000000090000000a0000000c0000000b0000000e0000000d000000
+    m_Values:
+    - ObjectType: {fileID: 60270490387358220, guid: c42e4c1bc0079914ab5eaafdf47f4f5e, type: 3}
+      initalAmount: 200
+      isDynamic: 1
+    - ObjectType: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}
+      initalAmount: 100
+      isDynamic: 0
+    - ObjectType: {fileID: 1195634638902680371, guid: d556f77ace486c5419185e225d80df85, type: 3}
+      initalAmount: 100
+      isDynamic: 1
+    - ObjectType: {fileID: 7603404451793479687, guid: 7c2cee9b5bc5040438ec38c4e3d558c7, type: 3}
+      initalAmount: 100
+      isDynamic: 1
+    - ObjectType: {fileID: 5455066261541432749, guid: 184f26222370a5b40917157ffb84d45c, type: 3}
+      initalAmount: 5
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0
+    - ObjectType: {fileID: 0}
+      initalAmount: 0
+      isDynamic: 0

@@ -45,7 +45,6 @@ public class ObjectPool<T> : AbstractObjectPool
         public T GetObject()
         {
             var result = default(T);
-            Debug.Log(_currentStock.Count);
             if (_currentStock.Count > 0)
             {
                 result = _currentStock[0];
@@ -53,9 +52,7 @@ public class ObjectPool<T> : AbstractObjectPool
             }
             else if (_isDynamic)
             {
-                Debug.Log("before dynamic: " + result);
                 result = _factoryMethod();
-                Debug.Log("after dynamic: " + result);
             }
 
             _turnOnCallback(result);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
+using System;
 
 namespace StateMachines.AIBrain.Workers.MoneyStates
 {
@@ -11,23 +12,20 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly NavMeshAgent _navmeshAgent;
         private readonly Animator _animator;
         private readonly MoneyWorkerAIBrain _moneyWorkerAIBrain;
-        private readonly int _currentStock;
-        private readonly int _maxCapacity;
-        private readonly float _speed;
+        private bool isArrive;
 
-        public StackMoneyState(NavMeshAgent navMeshAgent, Animator animator, ref int currentMoneyStock, ref int totalMoneyCapacity, ref float speed, MoneyWorkerAIBrain moneyWorkerAIBrain)
+        public Func<bool> IsArriveToMoney() => () => isArrive;
+
+        public StackMoneyState(NavMeshAgent navMeshAgent, Animator animator, MoneyWorkerAIBrain moneyWorkerAIBrain)
         {
             _navmeshAgent = navMeshAgent;
             _animator = animator;
-            _currentStock = currentMoneyStock;
-            _maxCapacity = totalMoneyCapacity;
-            _speed = speed;
             _moneyWorkerAIBrain = moneyWorkerAIBrain;
         }
         public void OnEnter()
         {
-            Debug.Log(_moneyWorkerAIBrain);
-            _navmeshAgent.SetDestination(_moneyWorkerAIBrain.CurrentTarget.transform.position);
+            isArrive = false;
+            SetNewDestination();
         }
 
         public void OnExit()
@@ -37,7 +35,14 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
 
         public void Tick()
         {
-
+            if (_navmeshAgent.stoppingDistance <= 0.1f)
+            {
+                isArrive = true;
+            }
+        }
+        private void SetNewDestination()
+        {
+            _moneyWorkerAIBrain.CurrentTarget = _moneyWorkerAIBrain.GetMoneyPosition();
         }
     }
 }

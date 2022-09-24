@@ -1,21 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Signals;
+using DG.Tweening;
 
 namespace Managers
 {
     public class CollectableManager : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        private void OnEnable()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            DOVirtual.DelayedCall( 0.1f,()=> MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(this.transform));
         }
     } 
 }

@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Signals;
-
-public class DeadDemo : MonoBehaviour
+using Interfaces;
+using Managers;
+using Enums;
+public class DeadDemo : MonoBehaviour, IGetPoolObject
 {
+    public GameObject GetObject(string poolName)
+    {
+        return  ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+    }
+
     private void OnDisable()
     {
-        EnemySignals.Instance.onEnemyDead?.Invoke(EnemySignals.Instance.onGetTransform.Invoke(this.transform));
+        for (int i = 0; i < 3; i++)
+        {
+            var creatableObj = GetObject(PoolType.Money.ToString());
+            creatableObj.transform.position = this.transform.position;
+        }
+
     }
 }
