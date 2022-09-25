@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Bullet
   - Collectables
+  - GateExit
+  - GateEntry
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - EnemyAI
   - Collectables
   - Workers/MoneyWorker
-  - 
+  - Collected
   - 
   - 
   - 

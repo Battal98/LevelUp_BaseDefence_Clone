@@ -13,8 +13,19 @@ namespace Controllers
         {
             if(other.CompareTag("Collectables"))
             {
-                Debug.Log("entry");
-                MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke(other.transform);
+                if (_moneyWorkerBrain.IsAvailable())
+                {
+                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke(other.transform);
+                    _moneyWorkerBrain.SetCurrentStock();
+                    other.gameObject.transform.parent.gameObject.SetActive(false);
+
+                    //stacking
+                    //other'a layer deðiþtirme yapýlabilir
+                }
+            }
+            if (other.CompareTag("Gate"))
+            {
+                _moneyWorkerBrain.RemoveAllStock();
             }
         }
     } 

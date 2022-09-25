@@ -19,12 +19,13 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         }
         public void OnEnter()
         {
-            
+            //Idle anim 
+            _navmeshAgent.enabled = false;
         }
 
         public void OnExit()
         {
-            
+            _navmeshAgent.enabled = true;
         }
 
         public void Tick()

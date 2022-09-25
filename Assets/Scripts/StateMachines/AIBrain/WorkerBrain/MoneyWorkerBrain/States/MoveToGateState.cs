@@ -16,24 +16,21 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly float _speed;
 
         public bool IsArrive = false;
-        public MoveToGateState(NavMeshAgent navMeshAgent, Animator animator, ref int currentMoneyStock, ref int totalMoneyCapacity, ref float speed,ref Transform gateTarget)
+        public MoveToGateState(NavMeshAgent navMeshAgent, Animator animator,ref Transform gateTarget)
         {
             _navmeshAgent = navMeshAgent;
             _animator = animator;
-            _currentStock = currentMoneyStock;
-            _maxCapacity = totalMoneyCapacity;
-            _speed = speed; 
             _gateTarget = gateTarget;
         }
         public void OnEnter()
         {
-            IsArrive = false;
+            //isWalking anim
             _navmeshAgent.SetDestination(_gateTarget.position);
         }
 
         public void OnExit()
         {
-            
+            IsArrive = false;
         }
 
         public void Tick()

@@ -11,23 +11,25 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly NavMeshAgent _navmeshAgent;
         private readonly Animator _animator;
         private readonly MoneyWorkerAIBrain _moneyWorkerAIBrain;
-        private readonly int _currentStock;
-        private readonly int _maxCapacity;
-        public SearchState(NavMeshAgent navMeshAgent, Animator animator, ref int currentMoneyStock, ref int totalMoneyCapacity, MoneyWorkerAIBrain moneyWorkerAIBrain)
+
+        public SearchState(NavMeshAgent navMeshAgent, Animator animator, MoneyWorkerAIBrain moneyWorkerAIBrain)
         {
             _navmeshAgent = navMeshAgent;
             _animator = animator;
-            _currentStock = currentMoneyStock;
-            _maxCapacity = totalMoneyCapacity;
             _moneyWorkerAIBrain = moneyWorkerAIBrain;
         }
         public void OnEnter()
         {
+            
+            if (_moneyWorkerAIBrain.IsAvailable())
+            {
+                _moneyWorkerAIBrain.StartSearch(true);
+            }
         }
 
         public void OnExit()
         {
-            
+            _moneyWorkerAIBrain.StartSearch(false);
         }
 
         public void Tick()

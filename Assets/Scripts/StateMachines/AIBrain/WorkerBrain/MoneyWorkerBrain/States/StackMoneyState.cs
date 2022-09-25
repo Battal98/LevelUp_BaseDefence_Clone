@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
 using System;
+using Signals;
 
 namespace StateMachines.AIBrain.Workers.MoneyStates
 {
@@ -14,7 +15,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly MoneyWorkerAIBrain _moneyWorkerAIBrain;
         private bool isArrive;
 
-        public Func<bool> IsArriveToMoney() => () => isArrive;
+        public Func<bool> IsArriveToMoney() => () => isArrive && _moneyWorkerAIBrain.IsAvailable();
 
         public StackMoneyState(NavMeshAgent navMeshAgent, Animator animator, MoneyWorkerAIBrain moneyWorkerAIBrain)
         {
@@ -24,25 +25,31 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         }
         public void OnEnter()
         {
-            isArrive = false;
-            SetNewDestination();
         }
 
         public void OnExit()
         {
-            
+            isArrive = false;
         }
 
+        private float timer=0.2f;
         public void Tick()
         {
-            if (_navmeshAgent.stoppingDistance <= 0.1f)
+            if (_navmeshAgent.remainingDistance <= 0f)
             {
+                _moneyWorkerAIBrain.CurrentTarget = null;
                 isArrive = true;
             }
-        }
-        private void SetNewDestination()
-        {
-            _moneyWorkerAIBrain.CurrentTarget = _moneyWorkerAIBrain.GetMoneyPosition();
+
+            //if (timer >= 0)
+            //{
+            //    Debug.Log("tick");
+            //    MoneyWorkerSignals.Instance.OnMyMoneyTaken?.Invoke(_moneyWorkerAIBrain.CurrentTarget, _moneyWorkerAIBrain.transform);
+            //    timer -= Time.deltaTime;
+            //}
+            //else
+            //    timer = 0.2f;
+           
         }
     }
 }

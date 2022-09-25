@@ -21,7 +21,7 @@ namespace StateMachines
                 SetState(transition.To);
 
             _currentState?.Tick();
-            Debug.Log(_currentState) ;
+            //Debug.Log(_currentState) ;
         }
 
         public void SetState(IState state)

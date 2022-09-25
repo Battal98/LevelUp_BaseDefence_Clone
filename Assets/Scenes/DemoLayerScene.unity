@@ -336,6 +336,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1151d3d66aae3849b6853e485c45488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &458590674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 586447469113759447, guid: 216d85a0348f8f84da179f41dc3a445c, type: 3}
+  m_PrefabInstance: {fileID: 586447469500972973}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &458590675
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458590674}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &458590676
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458590674}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &498243574
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +759,14 @@ PrefabInstance:
     - target: {fileID: 586447469113759447, guid: 216d85a0348f8f84da179f41dc3a445c, type: 3}
       propertyPath: m_Name
       value: SpawnPos
+      objectReference: {fileID: 0}
+    - target: {fileID: 586447469113759447, guid: 216d85a0348f8f84da179f41dc3a445c, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 586447469113759447, guid: 216d85a0348f8f84da179f41dc3a445c, type: 3}
+      propertyPath: m_TagString
+      value: Gate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216d85a0348f8f84da179f41dc3a445c, type: 3}

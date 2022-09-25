@@ -55,8 +55,9 @@ namespace StateMachines.AIBrain.Workers
         #endregion
 
         #region Worker Game Variables
-
+        [ShowInInspector]
         private int _currentStock = 0;
+        private float _delay = 0.05f;
 
         #endregion
 
@@ -112,19 +113,51 @@ namespace StateMachines.AIBrain.Workers
             _navmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponentInChildren<Animator>();
         }
+        #endregion
 
-        public int SetCurrentStock()
+        #region Worker State Jobs
+
+        private void GetReferenceStates()
         {
-            return _currentStock;
+            _searchState = new SearchState(_navmeshAgent, _animator, this);
+            _moveToGateState = new MoveToGateState(_navmeshAgent, _animator, ref _workerTypeData.StartTarget);
+            _waitOnGateState = new WaitOnGateState(_navmeshAgent, _animator, this);
+            _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator, this);
+            _dropMoneyOnGateState = new DropMoneyOnGateState(_navmeshAgent, _animator, this, ref _workerTypeData.StartTarget);
+
+            _stateMachine = new StateMachine();
+
+            At(_moveToGateState, _searchState, HasArrive());
+            At(_searchState, _stackMoneyState, HasCurrentTargetMoney());
+            At(_stackMoneyState, _searchState, _stackMoneyState.IsArriveToMoney());
+            At(_stackMoneyState, _dropMoneyOnGateState, HasCapacityFull());
+            At(_dropMoneyOnGateState, _searchState, HasCapacityNotFull());
+
+            _stateMachine.SetState(_moveToGateState);
+            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+
+            Func<bool> HasArrive() => () => _moveToGateState.IsArrive;
+            Func<bool> HasCurrentTargetMoney() => () => CurrentTarget != null;
+            Func<bool> HasCapacityFull() => () => !IsAvailable();
+            Func<bool> HasCapacityNotFull() => () => IsAvailable();
         }
 
-        public bool IsAvaiable() => CurrentTarget == null && _currentStock < _workerTypeData.CapacityOrDamage;
+        private void Update() => _stateMachine.Tick();
 
         #endregion
 
+        #region General Jobs
         private void InitWorker()
         {
 
+        }
+        public bool IsAvailable() => _currentStock < _workerTypeData.CapacityOrDamage;
+
+        public void SetDest()
+        {
+            CurrentTarget = GetMoneyPosition();
+            if (CurrentTarget)
+                _navmeshAgent.SetDestination(CurrentTarget.position);
         }
 
         public Transform GetMoneyPosition()
@@ -132,36 +165,44 @@ namespace StateMachines.AIBrain.Workers
             return MoneyWorkerSignals.Instance.onGetTransformMoney?.Invoke(this.transform);
         }
 
-        #region Worker State Jobs
-
-        private void GetReferenceStates()
+        private IEnumerator SearchTarget()
         {
-            _searchState = new SearchState(_navmeshAgent, _animator, ref _currentStock, ref _workerTypeData.CapacityOrDamage, this);
-            _moveToGateState = new MoveToGateState(_navmeshAgent, _animator, ref _currentStock  ,ref _workerTypeData.CapacityOrDamage, ref _workerTypeData.Speed ,ref _workerTypeData.StartTarget);
-            _waitOnGateState = new WaitOnGateState(_navmeshAgent, _animator, this);
-            _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator,this);
-            _dropMoneyOnGateState = new DropMoneyOnGateState();
-
-            _stateMachine = new StateMachine();
-
-            At(_moveToGateState, _waitOnGateState, HasNoTarget());
-            At(_waitOnGateState, _stackMoneyState, HasCurrentTargetMoney());
-            At(_stackMoneyState, _searchState, _stackMoneyState.IsArriveToMoney());
-            At(_stackMoneyState, _dropMoneyOnGateState, HasCapacityFull());
-
-            _stateMachine.SetState(_moveToGateState);
-            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
-
-            Func<bool> HasNoTarget() => () => CurrentTarget != null || _moveToGateState.IsArrive;
-            Func<bool> HasCurrentTargetMoney() => () => CurrentTarget != null;
-            Func<bool> HasCapacityFull() => () => _currentStock == _workerTypeData.CapacityOrDamage;
+            while (!CurrentTarget)
+            {
+                SetDest();
+                yield return new WaitForSeconds(_delay);
+            }
+        }
+        public void StartSearch(bool isStartedSearch)
+        {
+            if(isStartedSearch)
+                StartCoroutine(SearchTarget());
+            else
+            {
+                StopCoroutine(SearchTarget());
+            }
         }
 
-        private void Update() => _stateMachine.Tick();
+        public void SetCurrentStock()
+        {
+            if (_currentStock < _workerTypeData.CapacityOrDamage)
+                _currentStock++;
+        }
 
+        public void RemoveAllStock()
+        {
+            for (int i = 0; i < _workerTypeData.CapacityOrDamage; i++)
+            {
+                if (_currentStock > 0)
+                    _currentStock--;
+                else
+                    _currentStock = 0;
+            }
+
+            //remove all stack
+        }
 
         #endregion
-
 
     }
 }

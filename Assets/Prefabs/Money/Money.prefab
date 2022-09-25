@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5608240892130893654}
   - component: {fileID: 5608240892130893655}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PhysicController
   m_TagString: Collectables
   m_Icon: {fileID: 0}
