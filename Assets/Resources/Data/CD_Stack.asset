@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1614c0136dd26b249b6279eb876bf59a, type: 3}
+  m_Name: CD_Stack
+  m_EditorClassIdentifier: 
+  StackDatas:
+  - StackingSystem: 0
+    StaticGridDatas:
+    - isDynamic: 0
+      StackerType: 0
+      StackAreaType: 0
+      GridSize: {x: 0, y: 0, z: 0}
+      Offset: {x: 0, y: 0, z: 0}
+      DrawnedMesh: {fileID: 0}
+    - isDynamic: 0
+      StackerType: 0
+      StackAreaType: 1
+      GridSize: {x: 0, y: 0, z: 0}
+      Offset: {x: 0, y: 0, z: 0}
+      DrawnedMesh: {fileID: 0}
+    - isDynamic: 0
+      StackerType: 0
+      StackAreaType: 2
+      GridSize: {x: 0, y: 0, z: 0}
+      Offset: {x: 0, y: 0, z: 0}
+      DrawnedMesh: {fileID: 0}
+    DynamicGridDatas: []
+  - StackingSystem: 1
+    StaticGridDatas: []
+    DynamicGridDatas:
+    - isDynamic: 1
+      StackerType: 0
+      StackAreaType: 0
+      GridSize: {x: 0, y: 0, z: 0}
+      Offset: {x: 0.1, y: 0.1, z: 0.1}
+      DrawnedMesh: {fileID: 0}
+    - isDynamic: 1
+      StackerType: 1
+      StackAreaType: 0
+      GridSize: {x: 0, y: 0, z: 0}
+      Offset: {x: 0.1, y: 0.1, z: 0.1}
+      DrawnedMesh: {fileID: 0}
+    - isDynamic: 1
+      StackerType: 2
+      StackAreaType: 0
+      GridSize: {x: 1, y: 10, z: 15}
+      Offset: {x: 0.05, y: 0.2, z: 0.09}
+      DrawnedMesh: {fileID: 0}
+    - isDynamic: 1
+      StackerType: 3
+      StackAreaType: 0
+      GridSize: {x: 0, y: 0, z: 0}
+      Offset: {x: 0.1, y: 0.1, z: 0.1}
+      DrawnedMesh: {fileID: 0}

@@ -1,10 +1,11 @@
 using UnityEngine;
+using Enums;
 
 namespace Interfaces
 {
     public interface IReleasePoolObject
     {
-        void ReleaseObject(GameObject obj, string poolName);
+        void ReleaseObject(GameObject obj, PoolType poolType);
 
     } 
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Signals;
@@ -12,13 +12,13 @@ using Interfaces;
 
 namespace Managers
 {
-    public class MoneyWorkerManager : MonoBehaviour, IGetPoolObject
+    public class MoneyWorkerManager : MonoBehaviour ,IGetPoolObject, IReleasePoolObject
     {
         #region Self variables 
 
         #region Private Variables
 
-        [SerializeField]
+        [ShowInInspector]
         private List<Transform> _targetList = new List<Transform>();
         [ShowInInspector]
         private List<MoneyWorkerAIBrain> _workerList = new List<MoneyWorkerAIBrain>();
@@ -79,10 +79,9 @@ namespace Managers
             }
             else if (_workerList[1].transform == workerTransform)
             {*/
-                Debug.Log("worker 1");
                 var _targetT = _targetList.OrderBy(t => Vector3.Distance(t.transform.position, workerTransform.position))
                 .Take(_targetList.Count)
-                .OrderBy(t => Random.Range(0,int.MaxValue))
+                .OrderBy(t => UnityEngine.Random.Range(0,int.MaxValue))
                 .LastOrDefault();
                 _targetList.Remove(_targetT);
                 return _targetT;
@@ -137,13 +136,28 @@ namespace Managers
         [Button("Add Money Worker")]
         private void CreateMoneyWorker()
         {
-            var obj = GetObject(PoolType.MoneyWorkerAI.ToString());
+            var obj = GetObjectType(PoolType.MoneyWorkerAI) ;
             _workerList.Add(obj.GetComponent<MoneyWorkerAIBrain>());
         }
-
-        public GameObject GetObject(string poolName)
+        [Button("Release Worker")]
+        private void ReleaseMoneyWorker()
         {
-           return ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+            if (_workerList[0])
+            {
+                var obj = _workerList[0];
+                ReleaseObject(obj.gameObject, PoolType.MoneyWorkerAI);
+                _workerList.Remove(obj);
+            }
+
+        }
+        public GameObject GetObjectType(PoolType poolName)
+        {
+           return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
+        }
+
+        public void ReleaseObject(GameObject obj, PoolType poolName)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
         }
         #endregion
     }

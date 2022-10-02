@@ -6,6 +6,7 @@ using StateMachines.AIBrain.Workers;
 using Managers;
 using Enums;
 using DG.Tweening;
+using System;
 
 namespace StateMachines.AIBrain.Enemy.States
 {
@@ -14,32 +15,32 @@ namespace StateMachines.AIBrain.Enemy.States
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
         private readonly EnemyAIBrain _brain;
-        private readonly EnemyType _type;
-        public DeathState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain brain, EnemyType type)
+        private readonly string _type;
+        public DeathState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain brain, string type)
         {
             _navMeshAgent = navMeshAgent;
             _animator = animator;
             _brain = brain; 
             _type = type;
         }
-
-        public GameObject GetObject(string poolName)
+        public GameObject GetObjectType(PoolType poolName)
         {
-           return ObjectPoolManager.Instance.GetObject<GameObject>(poolName);
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
-        public void ReleaseObject(GameObject obj, string poolName)
+        public void ReleaseObject(GameObject obj, PoolType poolName)
         {
-            ObjectPoolManager.Instance.ReturnObject<GameObject>(obj, poolName);
+            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName,obj);
         }
 
         public void OnEnter()
         {
+            var poolType = (PoolType)Enum.Parse(typeof(PoolType), _type);
             _navMeshAgent.enabled = false;
             _animator.SetTrigger("Die");
-            DOVirtual.DelayedCall(1f, () => ReleaseObject(_brain.gameObject, _type.ToString()));
+            DOVirtual.DelayedCall(1f, () => ReleaseObject(_brain.gameObject, poolType));
             for (int i = 0; i < 3; i++)
             {
-                var creatableObj = GetObject(PoolType.Money.ToString());
+                var creatableObj = GetObjectType(PoolType.Money);
                 creatableObj.transform.position = _brain.transform.position;
             }
 

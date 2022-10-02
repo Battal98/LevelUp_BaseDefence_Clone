@@ -16,7 +16,7 @@ MonoBehaviour:
     m_Keys: 0000000003000000020000000700000004000000060000000500000008000000090000000a0000000c0000000b0000000e0000000d00000001000000
     m_Values:
     - ObjectType: {fileID: 60270490387358220, guid: c42e4c1bc0079914ab5eaafdf47f4f5e, type: 3}
-      initalAmount: 200
+      initalAmount: 10
       isDynamic: 1
     - ObjectType: {fileID: 1195634638902680371, guid: d556f77ace486c5419185e225d80df85, type: 3}
       initalAmount: 100
@@ -25,8 +25,8 @@ MonoBehaviour:
       initalAmount: 100
       isDynamic: 1
     - ObjectType: {fileID: 5455066261541432749, guid: 184f26222370a5b40917157ffb84d45c, type: 3}
-      initalAmount: 5
-      isDynamic: 0
+      initalAmount: 6
+      isDynamic: 1
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
@@ -45,18 +45,18 @@ MonoBehaviour:
     - ObjectType: {fileID: 0}
       initalAmount: 0
       isDynamic: 0
+    - ObjectType: {fileID: 7502888729200349618, guid: 08912a5bfccf7aa4cb6388c520ce8d4e, type: 3}
+      initalAmount: 20
+      isDynamic: 1
+    - ObjectType: {fileID: 8926747106399480730, guid: 424df22148b70934aa17b3862036dc2c, type: 3}
+      initalAmount: 10
+      isDynamic: 1
     - ObjectType: {fileID: 0}
       initalAmount: 0
-      isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
-      isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
-      isDynamic: 0
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
-      isDynamic: 0
+      isDynamic: 1
+    - ObjectType: {fileID: 4887529004602154887, guid: 9e4df148fe5b6734f8fa30b1c86ac0a8, type: 3}
+      initalAmount: 10
+      isDynamic: 1
     - ObjectType: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}
       initalAmount: 100
       isDynamic: 0

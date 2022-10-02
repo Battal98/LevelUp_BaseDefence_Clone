@@ -83,7 +83,7 @@ namespace StateMachines.AIBrain.Enemy
         #region Data Jobs
         private EnemyTypeData GetEnemyType()
         {
-            return EnemySignals.Instance.onGetEnemyAIData?.Invoke(enemyType);
+            return _enemyAIData.EnemyList[(int)enemyType];
         }
         private EnemyAIData GetAIData()
         {
@@ -119,7 +119,7 @@ namespace StateMachines.AIBrain.Enemy
             _chaseState = new ChaseState(_navmeshAgent, _animator, this, _enemyTypeData.AttackRange, _enemyTypeData.ChaseSpeed);
             _attackState = new AttackState(_navmeshAgent, _animator, this, _enemyTypeData.AttackRange);
             _moveToBombState = new MoveToBombState(_navmeshAgent, _animator);
-            _deathState = new DeathState(_navmeshAgent, _animator, this, enemyType);
+            _deathState = new DeathState(_navmeshAgent, _animator, this, enemyType.ToString());
 
             //Statemachine statelerden sonra tanimlanmali ?
             _stateMachine = new StateMachine();

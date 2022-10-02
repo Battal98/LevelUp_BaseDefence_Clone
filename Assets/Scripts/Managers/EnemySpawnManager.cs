@@ -9,16 +9,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Signals;
+using Interfaces;
 
 namespace Managers
 {
-    public class EnemySpawnManager : MonoBehaviour
+    public class EnemySpawnManager : MonoBehaviour, IGetPoolObject
     {
         #region Self Variables
 
         #region Serialized Variables
-
-        [SerializeField] private List<GameObject> enemies = new List<GameObject>();
 
         #endregion
 
@@ -27,64 +26,14 @@ namespace Managers
         public int NumberOfEnemiesToSpawn = 50;
 
         public float SpawnDelay = 2;
-        [SerializeField]
-        private Transform spawnPos;
 
         #endregion
 
         #endregion
 
-        #region Event Subscriptions
-
-        private void OnEnable()
+        private void Start()
         {
-            SubscribeEvent();
-        }
-
-        private void SubscribeEvent()
-        {
-            LevelSignals.Instance.onLevelInitDone += InitEnemyPool;
-        }
-        private void UnsubscribeEvent()
-        {
-            LevelSignals.Instance.onLevelInitDone -= InitEnemyPool;
-        }
-        private void OnDisable()
-        {
-            UnsubscribeEvent();
-        }
-        #endregion
-
-        private int _listCache;
-        private void InitEnemyPool()
-        {
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                _listCache = i;
-                ObjectPoolManager.Instance.AddObjectPool(EnemyFac, TurnOnEnemyAI, TurnOffEnemyAI, ((EnemyType)i).ToString(), 2, true);
-            }
             StartCoroutine(SpawnEnemies());
-        }
-
-        private GameObject EnemyFac()
-        {
-            return Instantiate(enemies[_listCache], spawnPos);
-        }
-
-        private void TurnOnEnemyAI(GameObject enemy)
-        {
-            if (enemy) 
-                enemy.SetActive(true);
-        }
-
-        private void TurnOffEnemyAI(GameObject enemy)
-        {
-            if (enemy)
-                enemy.SetActive(false);
-        }
-        private void ReleaseEnemyObject(GameObject go, Type t)
-        {
-            ObjectPoolManager.Instance.ReturnObject(go, t.ToString());
         }
 
         private IEnumerator SpawnEnemies()
@@ -106,7 +55,6 @@ namespace Managers
 
             int randomType = Random.Range(0, Enum.GetNames(typeof(EnemyType)).Length-1);
             int randomPercentage = Random.Range(0, 101);
-            _listCache = randomType;
             if (randomType == (int)EnemyType.LargeRedEnemy)
             {
                 if (randomPercentage < 30)
@@ -114,8 +62,14 @@ namespace Managers
                     randomType = (int)EnemyType.RedEnemy;
                 }
             }
-            ObjectPoolManager.Instance.GetObject<GameObject>(((EnemyType)randomType).ToString());
+            var poolType = (PoolType)Enum.Parse(typeof(PoolType), ((EnemyType)randomType).ToString());
+            GetObjectType(poolType);
 
+        }
+
+        public GameObject GetObjectType(PoolType pooltype)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(pooltype);
         }
     }
 }
