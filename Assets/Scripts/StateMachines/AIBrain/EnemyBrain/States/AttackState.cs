@@ -40,7 +40,6 @@ namespace StateMachines.AIBrain.Enemy.States
             if (_enemyAIBrain.PlayerTarget)
             {
                 _navMeshAgent.destination =_enemyAIBrain.PlayerTarget.transform.position;
-                Debug.Log("Dist: " + _navMeshAgent.remainingDistance);
                 CheckDistanceAttack();
             }
         }

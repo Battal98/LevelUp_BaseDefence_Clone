@@ -21,13 +21,11 @@ public class GateAnimationControllers : MonoBehaviour
     {
         //DOTween.Kill(this.gameObject, false);
         this.transform.DOLocalRotate(OpenRotateAngle,1f);
-        Debug.Log("Close");
     }
 
     private void DoOpenGateAnim()
     {
         //DOTween.Kill(this.gameObject, false);
         this.transform.DOLocalRotate(CloseRotateAngle, 1f);
-        Debug.Log("Open");
     }
 }

@@ -714,14 +714,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3597887460844547567}
   - component: {fileID: 3289709351601998011}
-  - component: {fileID: 269961151402770078}
-  m_Layer: 0
+  - component: {fileID: 6587627695267048479}
+  m_Layer: 18
   m_Name: EnemyColliderCollison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3597887460844547567
 Transform:
   m_ObjectHideFlags: 0
@@ -744,13 +744,13 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4470885340866843268}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.35
   m_Height: 1.7467189
   m_Direction: 1
   m_Center: {x: 0, y: 0.8393942, z: 0}
---- !u!114 &269961151402770078
+--- !u!114 &6587627695267048479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -759,9 +759,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4470885340866843268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f6b1d3d81a37b439d6875a4db7b16b, type: 3}
+  m_Script: {fileID: 11500000, guid: d9943ce5534d5ea4b882b34129708ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAIBrain: {fileID: 7502888729200349619}
 --- !u!1 &4482203200310050118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,8 +1331,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTarget: {fileID: 0}
   MineTarget: {fileID: 0}
+  Health: 0
   enemyType: 1
-  detector: {fileID: 7502888730157564787}
+  detector: {fileID: 5135641453845902071}
 --- !u!195 &6924879009939155783
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1363,8 +1365,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7502888730157564789}
-  - component: {fileID: 7502888730157564787}
   - component: {fileID: 7502888730157564786}
+  - component: {fileID: 5135641453845902071}
   m_Layer: 11
   m_Name: EnemyPhysicController
   m_TagString: Enemy
@@ -1386,19 +1388,6 @@ Transform:
   m_Father: {fileID: 7502888729200349616}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7502888730157564787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7502888730157564788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78340eb723446b245945b3f3a3e74b92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionColliderObj: {fileID: 4470885340866843268}
 --- !u!136 &7502888730157564786
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1413,6 +1402,19 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &5135641453845902071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502888730157564788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9890821afc87f0148bbb2a696e86c46b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionColliderObj: {fileID: 4470885340866843268}
 --- !u!1 &7639290085106483950
 GameObject:
   m_ObjectHideFlags: 0

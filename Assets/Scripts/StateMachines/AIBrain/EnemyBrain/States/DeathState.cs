@@ -37,13 +37,12 @@ namespace StateMachines.AIBrain.Enemy.States
             var poolType = (PoolType)Enum.Parse(typeof(PoolType), _type);
             _navMeshAgent.enabled = false;
             _animator.SetTrigger("Die");
-            DOVirtual.DelayedCall(1f, () => ReleaseObject(_brain.gameObject, poolType));
+            EnemyDoDead(poolType);
             for (int i = 0; i < 3; i++)
             {
                 var creatableObj = GetObjectType(PoolType.Money);
                 creatableObj.transform.position = _brain.transform.position;
             }
-
         }
 
         public void OnExit()
@@ -54,6 +53,14 @@ namespace StateMachines.AIBrain.Enemy.States
         public void Tick()
         {
             
+        }
+
+        private void EnemyDoDead(PoolType type)
+        {
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                _brain.transform.DOMoveY(-3f, 1f).OnComplete(() => ReleaseObject(_brain.gameObject, type));
+            });
         }
     }
 }

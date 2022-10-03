@@ -23,6 +23,7 @@ namespace StateMachines.AIBrain.Enemy
         [BoxGroup("Targets")]
         public Transform MineTarget;
 
+        public int Health;
         #endregion
 
         #region Serilizable Variables
@@ -33,7 +34,7 @@ namespace StateMachines.AIBrain.Enemy
 
         [BoxGroup("Serializable Variables")]
         [SerializeField]
-        private EnemyPhysicController detector;
+        private EnemyDetectionController detector;
 
         #endregion
 
@@ -95,6 +96,7 @@ namespace StateMachines.AIBrain.Enemy
             _navmeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponentInChildren<Animator>();
             //datadan health'ý tekrar çekmen gerekebilir
+            Health = _enemyTypeData.Health;
             _spawnPoint = _enemyAIData.SpawnPosList[_levelID];
             _turretTarget = _enemyAIData.SpawnPosList[_levelID].GetChild(UnityEngine.Random.Range(0, _enemyAIData.SpawnPosList[_levelID].childCount)) ;
         }
@@ -143,7 +145,7 @@ namespace StateMachines.AIBrain.Enemy
             Func<bool> HasNoTargetPlayer() => () => PlayerTarget == null;
             Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
             Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
-            Func<bool> AmIDead() => () => _enemyTypeData.Health <= 0;
+            Func<bool> AmIDead() => () => Health <= 0;
             /*Func<bool> AmIAttackBomb() => () => detector.IsBombInRange() &&
                                                         PlayerTarget == null;*/
             //Func<bool> AmIStuck() => () => _moveState.TimeStuck > 1f;

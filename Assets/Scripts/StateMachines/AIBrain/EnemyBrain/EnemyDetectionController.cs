@@ -8,7 +8,7 @@ using Interfaces;
 namespace Controllers
 {
 
-    public class EnemyPhysicController : MonoBehaviour, IDamagable
+    public class EnemyDetectionController : MonoBehaviour
     {
         [SerializeField]
         private GameObject collisionColliderObj;
@@ -16,9 +16,6 @@ namespace Controllers
         private Transform _detectedMine;
 
         private EnemyAIBrain _enemyAIBrain;
-
-        public bool IsTaken { get; set; }
-        public bool IsDead { get ; set; }
 
         public bool IsPlayerInRange() => _detectedPlayer != null;
         public bool IsBombInRange() => _detectedMine != null;
@@ -59,16 +56,6 @@ namespace Controllers
             {
 
             }*/
-        }
-
-        public int TakeDamage(int damage)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Transform GetTransform()
-        {
-            return this.transform;
         }
     } 
 }

@@ -97,7 +97,7 @@ namespace StateMachines.AIBrain.Soldier
         {
             bulletPrefab.transform.rotation = _navMeshAgent.transform.rotation;
             var rigidBodyBullet = bulletPrefab.GetComponent<Rigidbody>();
-            rigidBodyBullet.AddForce(_navMeshAgent.transform.forward * 40, ForceMode.VelocityChange);
+            rigidBodyBullet.AddForce(this.transform.forward * 40, ForceMode.VelocityChange);
         }
         private void GetStateReferences()
         {
