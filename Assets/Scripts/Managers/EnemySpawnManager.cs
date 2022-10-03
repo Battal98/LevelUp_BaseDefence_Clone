@@ -19,6 +19,9 @@ namespace Managers
 
         #region Serialized Variables
 
+        [SerializeField]
+        private List<GameObject> enemyAIBrains = new List<GameObject>();
+
         #endregion
 
         #region Public Variables
@@ -63,7 +66,8 @@ namespace Managers
                 }
             }
             var poolType = (PoolType)Enum.Parse(typeof(PoolType), ((EnemyType)randomType).ToString());
-            GetObjectType(poolType);
+            var obj = GetObjectType(poolType);
+            enemyAIBrains.Add(obj);
 
         }
 

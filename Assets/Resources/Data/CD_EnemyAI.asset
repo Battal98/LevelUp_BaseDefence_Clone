@@ -17,34 +17,34 @@ MonoBehaviour:
     - EnemyType: 0
       Health: 30
       Damage: 1
-      AttackRange: 0.8
+      AttackRange: 1
       AttackSpeed: 0.5
-      ScaleSize: {x: 0.5, y: 0.5, z: 0.5}
+      ScaleSize: {x: 1, y: 1, z: 1}
       BodyColor: {r: 1, g: 0.5587921, b: 0, a: 1}
-      ChaseSpeed: 3
-      MoveSpeed: 1.5
+      ChaseSpeed: 6
+      MoveSpeed: 5
       NavMeshRadius: 0.3
       NavMeshHeight: 2
     - EnemyType: 1
       Health: 50
       Damage: 2
-      AttackRange: 1
+      AttackRange: 1.5
       AttackSpeed: 1
-      ScaleSize: {x: 0.7, y: 0.7, z: 0.7}
+      ScaleSize: {x: 2, y: 2, z: 2}
       BodyColor: {r: 1, g: 0.19339621, b: 0.19339621, a: 1}
-      ChaseSpeed: 2
-      MoveSpeed: 1
+      ChaseSpeed: 5
+      MoveSpeed: 4
       NavMeshRadius: 0.5
       NavMeshHeight: 2
     - EnemyType: 2
       Health: 100
       Damage: 10
-      AttackRange: 1.3
+      AttackRange: 2
       AttackSpeed: 3
-      ScaleSize: {x: 1, y: 1, z: 1}
-      BodyColor: {r: 0.68235296, g: 0, b: 0, a: 1}
-      ChaseSpeed: 1.3
-      MoveSpeed: 1
+      ScaleSize: {x: 3, y: 3, z: 3}
+      BodyColor: {r: 0.3301887, g: 0, b: 0, a: 1}
+      ChaseSpeed: 4
+      MoveSpeed: 3
       NavMeshRadius: 0.7
       NavMeshHeight: 2.5
     SpawnPosList:

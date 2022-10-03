@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     PlayerDatas:
-      PlayerJoystickSpeed: 7
+      PlayerJoystickSpeed: 10
       PlayerHealth: 100
       AttackRange: 10
     Key: PlayerData

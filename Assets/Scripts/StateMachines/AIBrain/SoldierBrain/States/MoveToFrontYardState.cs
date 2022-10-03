@@ -1,25 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Interfaces;
 
 namespace StateMachines.AIBrain.Soldier.States
 {
     public class MoveToFrontYardState : IState
     {
-        public void OnEnter()
+        private NavMeshAgent _navMeshAgent;
+        private Transform _frontYardSoldierPosition;
+        private float _stoppingDistance;
+        private SoldierAIBrain _soldierAIBrain;
+        private Animator _animator;
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Attacked = Animator.StringToHash("Attack");
+        public MoveToFrontYardState(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Transform frontYardSoldierPosition, Animator animator)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void OnExit()
-        {
-            throw new System.NotImplementedException();
+            _navMeshAgent = navMeshAgent;
+            _frontYardSoldierPosition = frontYardSoldierPosition;
+            _stoppingDistance = navMeshAgent.stoppingDistance;
+            _soldierAIBrain = soldierAIBrain;
+            _animator = animator;
         }
 
         public void Tick()
         {
-            throw new System.NotImplementedException();
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
+            if ((_navMeshAgent.transform.position - _frontYardSoldierPosition.position).sqrMagnitude < _stoppingDistance)
+            {
+                _soldierAIBrain.HasReachedFrontYard = true;
+            }
+        }
+        public void OnEnter()
+        {
+            _animator.SetTrigger(Attacked);
+            _navMeshAgent.speed = 1.5f;
+            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
+            _navMeshAgent.enabled = true;
+            _navMeshAgent.SetDestination(_frontYardSoldierPosition.position);
+            _navMeshAgent.speed = 5.273528f;
+        }
+        public void OnExit()
+        {
+            _animator.ResetTrigger(Attacked);
         }
     }
 }
+

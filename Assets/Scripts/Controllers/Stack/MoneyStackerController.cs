@@ -98,7 +98,7 @@ namespace Controllers
                     RemoveStackAnimation(StackLists[i]);
                     StackLists.TrimExcess();
                 }
-
+                canRemove = true;
             }
         }
 

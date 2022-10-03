@@ -33,14 +33,19 @@ MonoBehaviour:
         CurrentGemAmount: 0
         MineCartCapacity: 0
       MilitaryBaseData:
-        MaxSoldierAmount: 0
-        CandidateAmount: 0
+        SlotsGrid: {x: 0, y: 0}
+        SlotOffSet: {x: 0, y: 0}
+        SlotPrefab: {fileID: 1237593450918794565, guid: 6113dc56167f551449a088292b4bb181, type: 3}
+        BaseCapacity: 0
+        TotalAmount: 0
+        TentCapacity: 5
         CurrentSoldierAmount: 0
         SoldierUpgradeTime: 0
         SoldierSlotCost: 0
-        SoldierSlotAmount: 0
+        SlotAmount: 0
+        SlotTransform: {fileID: 0}
         AttackTime: 0
-        SlotTransform: []
+        frontYardSoldierPosition: {fileID: 7942369044461432213, guid: bc834262e1976dc44893e3ae5dea9e03, type: 3}
       BuyablesData:
         MoneyWorkerCost: 0
         MoneyWorkerPayedAmount: 0

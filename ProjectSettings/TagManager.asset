@@ -25,13 +25,13 @@ TagManager:
   - BattleYard
   - EnemyAI
   - Collectables
-  - Workers/MoneyWorker
   - Collected
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Workers/MoneyWorker
+  - Soldier/SoldierBody
+  - Soldier/SoldierDetection
+  - Enemy/EnemyDetection
+  - Enemy/EnemyBody
+  - Bullets/Bullet
   - 
   - 
   - 

@@ -7,14 +7,19 @@ namespace Data.ValueObject.LevelDatas
     [Serializable]
     public class MilitaryBaseData/*: SavableEntity*/
     {
-        public int MaxSoldierAmount;
-        public int CandidateAmount;
+        public Vector2Int SlotsGrid;
+        public Vector2 SlotOffSet;
+        public GameObject SlotPrefab;
+        public int BaseCapacity;
+        public int TotalAmount;
+        public int TentCapacity;
         public int CurrentSoldierAmount;
         public int SoldierUpgradeTime;
         public int SoldierSlotCost;
-        public int SoldierSlotAmount;
+        public int SlotAmount;
+        public Transform SlotTransform;
         public int AttackTime;
-        public List<Transform> SlotTransform;
+        public Transform frontYardSoldierPosition;
 
     }
 }

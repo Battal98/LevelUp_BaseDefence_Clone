@@ -31,8 +31,6 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         {
             isArrive = false;
         }
-
-        private float timer=0.2f;
         public void Tick()
         {
             if (_navmeshAgent.remainingDistance <= 0f)
@@ -40,15 +38,6 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
                 _moneyWorkerAIBrain.CurrentTarget = null;
                 isArrive = true;
             }
-
-            //if (timer >= 0)
-            //{
-            //    Debug.Log("tick");
-            //    MoneyWorkerSignals.Instance.OnMyMoneyTaken?.Invoke(_moneyWorkerAIBrain.CurrentTarget, _moneyWorkerAIBrain.transform);
-            //    timer -= Time.deltaTime;
-            //}
-            //else
-            //    timer = 0.2f;
            
         }
     }
