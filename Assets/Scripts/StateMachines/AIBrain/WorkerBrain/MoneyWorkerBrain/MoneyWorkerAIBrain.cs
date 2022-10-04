@@ -123,7 +123,7 @@ namespace StateMachines.AIBrain.Workers
             _moveToGateState = new MoveToGateState(_navmeshAgent, _animator, ref _workerTypeData.StartTarget);
             _waitOnGateState = new WaitOnGateState(_navmeshAgent, _animator, this);
             _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator, this);
-            _dropMoneyOnGateState = new DropMoneyOnGateState(_navmeshAgent, _animator, this, ref _workerTypeData.StartTarget);
+            _dropMoneyOnGateState = new DropMoneyOnGateState(_navmeshAgent, _animator, ref _workerTypeData.StartTarget);
 
             _stateMachine = new StateMachine();
 

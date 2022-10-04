@@ -1,12 +1,12 @@
-using Controllers;
+﻿using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
+using Data.ValueObject.WeaponData;
 using Enums;
 using Keys;
 using Signals;
-using TMPro;
 using UnityEngine;
-using Sirenix.OdinInspector;
+using UnityEngine.Serialization;
 
 namespace Managers
 {
@@ -16,143 +16,78 @@ namespace Managers
 
         #region Public Variables
 
-        [Header("Data")] public PlayerData Data;
-
+        [FormerlySerializedAs("CurrentGameState")] public AreaTypes currentAreaType = AreaTypes.BaseDefense;
+        public WeaponType WeaponType;
         #endregion
 
         #region Serialized Variables
 
-        [SerializeField] private PlayerAnimationController playerAnimationController;
-        [SerializeField] private PlayerMovementController playerMovementController;
-        [SerializeField] private TextMeshPro scoreText;
+        [SerializeField] private PlayerMeshController meshController;
+        [SerializeField] private PlayerAnimationController animationController;
+        [SerializeField] private PlayerWeaponController weaponController;
 
         #endregion
 
         #region Private Variables
+        
+        private PlayerData _data;
 
-        //private int _score;
-        [ShowInInspector] [SerializeField]
-        private PlayerAnimationStates _animationState;
+        private WeaponData _weaponData;
 
+        private PlayerMovementController _movementController;
+
+        private AreaTypes _nextState = AreaTypes.BattleOn;
+        
         #endregion
-
+        
         #endregion
-
         private void Awake()
         {
-            GetReferences();
-            SendPlayerDataToControllers();
-        }
-
-        private void GetReferences()
-        {
-            Data = GetPlayerData();
-            PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
-        }
-
-        #region Event Subscription
-
-        private void OnEnable()
-        {
-            Subscribe();
+            _data = GetPlayerData();
+            _weaponData = GetWeaponData();
+            Init();
             CoreGameSignals.Instance.onSetCameraTarget?.Invoke(this.transform);
         }
-
-        private void Subscribe()
+        private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
+        private WeaponData GetWeaponData() => Resources.Load<CD_Weapons>("Data/CD_Weapons").WeaponDatas[(int)WeaponType];
+        private void Init()
         {
-            InputSignals.Instance.onInputTaken += playerMovementController.EnableMovement;
-            InputSignals.Instance.onInputReleased += playerMovementController.DeactiveMovement;
-            InputSignals.Instance.onInputDragged += OnInputDragged;
-            InputSignals.Instance.onInputReleased += OnInputRelease;
-
-            CoreGameSignals.Instance.onPlay += OnPlay;
-            CoreGameSignals.Instance.onReset += OnReset;
-            LevelSignals.Instance.onLevelFailed += OnLevelFailed;
-
-            PlayerSignals.Instance.onChangePlayerAnimationState += playerAnimationController.OnChangePlayerAnimationState;
-
-            //ScoreSignals.Instance.onSetPlayerScore += OnSetScore;
+            _movementController = GetComponent<PlayerMovementController>();
+            SetDataToControllers();
         }
-
-
-        private void Unsubscribe()
+        private void SetDataToControllers()
         {
-            InputSignals.Instance.onInputTaken -= playerMovementController.EnableMovement;
-            InputSignals.Instance.onInputReleased -= playerMovementController.DeactiveMovement;
-            InputSignals.Instance.onInputDragged -= OnInputDragged;
-            InputSignals.Instance.onInputReleased -= OnInputRelease;
-
-
-            LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
-            CoreGameSignals.Instance.onPlay -= OnPlay;
-            CoreGameSignals.Instance.onReset -= OnReset;
-
-            PlayerSignals.Instance.onChangePlayerAnimationState -= playerAnimationController.OnChangePlayerAnimationState;
-
-
-
-           // ScoreSignals.Instance.onSetPlayerScore -= OnSetScore;
+            _movementController.SetMovementData(_data.PlayerMovementData);
+            weaponController.SetWeaponData(_weaponData);
+            meshController.SetWeaponData(_weaponData);
         }
-
-
+        #region Event Subscription
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+        private void SubscribeEvents()
+        {
+            InputSignals.Instance.onInputDragged += OnGetInputValues;
+        }
+        private void UnsubscribeEvents()
+        {
+            InputSignals.Instance.onInputDragged -= OnGetInputValues;
+        }
         private void OnDisable()
         {
-            Unsubscribe();
+            UnsubscribeEvents();
         }
-
         #endregion
-
-        private PlayerData GetPlayerData()
+        private void OnGetInputValues(HorizontalInputParams inputParams)
         {
-            return Resources.Load<CD_Player>("Data/CD_Player").Data;
+            _movementController.UpdateInputValues(inputParams);
+            animationController.PlayAnimation(inputParams);
         }
-
-
-        private void SendPlayerDataToControllers()
+        public void CheckAreaStatus(AreaTypes AreaStatus)
         {
-            playerMovementController.SetMovementData(Data.PlayerDatas);
-            playerMovementController.IsReadyToPlay(true);
-        }
-
-        private void OnSetScore(int values)
-        {
-            //_score = values;
-            SetScoreText(values);
-        }
-
-        private void SetScoreText(int values)
-        {
-            scoreText.text = values.ToString();
-        }
-
-
-        private void OnInputDragged(InputParams InputParam)
-        {
-            playerMovementController.UpdateInputValue(InputParam);
-            if (Mathf.Abs(InputParam.Values.x) + (int)Mathf.Abs(InputParam.Values.y) > 0)
-            {
-                PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Run);
-            }
-        }
-
-        private void OnInputRelease()
-        {
-            PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
-        }
-
-        private void OnLevelFailed()
-        {
-            playerMovementController.IsReadyToPlay(false);
-        }
-
-        private void OnPlay()
-        {
-            playerMovementController.IsReadyToPlay(true);
-        }
-
-        private void OnReset()
-        {
-            playerMovementController.OnReset();
+            currentAreaType = AreaStatus;
+            meshController.ChangeAreaStatus(AreaStatus);
         }
     }
 }

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Interfaces;
-using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Interfaces;
 
-namespace Concrete
+namespace Controllers
 {
     public class StackController : AStack
     {

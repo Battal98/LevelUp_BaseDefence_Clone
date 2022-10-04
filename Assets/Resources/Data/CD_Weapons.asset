@@ -14,6 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponDatas:
   - WeaponType: 0
+    WeaponMesh: {fileID: 0}
+    HasSideMesh: 0
+    SideMesh: {fileID: 0}
     Damage: 5
     AttackRate: 2
-    WeaponParticle: {fileID: 0}
+    WeaponLevel: 1
+    Bullet: {fileID: 0}
+  - WeaponType: 1
+    WeaponMesh: {fileID: 1659898151575521214, guid: 579a45d28287c05408dae28f02a4dfd4, type: 3}
+    HasSideMesh: 0
+    SideMesh: {fileID: 0}
+    Damage: 20
+    AttackRate: 3
+    WeaponLevel: 1
+    Bullet: {fileID: 0}

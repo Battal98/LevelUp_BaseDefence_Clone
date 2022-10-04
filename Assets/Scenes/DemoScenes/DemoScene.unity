@@ -1136,7 +1136,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 629969724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7c5c6ffe217f14c8c08220d9f7f49d, type: 3}
+  m_Script: {fileID: 11500000, guid: ece1943d5426423bab7010c54758bc71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &768683796
@@ -6348,14 +6348,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1235268258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91869243a94a6744baa048c75190375e, type: 3}
+  m_Script: {fileID: 11500000, guid: ce46956aaeb94ca2ba629bccfefb5bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isJoystick: 1
-  joystick: {fileID: 578423500}
-  inputManager: {fileID: 1235268260}
-  isReadyForTouch: 1
-  isFirstTimeTouchTaken: 0
+  joystickInput: {fileID: 578423500}
 --- !u!1001 &1282352969
 PrefabInstance:
   m_ObjectHideFlags: 0

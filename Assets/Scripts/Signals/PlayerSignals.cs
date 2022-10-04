@@ -1,4 +1,4 @@
-using Enums;
+using Enums.Player;
 using Extentions;
 using UnityEngine.Events;
 

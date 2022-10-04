@@ -63,7 +63,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8970101455138541108
 Transform:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 493cda48ee7ca1d4493e8f8d746d1040, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -452,7 +452,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 493cda48ee7ca1d4493e8f8d746d1040, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -586,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4528217932939882866
 Transform:
   m_ObjectHideFlags: 0
@@ -653,6 +653,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5430634499825360517}
     m_Modifications:
+    - target: {fileID: 155799905396002965, guid: f87d7848c580c4047a606109afab6f18, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.70710796
+      objectReference: {fileID: 0}
+    - target: {fileID: 155799905396002965, guid: f87d7848c580c4047a606109afab6f18, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000030908566
+      objectReference: {fileID: 0}
+    - target: {fileID: 155799905396002965, guid: f87d7848c580c4047a606109afab6f18, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.00000003090867
+      objectReference: {fileID: 0}
+    - target: {fileID: 155799905396002965, guid: f87d7848c580c4047a606109afab6f18, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071056
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147818077661906321, guid: f87d7848c580c4047a606109afab6f18, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c946efa9bbea02429764bf5befdfcc9, type: 2}
     - target: {fileID: 7663621375218901762, guid: f87d7848c580c4047a606109afab6f18, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -10,13 +10,12 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
     {
         private readonly NavMeshAgent _navmeshAgent;
         private readonly Animator _animator;
-        private readonly MoneyWorkerAIBrain _moneyWorkerAIBrain;
         private readonly Transform _startPos;
-        public DropMoneyOnGateState(NavMeshAgent navMeshAgent, Animator animator, MoneyWorkerAIBrain moneyWorkerAIBrain, ref Transform startPos)
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        public DropMoneyOnGateState(NavMeshAgent navMeshAgent, Animator animator, ref Transform startPos)
         {
             _navmeshAgent = navMeshAgent;
             _animator = animator;
-            _moneyWorkerAIBrain = moneyWorkerAIBrain;
             _startPos = startPos;
         }
         public void OnEnter()
@@ -32,7 +31,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
 
         public void Tick()
         {
-           
+            _animator.SetFloat(Speed, _navmeshAgent.velocity.magnitude);
         }
     }
 }

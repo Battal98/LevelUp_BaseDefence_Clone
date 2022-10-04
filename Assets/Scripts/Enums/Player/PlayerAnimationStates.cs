@@ -1,11 +1,13 @@
-namespace Enums
+﻿namespace Enums.Player
 {
     public enum PlayerAnimationStates
     {
         Idle,
         Run,
-        CrouchWalk,
-        Crouch,
-        Dead
+        Pistol,
+        Riffle,
+        ShotGun,
+        MiniGun
+        
     }
 }

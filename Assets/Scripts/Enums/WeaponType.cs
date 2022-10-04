@@ -6,8 +6,9 @@ namespace Enums
 {
     public enum WeaponType
     {
-        Deagle,
-        Pump,
-        AK47,
+        Pistol,
+        Riffle,
+        ShotGun,
+        MiniGun,
     } 
 }

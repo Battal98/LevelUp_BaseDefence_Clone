@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8718584647687059979}
   - component: {fileID: 3196515107281265031}
-  - component: {fileID: 5441938779648755885}
+  - component: {fileID: 4953279697125863643}
   m_Layer: 0
   m_Name: StackController
   m_TagString: Untagged
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224c813d0cae94044942a4b54f5cb9d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyStackerController: {fileID: 5441938779648755885}
+  moneyStackerController: {fileID: 4953279697125863643}
   stackingSystem: 1
   stackAreaType: 0
   stackAreaGridData:
@@ -186,7 +186,7 @@ MonoBehaviour:
     GridSize: {x: 0, y: 0, z: 0}
     Offset: {x: 0, y: 0, z: 0}
     DrawnedMesh: {fileID: 0}
---- !u!114 &5441938779648755885
+--- !u!114 &4953279697125863643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 292934153851073933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 964611f350d50ac42bcba307591cb148, type: 3}
+  m_Script: {fileID: 11500000, guid: e1eca82281b645649d59234775dd8c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   StackList: []
@@ -709,7 +709,7 @@ Animator:
   m_GameObject: {fileID: 2811023832916490405}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f44710556818ef546a9791f32d96576f, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3d4bc4ff8fee4d41b1d7eb42c8aaef5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1219,7 +1219,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.28
-  m_Speed: 3.5
+  m_Speed: 1.529528
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -1292,7 +1292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyWorkerBrain: {fileID: 5455066261541432746}
-  moneyStackerController: {fileID: 5441938779648755885}
+  moneyStackerController: {fileID: 0}
 --- !u!136 &58406757918653319
 CapsuleCollider:
   m_ObjectHideFlags: 0

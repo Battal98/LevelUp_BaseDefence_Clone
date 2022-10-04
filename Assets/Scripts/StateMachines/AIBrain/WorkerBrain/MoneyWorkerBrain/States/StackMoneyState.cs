@@ -14,6 +14,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly Animator _animator;
         private readonly MoneyWorkerAIBrain _moneyWorkerAIBrain;
         private bool isArrive;
+        private static readonly int Speed = Animator.StringToHash("Speed");
 
         public Func<bool> IsArriveToMoney() => () => isArrive && _moneyWorkerAIBrain.IsAvailable();
 
@@ -25,6 +26,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         }
         public void OnEnter()
         {
+            _navmeshAgent.speed = 1.53f;
         }
 
         public void OnExit()
@@ -38,7 +40,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
                 _moneyWorkerAIBrain.CurrentTarget = null;
                 isArrive = true;
             }
-           
+            _animator.SetFloat(Speed, _navmeshAgent.velocity.magnitude);
         }
     }
 }

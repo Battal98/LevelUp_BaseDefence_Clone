@@ -32,8 +32,8 @@ TagManager:
   - Enemy/EnemyDetection
   - Enemy/EnemyBody
   - Bullets/Bullet
-  - 
-  - 
+  - Player/PlayerCollector
+  - Player/PlayerDetection
   - 
   - 
   - 

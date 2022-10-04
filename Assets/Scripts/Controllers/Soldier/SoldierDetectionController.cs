@@ -49,6 +49,7 @@ namespace Controllers
                 soldierAIBrain.enemyList.Remove(damagable);
                 soldierAIBrain.enemyList.TrimExcess();
             }
+
             // 1.Enemies ontrigger exit yapýp tekrar enter tetikleyebilirler. Tekrar tetiklediklerinde listede iki
             // tane ayný objeden oluyor. Öldürdüðüm esnada da null bir obje oluyor. Bu sebeple listeden ontrigger exitte
             // çýkartmak lazým ki tekrar trigger edildiklerinde listeye alalým...

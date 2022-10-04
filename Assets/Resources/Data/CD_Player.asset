@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ac5b73ba3f5c143af9761bd47c7f84, type: 3}
+  m_Script: {fileID: 11500000, guid: 8984eb5723954ee3bc73424e406ba1d1, type: 3}
   m_Name: CD_Player
   m_EditorClassIdentifier: 
-  Data:
-    PlayerDatas:
-      PlayerJoystickSpeed: 10
-      PlayerHealth: 100
-      AttackRange: 10
-    Key: PlayerData
+  PlayerData:
+    PlayerHealth: 100
+    PlayerMovementData:
+      PlayerSpeed: 20
+    AttackRange: 2

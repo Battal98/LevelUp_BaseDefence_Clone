@@ -11,6 +11,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         private readonly NavMeshAgent _navmeshAgent;
         private readonly Animator _animator;
         private readonly MoneyWorkerAIBrain _moneyWorkerAIBrain;
+        private static readonly int Speed = Animator.StringToHash("Speed");
 
         public SearchState(NavMeshAgent navMeshAgent, Animator animator, MoneyWorkerAIBrain moneyWorkerAIBrain)
         {
@@ -20,7 +21,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         }
         public void OnEnter()
         {
-            
+            _navmeshAgent.speed = 0f;
             if (_moneyWorkerAIBrain.IsAvailable())
             {
                 _moneyWorkerAIBrain.StartSearch(true);
@@ -34,7 +35,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
 
         public void Tick()
         {
-            
+            _animator.SetFloat(Speed, _navmeshAgent.velocity.magnitude);
         }
 
 
