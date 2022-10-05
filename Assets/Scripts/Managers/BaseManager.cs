@@ -41,7 +41,7 @@ namespace Managers
 
 
         #region Event Subscription
-        private LevelData GetLevelData() => Resources.Load<CD_Level>("BaseDefense/CD_Level").LevelDatas[0];
+        private LevelData GetLevelData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0];
 
         private void OnEnable()
         {

@@ -5,10 +5,11 @@ using Enums;
 using Interfaces;
 using UnityEngine;
 using Managers;
+using Signals;
 
 namespace Controllers
 {
-    public class MinerAIItemController : MonoBehaviour
+    public class MinerAIItemController : MonoBehaviour, IGetPoolObject, IReleasePoolObject
     {
         #region Self Variables
 
@@ -31,17 +32,9 @@ namespace Controllers
         private void Awake()
         {
             AddToDictionary();
-            CloseAllObject();
             
         }
 
-        private void CloseAllObject()
-        {
-            for (int index = 0; index < ItemList.Count; index++)
-            {
-                ItemList.ElementAt(index).Value.SetActive(false);
-            }
-        }
 
         private void AddToDictionary()
         {
@@ -55,15 +48,15 @@ namespace Controllers
             {
                 ItemList[currentItem].SetActive(true);
             }
-            if (MinerItems.None==currentItem)
+            if (MinerItems.None == currentItem)
             {
-               foreach (Transform child in gemHolder) {
-                    Destroy(child.gameObject);
+                foreach (Transform child in gemHolder) {
+                    ReleaseObject(child.gameObject, PoolType.Gem);
                 }
             }
             if (MinerItems.Gem == currentItem)
             {
-                gem= ObjectPoolManager.Instance.GetObject<GameObject>(PoolType.Gem.ToString());
+                gem = GetObjectType(PoolType.Gem);
                 gem.transform.parent=gemHolder;
                 //gem.Cop
                 gem.transform.localPosition=Vector3.zero;
@@ -77,6 +70,16 @@ namespace Controllers
             {
                ItemList[currentItem].SetActive(false);
             }
+        }
+
+        public void ReleaseObject(GameObject obj, PoolType poolType)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool(poolType,obj);
+        }
+
+        public GameObject GetObjectType(PoolType poolType)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool(poolType);
         }
     }
 }

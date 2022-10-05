@@ -27,11 +27,18 @@ MonoBehaviour:
             TurretDamage: 0
             TurretParticle: {fileID: 0}
       MineBaseData:
-        MaxWorkerAmount: 0
-        CurrentWorkerAmount: 0
-        GemCapacity: 0
-        CurrentGemAmount: 0
-        MineCartCapacity: 0
+        MaxWorkerAmount: 12
+        CurrentWorkerAmount: 2
+        GemCollectionOffset: 5
+        InstantiationPosition: {fileID: 444030171998693684, guid: 9947bf6c7ec99194d95f5241b00b7b50, type: 3}
+        GemHolderPosition: {fileID: 6157447902270211264, guid: d4d8017ad7929684590b1e61332d5ea5, type: 3}
+        MinePlaces:
+        - {fileID: 1663029984943143508, guid: 04b9d36252bbddc4ba20afd26541dbbc, type: 3}
+        - {fileID: 3811343679919478590, guid: d9daff40f7df77d4292d8e037bb9be16, type: 3}
+        - {fileID: 1264416406795904738, guid: 226dd596d5585db40aaf02172892e46e, type: 3}
+        - {fileID: 924454485689309301, guid: 06b3535502e9fa64a912914c4378c7bb, type: 3}
+        CartPlaces:
+        - {fileID: 7718226088999076838, guid: 2d37d0ed47c15254cad019f7cbd454f8, type: 3}
       MilitaryBaseData:
         SlotsGrid: {x: 0, y: 0}
         SlotOffSet: {x: 0, y: 0}
@@ -57,3 +64,5 @@ MonoBehaviour:
     FrontYardData:
       Stages: []
       FrontYardItems: []
+      HostageData:
+        HostagePlaces: []

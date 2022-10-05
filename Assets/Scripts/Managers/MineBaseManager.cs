@@ -15,7 +15,7 @@ using StateMachines.AIBrain.Workers;
 
 namespace Managers
 {
-    public class MineBaseManager : MonoBehaviour
+    public class MineBaseManager : MonoBehaviour, IGetPoolObject
     {
         #region Self Variables
 
@@ -36,12 +36,9 @@ namespace Managers
         #region Private Variables
 
         private int _currentLevel; //LevelManager uzerinden cekilecek
-        private int _gemCapacity;
-        private int _mineBaseCapacity;
         private Transform _currentMineTarget;
         private int _currentGemAmount;
         private int _currentWorkerAmount;
-        private int _mineCartCapacity;
         private int _maxWorkerAmount;
         public float GemCollectionOffset;
         private Dictionary<MinerAIBrain, GameObject> _mineWorkers=new Dictionary<MinerAIBrain, GameObject>();
@@ -69,7 +66,8 @@ namespace Managers
         {
             for (int index = 0; index < _currentWorkerAmount; index++)
             {
-                GameObject _currentObject=ObjectPoolManager.Instance.GetObject<GameObject>("MinerAI");
+                GameObject _currentObject = GetObjectType(PoolType.MinerWorkerAI);
+                _currentObject.transform.position = _instantiationPosition.position;
                 MinerAIBrain _currentMinerAIBrain=_currentObject.GetComponent<MinerAIBrain>();
                 _mineWorkers.Add(_currentMinerAIBrain,_currentObject);
             }
@@ -87,13 +85,9 @@ namespace Managers
 
         private void AssignDataValues()
         {
-               _gemCapacity =_mineBaseData.DiamondCapacity;
-                _currentGemAmount =_mineBaseData.CurrentDiamondAmount;
                 _currentWorkerAmount =_mineBaseData.CurrentWorkerAmount;
                 GemCollectionOffset=_mineBaseData.GemCollectionOffset;
                 _maxWorkerAmount=_mineBaseData.MaxWorkerAmount;
-                _mineBaseCapacity=_mineBaseData.DiamondCapacity;
-                _mineCartCapacity=_mineBaseData.MineCartCapacity;
                 _gemHolderPosition = _mineBaseData.GemHolderPosition;
                 _instantiationPosition = _mineBaseData.InstantiationPosition;
 
@@ -142,5 +136,10 @@ namespace Managers
 
 
         public MineBaseData GetMineBaseData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[_currentLevel].BaseData.MineBaseData;
+
+        public GameObject GetObjectType(PoolType poolType)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolType);
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Controllers
             }
             else if (other.TryGetComponent<Interactable>(out Interactable interactable))
             {
-                gemStackerController.OnRemoveAllStack(other.transform);
+                gemStackerController.OnRemoveAllStack(other.transform.parent.transform);
             }
         }
     }

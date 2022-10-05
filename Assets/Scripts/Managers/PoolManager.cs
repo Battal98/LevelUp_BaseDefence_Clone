@@ -75,6 +75,7 @@ namespace Managers
         private void OnReleaseObjectFromPool(PoolType poolType, GameObject obj)
         {
             _listCountCache = (int)poolType;
+            obj.transform.parent = this.transform;
             ObjectPoolManager.Instance.ReturnObject<GameObject>(obj, poolType.ToString());
         }
 

@@ -12,6 +12,7 @@ namespace Enums
         PumpBullet,
         MoneyWorkerAI,
         AmmoWorkerAI,
+        MinerWorkerAI,
         SoldierAI,
         Hostage,
         LargeRedEnemy,
