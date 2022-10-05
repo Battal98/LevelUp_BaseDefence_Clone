@@ -19,6 +19,10 @@ namespace Interfaces
 
         }
 
+        public virtual void GetStack(GameObject stackableObj, Transform otherTransform)
+        {
+
+        }
 
         public virtual void GetAllStack(IStack stack)
         {

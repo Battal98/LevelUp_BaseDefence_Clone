@@ -2,6 +2,7 @@ using Controllers;
 using Enums;
 using Signals;
 using UnityEngine;
+using TMPro;
 
 namespace Managers
 {
@@ -38,6 +39,8 @@ namespace Managers
 
             CoreGameSignals.Instance.onGetGameState += OnGetGameState;
             CoreGameSignals.Instance.onPlay += OnPlay;
+            CoreGameSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
+            CoreGameSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
 
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             LevelSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
@@ -51,6 +54,8 @@ namespace Managers
 
             CoreGameSignals.Instance.onGetGameState -= OnGetGameState;
             CoreGameSignals.Instance.onPlay -= OnPlay;
+            CoreGameSignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
+            CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
 
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             LevelSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
@@ -138,6 +143,26 @@ namespace Managers
                     UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
                     break;
             }
+        }
+
+        private int totalGemValue;
+        private int totalMoneyValue;
+        [SerializeField]
+        private TextMeshProUGUI gemText;
+        [SerializeField]
+        private TextMeshProUGUI moneyText;
+
+        private void OnUpdateGemScore(int gemValue)
+        {
+            totalGemValue += gemValue;
+            gemText.text = totalGemValue.ToString();
+
+        }
+
+        private void OnUpdateMoneyScore(int moneyValue)
+        {
+            totalMoneyValue += moneyValue;
+            moneyText.text = totalMoneyValue.ToString();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Interfaces;
 
-namespace Command.SaveLoadCommands
+namespace Commands
 {
     public class LoadGameCommand
     {

@@ -35,8 +35,6 @@ namespace Managers
         private WeaponData _weaponData;
 
         private PlayerMovementController _movementController;
-
-        private AreaTypes _nextState = AreaTypes.BattleOn;
         
         #endregion
         

@@ -1292,7 +1292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyWorkerBrain: {fileID: 5455066261541432746}
-  moneyStackerController: {fileID: 0}
+  moneyStackerController: {fileID: 4953279697125863643}
 --- !u!136 &58406757918653319
 CapsuleCollider:
   m_ObjectHideFlags: 0

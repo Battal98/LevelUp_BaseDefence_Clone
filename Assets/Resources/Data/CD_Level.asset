@@ -16,7 +16,7 @@ MonoBehaviour:
   - BaseData:
       BaseRoomDatas:
         Rooms:
-        - RoomCost: 0
+        - RoomCost: 100
           RoomPayedAmount: 0
           TurretData:
             AvabilityState: 0
