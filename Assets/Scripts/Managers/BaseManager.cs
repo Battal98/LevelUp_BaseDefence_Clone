@@ -23,6 +23,7 @@ namespace Managers
         #region Private Variables
 
         private LevelData _levelData;
+        private BaseData _baseData;
 
         #endregion
 
@@ -32,6 +33,7 @@ namespace Managers
         {
             GetReferences();
             _levelData = GetLevelData();
+            _baseData = GetBaseData();
         }
 
         private void GetReferences()
@@ -42,6 +44,7 @@ namespace Managers
 
         #region Event Subscription
         private LevelData GetLevelData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0];
+        private BaseData GetBaseData() => _levelData.BaseData;
 
         private void OnEnable()
         {
@@ -68,6 +71,10 @@ namespace Managers
         {
             extentionController.ChangeExtentionVisibility(baseRoomType);
         }
+
+        //BaseData çekildi. 
+        //buradan sinyallerle room ve diðer manager'lara datalarý yollanmasý gerekiyor
+
 
     }
 }

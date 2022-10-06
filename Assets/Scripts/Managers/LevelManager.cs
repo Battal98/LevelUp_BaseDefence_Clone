@@ -1,5 +1,6 @@
 using Commands;
 using Data.UnityObject;
+using Data.ValueObject.LevelDatas;
 using Keys;
 using Signals;
 using Sirenix.OdinInspector;
@@ -13,7 +14,7 @@ namespace Managers
 
         #region Public Variables
 
-        [Header("Data")] public int LevelData;
+        [Header("Data")] public LevelData LevelData;
 
         #endregion
 
@@ -36,21 +37,14 @@ namespace Managers
 
         private void Awake()
         {
-            GetReferences();
             Init();
-        }
-
-        private void GetReferences()
-        {
-            LevelData = GetLevelCount();
         }
 
         private void Init()
         {
-            _clearActiveLevel = new ClearActiveLevelCommand(ref levelHolder);
             _levelLoader = new LevelLoaderCommand(ref levelHolder);
+            _clearActiveLevel = new ClearActiveLevelCommand(ref levelHolder);
         }
-
         #region Event Subscription
 
         private void OnEnable()
@@ -60,26 +54,18 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+            InitializeDataSignals.Instance.onLoadLevelID += OnLoadLevelID;
             LevelSignals.Instance.onLevelInitialize += OnInitializeLevel;
             LevelSignals.Instance.onClearActiveLevel += OnClearActiveLevel;
             LevelSignals.Instance.onNextLevel += OnNextLevel;
-            LevelSignals.Instance.onRestartLevel += OnRestartLevel;
-            LevelSignals.Instance.onGetLevel += OnGetLevel;
-
-            /*SaveSignals.Instance.onGetRunnerDatas += OnGetRunnerData;
-            SaveSignals.Instance.onLoadRunnerData += OnLoadRunnerData;*/
         }
 
         private void UnsubscribeEvents()
         {
+            InitializeDataSignals.Instance.onLoadLevelID -= OnLoadLevelID;
             LevelSignals.Instance.onLevelInitialize -= OnInitializeLevel;
             LevelSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
             LevelSignals.Instance.onNextLevel -= OnNextLevel;
-            LevelSignals.Instance.onRestartLevel -= OnRestartLevel;
-            LevelSignals.Instance.onGetLevel -= OnGetLevel;
-
-           /* SaveSignals.Instance.onGetRunnerDatas -= OnGetRunnerData;
-            SaveSignals.Instance.onLoadRunnerData -= OnLoadRunnerData;*/
         }
 
         private void OnDisable()
@@ -88,16 +74,6 @@ namespace Managers
         }
 
         #endregion
-
-        private void Start()
-        {
-            OnInitializeLevel();
-        }
-
-        private int OnGetLevel()
-        {
-            return _levelID;
-        }
 
         private int GetLevelCount()
         {
@@ -119,10 +95,8 @@ namespace Managers
         private void OnNextLevel()
         {
             _levelID++;
-            LevelSignals.Instance.onClearActiveLevel?.Invoke();
+            SaveLevelID(_levelID);
             CoreGameSignals.Instance.onReset?.Invoke();
-            LevelSignals.Instance.onLevelInitialize?.Invoke();
-            //SaveSignals.Instance.onSaveData?.Invoke();
         }
 
         private void OnRestartLevel()
@@ -130,6 +104,17 @@ namespace Managers
             LevelSignals.Instance.onClearActiveLevel?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
             LevelSignals.Instance.onLevelInitialize?.Invoke();
+        }
+
+        private void SaveLevelID(int levelID)
+        {
+            InitializeDataSignals.Instance.onSaveLevelID?.Invoke(levelID);
+        }
+
+        private void OnLoadLevelID(int levelID)
+        {
+            Debug.Log("onload Levelmanager" + levelID);
+            _levelID = levelID;
         }
     }
 }

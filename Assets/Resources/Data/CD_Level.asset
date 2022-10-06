@@ -16,19 +16,53 @@ MonoBehaviour:
   - BaseData:
       BaseRoomDatas:
         Rooms:
-        - RoomCost: 100
+        - RoomCost: 500
           RoomPayedAmount: 0
+          TurretLocationType: 0
           TurretData:
             AvabilityState: 0
             HasTurretSoldier: 0
-            SoldierCost: 0
-            SoldierPayedAmount: 0
             TurretAmmoCapacity: 0
             TurretDamage: 0
             TurretParticle: {fileID: 0}
+            Key: TurretData
+          Key: RoomData
+        - RoomCost: 500
+          RoomPayedAmount: 0
+          TurretLocationType: 1
+          TurretData:
+            AvabilityState: 0
+            HasTurretSoldier: 0
+            TurretAmmoCapacity: 0
+            TurretDamage: 0
+            TurretParticle: {fileID: 0}
+            Key: TurretData
+          Key: RoomData
+        - RoomCost: 1500
+          RoomPayedAmount: 0
+          TurretLocationType: 2
+          TurretData:
+            AvabilityState: 0
+            HasTurretSoldier: 0
+            TurretAmmoCapacity: 0
+            TurretDamage: 0
+            TurretParticle: {fileID: 0}
+            Key: TurretData
+          Key: RoomData
+        - RoomCost: 1500
+          RoomPayedAmount: 0
+          TurretLocationType: 3
+          TurretData:
+            AvabilityState: 0
+            HasTurretSoldier: 0
+            TurretAmmoCapacity: 0
+            TurretDamage: 0
+            TurretParticle: {fileID: 0}
+            Key: TurretData
+          Key: RoomData
       MineBaseData:
         MaxWorkerAmount: 12
-        CurrentWorkerAmount: 2
+        CurrentWorkerAmount: 5
         GemCollectionOffset: 5
         InstantiationPosition: {fileID: 444030171998693684, guid: 9947bf6c7ec99194d95f5241b00b7b50, type: 3}
         GemHolderPosition: {fileID: 6157447902270211264, guid: d4d8017ad7929684590b1e61332d5ea5, type: 3}
@@ -66,3 +100,43 @@ MonoBehaviour:
       FrontYardItems: []
       HostageData:
         HostagePlaces: []
+  - BaseData:
+      BaseRoomDatas:
+        Rooms: []
+      MineBaseData:
+        MaxWorkerAmount: 0
+        CurrentWorkerAmount: 0
+        GemCollectionOffset: 5
+        InstantiationPosition: {fileID: 0}
+        GemHolderPosition: {fileID: 0}
+        MinePlaces: []
+        CartPlaces: []
+      MilitaryBaseData:
+        SlotsGrid: {x: 0, y: 0}
+        SlotOffSet: {x: 0, y: 0}
+        SlotPrefab: {fileID: 0}
+        BaseCapacity: 0
+        TotalAmount: 0
+        TentCapacity: 0
+        CurrentSoldierAmount: 0
+        SoldierUpgradeTime: 0
+        SoldierSlotCost: 0
+        SlotAmount: 0
+        SlotTransform: {fileID: 0}
+        AttackTime: 0
+        frontYardSoldierPosition: {fileID: 0}
+      BuyablesData:
+        MoneyWorkerCost: 0
+        MoneyWorkerPayedAmount: 0
+        AmmoWorkerCost: 0
+        AmmoWorkerPayedAmount: 0
+        MoneyWorkerLevel: 0
+        AmmoWorkerLevel: 0
+        AvabilityState: 0
+    FrontYardData:
+      Stages: []
+      FrontYardItems: []
+      HostageData:
+        HostagePlaces: []
+  LevelID: 0
+  Key: LevelData

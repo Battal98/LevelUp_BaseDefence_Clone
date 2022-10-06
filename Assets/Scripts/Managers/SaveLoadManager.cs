@@ -1,61 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Commands;
-public class SaveLoadManager : MonoBehaviour
+using Data.UnityObject;
+using Data.ValueObject;
+using Signals;
+using UnityEngine;
+
+namespace Managers
 {
-    #region Self Variables
-
-    #region Public Variables
-
-    #endregion
-
-    #region Seriliazable Variables
-
-    #endregion  
-    
-    #region Private Variables
-
-    private SaveGameCommand _saveGameCommand = new SaveGameCommand();
-    private LoadGameCommand _loadGameCommand = new LoadGameCommand();
-
-    #endregion
-
-    #endregion
-
-    private void Awake()
+    public class SaveLoadManager : MonoBehaviour
     {
-        Initilization();
+        #region Self Variables
+
+        #region Private Variables
+
+        private LoadGameCommand _loadGameCommand;
+        private SaveGameCommand _saveGameCommand;
+
+
+        #endregion
+
+        #endregion
+
+        private void Awake()
+        {
+            Initialization();
+        }
+
+        private void Initialization()
+        {
+            _loadGameCommand = new LoadGameCommand();
+            _saveGameCommand = new SaveGameCommand();
+        }
+
+        #region Event Subscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            SaveLoadSignals.Instance.onSaveGameData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadGameData += _loadGameCommand.Execute<CD_Level>;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            SaveLoadSignals.Instance.onSaveGameData -= _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadGameData -= _loadGameCommand.Execute<CD_Level>;
+        }
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        #endregion
     }
-    private void Initilization()
-    {
-        _saveGameCommand = new SaveGameCommand();
-        _loadGameCommand = new LoadGameCommand();
-    }
-
-    #region Subscription Events
-
-    private void OnEnable()
-    {
-        SubscribeEvents();
-    }
-
-    private void SubscribeEvents()
-    {
-
-    }
-
-    private void UnsubscribeEvents()
-    {
-
-    }
-
-    private void OnDisable()
-    {
-        UnsubscribeEvents();
-    }
-
-
-    #endregion
-
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Data.ValueObject;
+using Data.UnityObject;
 using Extentions;
 using UnityEngine.Events;
 
@@ -9,7 +10,7 @@ namespace Signals
     {
         //TODO:Save Atacagın datalara gore sinyal ac
      
-        public UnityAction<ExampleSaveData,int> onSaveExampleData=delegate {  };
-        public Func<string,int,ExampleSaveData> onLoadExampleData= delegate { return default;};
+        public UnityAction<CD_Level,int> onSaveGameData = delegate {  };
+        public Func<string,int, CD_Level> onLoadGameData;
     }
 }
