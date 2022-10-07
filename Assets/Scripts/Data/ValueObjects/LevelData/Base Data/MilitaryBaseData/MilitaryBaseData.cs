@@ -9,7 +9,6 @@ namespace Data.ValueObject.LevelDatas
     {
         public Vector2Int SlotsGrid;
         public Vector2 SlotOffSet;
-        public GameObject SlotPrefab;
         public int BaseCapacity;
         public int TotalAmount;
         public int TentCapacity;
@@ -19,6 +18,7 @@ namespace Data.ValueObject.LevelDatas
         public int SlotAmount;
         public Transform SlotTransform;
         public int AttackTime;
+        public GameObject SlotPrefab;
         public Transform frontYardSoldierPosition;
 
     }

@@ -123,7 +123,6 @@ namespace Controllers
                 {
                     
                     removedStack.transform.DOScale(Vector3.zero, 0.2f);
-                    removedStack.transform.SetParent(null);
                     removedStack.SetActive(false);
                 });
 

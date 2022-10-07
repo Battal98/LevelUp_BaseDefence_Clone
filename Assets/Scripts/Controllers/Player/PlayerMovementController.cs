@@ -61,12 +61,21 @@ namespace Controllers
             if (_isReadyToMove)
             {
                 var velocity = rigidbody.velocity; 
-                velocity = new Vector3(_inputVector.x,velocity.y, _inputVector.y)*_data.PlayerSpeed;
+
+                velocity = new Vector3(_inputVector.x * _data.PlayerSpeed, 
+                    Mathf.Clamp(velocity.y,
+                    -9.81f,
+                    0.25f),
+                    _inputVector.y * _data.PlayerSpeed);
                 rigidbody.velocity = velocity;
             }
             else if(rigidbody.velocity != Vector3.zero)
             {
-                rigidbody.velocity = Vector3.zero;
+                rigidbody.velocity = new Vector3(0, 
+                    Mathf.Clamp(rigidbody.velocity.y,
+                    -9.81f,
+                    0.25f), 
+                    0);
             }
         }
     }

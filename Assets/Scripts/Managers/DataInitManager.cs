@@ -50,20 +50,20 @@ public class DataInitManager : MonoBehaviour, ISavable
 
     private void Start()
     {
-        InitData();
+        InitLevelData();
         LevelSignals.Instance.onLevelInitialize?.Invoke();
     }
 
-    #region InitData
+    #region Init Data Jobs
 
-    private void InitData()
+    private void InitLevelData()
     {
         cdLevel = GetLevelDatas();
         _levelID = cdLevel.LevelID;
         levelDatas = cdLevel.LevelDatas;
-        if (!ES3.FileExists($"LevelData{_uniqueID}.es3"))
+        if (!ES3.FileExists(this.cdLevel.GetKey()+$"{_uniqueID}.es3"))
         {
-            if (!ES3.KeyExists("LevelData"))
+            if (!ES3.KeyExists(this.cdLevel.GetKey()))
             {
                 cdLevel = GetLevelDatas();
                 _levelID = cdLevel.LevelID;

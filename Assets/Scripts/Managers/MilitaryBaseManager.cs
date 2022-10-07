@@ -22,8 +22,14 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private Transform tentTransfrom;
-        [SerializeField] private Transform slotTransform;
+        [SerializeField] 
+        private Transform tentTransfrom;
+        [SerializeField] 
+        private Transform slotTransform;
+        [SerializeField] 
+        private GameObject slotPrefab;
+        [SerializeField] 
+        private Transform frontYardSoldierPosition;
 
         #endregion
 
@@ -34,17 +40,10 @@ namespace Managers
         private bool _isTentAvaliable = true;
         private int _totalAmount;
         private int _soldierAmount;
-        private List<GameObject> _soldierList = new List<GameObject>();
         [ShowInInspector] private List<Vector3> _slotTransformList = new List<Vector3>();
-        private int _tentCapacity;
         #endregion
 
         #endregion
-
-        private void Awake()
-        {
-            _data = GetBaseData();
-        }
 
         #region Event Subscription
         private void OnEnable()
@@ -54,18 +53,21 @@ namespace Managers
         private void SubscribeEvents()
         {
             SoldierAISignals.Instance.onSoldierActivation += OnSoldierActivation;
+            InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
         }
         private void UnsubscribeEvents()
         {
             SoldierAISignals.Instance.onSoldierActivation -= OnSoldierActivation;
+            InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
         }
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
         #endregion
-        private MilitaryBaseData GetBaseData() =>
-            Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0].BaseData.MilitaryBaseData;
+        private void OnLoadMilitaryBaseData(MilitaryBaseData militaryBaseData) => _data = militaryBaseData;
+
+
         private void OnSoldierActivation()
         {
             _isTentAvaliable = true;
@@ -81,7 +83,7 @@ namespace Managers
         {
             soldierBrain.GetSlotTransform(_slotTransformList[_soldierAmount]);
             soldierBrain.TentPosition = tentTransfrom;
-            soldierBrain.FrontYardStartPosition = _data.frontYardSoldierPosition;
+            soldierBrain.FrontYardStartPosition = frontYardSoldierPosition;
         }
         public void ReleaseObject(GameObject obj, PoolType poolName)
         {
@@ -121,7 +123,7 @@ namespace Managers
             for (int i = 0; i < gridPositionData.Count; i++)
             {
                 _slotTransformList.Add(gridPositionData[i]);
-                var obj = Instantiate(_data.SlotPrefab, gridPositionData[i], quaternion.identity, slotTransform);
+                var obj = Instantiate(slotPrefab, gridPositionData[i], quaternion.identity, slotTransform);
             }
         }
     }

@@ -11,9 +11,5 @@ namespace Data.ValueObject.LevelDatas
         public int MaxWorkerAmount;
         public int CurrentWorkerAmount;
         public float GemCollectionOffset=5f;
-        public Transform InstantiationPosition;
-        public Transform GemHolderPosition;
-        public List<Transform> MinePlaces;
-        public List<Transform> CartPlaces;
     }
 }
