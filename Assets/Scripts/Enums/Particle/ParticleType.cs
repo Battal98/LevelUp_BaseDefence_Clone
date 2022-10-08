@@ -9,5 +9,6 @@ namespace Enums
     {
         EnemyDeath,
         BulletImpact,
+        Explode,
     } 
 }

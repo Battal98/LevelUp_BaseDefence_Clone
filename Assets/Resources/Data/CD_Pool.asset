@@ -45,17 +45,17 @@ MonoBehaviour:
     - ObjectType: {fileID: 4438496898460371633, guid: 8a49f15787687ed4c86d2031ada9b9d1, type: 3}
       initalAmount: 10
       isDynamic: 1
-    - ObjectType: {fileID: 7502888729200349618, guid: 08912a5bfccf7aa4cb6388c520ce8d4e, type: 3}
+    - ObjectType: {fileID: 8926747106399480730, guid: 424df22148b70934aa17b3862036dc2c, type: 3}
       initalAmount: 20
       isDynamic: 1
-    - ObjectType: {fileID: 8926747106399480730, guid: 424df22148b70934aa17b3862036dc2c, type: 3}
-      initalAmount: 10
-      isDynamic: 1
-    - ObjectType: {fileID: 0}
+    - ObjectType: {fileID: 2712731842046343134, guid: d7a2f469fc54e84419e0592acd6a0e2a, type: 3}
       initalAmount: 0
       isDynamic: 1
     - ObjectType: {fileID: 4887529004602154887, guid: 9e4df148fe5b6734f8fa30b1c86ac0a8, type: 3}
-      initalAmount: 10
+      initalAmount: 20
+      isDynamic: 1
+    - ObjectType: {fileID: 7502888729200349618, guid: 08912a5bfccf7aa4cb6388c520ce8d4e, type: 3}
+      initalAmount: 20
       isDynamic: 1
     - ObjectType: {fileID: 5495938375531215040, guid: 45775c9401a6a2244aa8711639ad2dd9, type: 3}
       initalAmount: 100

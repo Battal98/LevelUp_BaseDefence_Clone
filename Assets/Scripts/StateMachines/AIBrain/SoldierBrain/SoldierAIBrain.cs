@@ -95,9 +95,10 @@ namespace StateMachines.AIBrain.Soldier
         }
         private void FireBullet(GameObject bulletPrefab)
         {
-            bulletPrefab.transform.rotation = _navMeshAgent.transform.rotation;
+            bulletPrefab.transform.rotation = this.transform.rotation;
             var rigidBodyBullet = bulletPrefab.GetComponent<Rigidbody>();
             rigidBodyBullet.AddForce(this.transform.forward * 40, ForceMode.VelocityChange);
+            ParticleSignals.Instance.onPlayParticle?.Invoke(ParticleType.BulletImpact,weaponHolder.position,weaponHolder.rotation);
         }
         private void GetStateReferences()
         {

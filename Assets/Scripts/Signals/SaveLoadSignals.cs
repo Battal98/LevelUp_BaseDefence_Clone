@@ -10,7 +10,7 @@ namespace Signals
     {
         //TODO:Save Atacagın datalara gore sinyal ac
      
-        public UnityAction<CD_Level,int> onSaveGameData = delegate {  };
-        public Func<string,int, CD_Level> onLoadGameData;
+        public UnityAction<CD_Level,int> onSaveLevelData = delegate {  };
+        public Func<string,int, CD_Level> onLoadLevelData;
     }
 }

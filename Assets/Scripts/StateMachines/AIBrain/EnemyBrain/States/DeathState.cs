@@ -37,6 +37,7 @@ namespace StateMachines.AIBrain.Enemy.States
             var poolType = (PoolType)Enum.Parse(typeof(PoolType), _type);
             _navMeshAgent.enabled = false;
             _animator.SetTrigger("Die");
+            ParticleSignals.Instance.onPlayParticleWithSetColor?.Invoke(ParticleType.EnemyDeath,_brain.transform.position,_brain.transform.rotation,Color.red);
             EnemyDoDead(poolType);
             for (int i = 0; i < 3; i++)
             {

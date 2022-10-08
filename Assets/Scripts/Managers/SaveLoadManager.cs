@@ -40,14 +40,14 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            SaveLoadSignals.Instance.onSaveGameData += _saveGameCommand.Execute;
-            SaveLoadSignals.Instance.onLoadGameData += _loadGameCommand.Execute<CD_Level>;
+            SaveLoadSignals.Instance.onSaveLevelData += _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadLevelData += _loadGameCommand.Execute<CD_Level>;
         }
 
         private void UnsubscribeEvents()
         {
-            SaveLoadSignals.Instance.onSaveGameData -= _saveGameCommand.Execute;
-            SaveLoadSignals.Instance.onLoadGameData -= _loadGameCommand.Execute<CD_Level>;
+            SaveLoadSignals.Instance.onSaveLevelData -= _saveGameCommand.Execute;
+            SaveLoadSignals.Instance.onLoadLevelData -= _loadGameCommand.Execute<CD_Level>;
         }
         private void OnDisable()
         {

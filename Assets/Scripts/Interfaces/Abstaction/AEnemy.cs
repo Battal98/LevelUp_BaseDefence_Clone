@@ -1,5 +1,6 @@
 using UnityEngine;
 using Enums;
+using Sirenix.OdinInspector;
 
 namespace Interfaces
 {
@@ -10,7 +11,9 @@ namespace Interfaces
         public int Damage;
         public float AttackRange;
         public float AttackSpeed;
+        [HideIf("EnemyType", EnemyType.Boss)]
         public Vector3 ScaleSize;
+        [HideIf("EnemyType", EnemyType.Boss)]
         public Color BodyColor;
 
         protected AEnemy(EnemyType enemyType, int health, int damage, float attackRange, float attackSpeed, Vector3 scaleSize, Color bodyColor)

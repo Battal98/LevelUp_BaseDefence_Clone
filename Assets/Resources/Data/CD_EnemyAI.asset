@@ -47,5 +47,16 @@ MonoBehaviour:
       MoveSpeed: 3
       NavMeshRadius: 0.7
       NavMeshHeight: 2.5
+    - EnemyType: 3
+      Health: 250
+      Damage: 50
+      AttackRange: 10
+      AttackSpeed: 2
+      ScaleSize: {x: 0, y: 0, z: 0}
+      BodyColor: {r: 1, g: 0, b: 0, a: 1}
+      ChaseSpeed: 0
+      MoveSpeed: 0
+      NavMeshRadius: 0
+      NavMeshHeight: 0
     SpawnPosList:
     - {fileID: 2657516974325152671, guid: e43d4933910e9584b96d8832baf95247, type: 3}

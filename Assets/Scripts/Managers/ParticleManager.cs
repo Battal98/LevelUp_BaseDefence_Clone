@@ -113,7 +113,7 @@ namespace Managers
         /// </summary>
         /// <param name="type">Particle Type</param>
 
-        /*
+        
         [SerializeField]
         private Transform target;
 
@@ -130,6 +130,6 @@ namespace Managers
         {
             ParticleSignals.Instance.onStopParticle?.Invoke(type);
         }
-        */
+        
     }
 }

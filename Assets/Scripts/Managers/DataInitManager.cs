@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using Data.UnityObject;
 using Data.ValueObject.LevelDatas;
+using Data.ValueObject.AIDatas;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,9 +25,6 @@ public class DataInitManager : MonoBehaviour, ISavable
 
     [SerializeField]
     private CD_Level cdLevel;
-
-    [SerializeField]
-    private CD_EnemyAI cdEnemy;
 
     #endregion
 
@@ -128,20 +126,18 @@ public class DataInitManager : MonoBehaviour, ISavable
     public void Save(int uniqueId)
     {
         CD_Level cdLevel = new CD_Level(_levelID, levelDatas);
-        SaveLoadSignals.Instance.onSaveGameData.Invoke(cdLevel, uniqueId);
+        SaveLoadSignals.Instance.onSaveLevelData.Invoke(cdLevel, uniqueId);
     }
 
     public void Load(int uniqueId)
     {
-        CD_Level cdLevel = SaveLoadSignals.Instance.onLoadGameData?.Invoke(this.cdLevel.GetKey(), uniqueId);
-        Debug.Log(cdLevel);
+        CD_Level cdLevel = SaveLoadSignals.Instance.onLoadLevelData?.Invoke(this.cdLevel.GetKey(), uniqueId);
         _levelID = cdLevel.LevelID;
         levelDatas = cdLevel.LevelDatas;
         _baseRoomData = cdLevel.LevelDatas[_levelID].BaseData.BaseRoomDatas;
         _mineBaseData = cdLevel.LevelDatas[_levelID].BaseData.MineBaseData;
         _militaryBaseData = cdLevel.LevelDatas[_levelID].BaseData.MilitaryBaseData;
         _buyablesData = cdLevel.LevelDatas[_levelID].BaseData.BuyablesData;
-
     }
 
     #endregion
@@ -151,7 +147,7 @@ public class DataInitManager : MonoBehaviour, ISavable
         SendDataManagers();
     }
 
-    #region Data Sync
+    #region Level Data Sync
 
     private void OnSyncLevelID(int levelID)
     {
