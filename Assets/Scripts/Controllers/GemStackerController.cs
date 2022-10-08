@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Interfaces;
 using DG.Tweening;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Threading.Tasks;
 using Signals;
-using Task = System.Threading.Tasks.Task;
+using System;
+using Sirenix.OdinInspector;
+using Random = UnityEngine.Random;
 
 namespace Controllers
 {
@@ -18,6 +19,7 @@ namespace Controllers
         public List<Vector3> PositionList = new List<Vector3>();
 
         #endregion
+
         #region Serializable Variables
 
         [SerializeField] private float radiusAround;
@@ -25,7 +27,6 @@ namespace Controllers
         #endregion
 
         #region Private Variables
-
         private Sequence GetStackSequence;
         private int stackListConstCount;
         private bool canRemove = true;
@@ -64,6 +65,7 @@ namespace Controllers
             
                 stackableObj.transform.DOLocalMove(PositionList[StackList.Count - 1], 0.3f);
             });
+
             if (PositionList.Count-1 <= StackList.Count)
             {
                 DropzoneSignals.Instance.onDropZoneFull?.Invoke(true);
@@ -75,8 +77,7 @@ namespace Controllers
         {   
             if(!canRemove)
                 return;
-            
-            
+
             canRemove = false;
             
             stackListConstCount = StackList.Count;
@@ -93,8 +94,8 @@ namespace Controllers
                 canRemove = true;
                 return;
             }
-            
-            if(StackList.Count > 0)
+
+            if (StackList.Count > 0)
             {
                 RemoveStackAnimation(StackList[StackList.Count - 1],targetTransform);
                 StackList.TrimExcess();
@@ -106,6 +107,8 @@ namespace Controllers
                 RemoveAllStack(targetTransform);
                 
             }
+
+
         }
 
         private void RemoveStackAnimation(GameObject removedStack,Transform targetTransform)

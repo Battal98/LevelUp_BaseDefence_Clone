@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8546653950891388807}
   - component: {fileID: 2803294809690885795}
   m_Layer: 0
-  m_Name: Gem
+  m_Name: Gem Miner
   m_TagString: Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,29 +69,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gem
       objectReference: {fileID: 0}
-    - target: {fileID: 181632249035223776, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 181632249035223776, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000161
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000161
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00043
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_LocalRotation.w

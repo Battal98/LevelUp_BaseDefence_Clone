@@ -1,12 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using StateMachines.AIBrain.Enemy;
-using Data.UnityObject;
-using Data.ValueObject;
 using Enums;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 using Signals;
 using Interfaces;

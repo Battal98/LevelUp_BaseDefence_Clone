@@ -92,7 +92,6 @@ MonoBehaviour:
   - {fileID: 5813449217625702378}
   cartPlaces:
   - {fileID: 2581860922070512602}
-  GemCollectionOffset: 0
 --- !u!1001 &962659254679023009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -176,7 +175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5876222185841372000, guid: 50c77e508b387eb4b8ffdbec93c4c40f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.77
+      value: -24.11
       objectReference: {fileID: 0}
     - target: {fileID: 5876222185841372000, guid: 50c77e508b387eb4b8ffdbec93c4c40f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -588,7 +587,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6157447902270211264, guid: d4d8017ad7929684590b1e61332d5ea5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.58
+      value: -21.92
       objectReference: {fileID: 0}
     - target: {fileID: 6157447902270211264, guid: d4d8017ad7929684590b1e61332d5ea5, type: 3}
       propertyPath: m_LocalRotation.w

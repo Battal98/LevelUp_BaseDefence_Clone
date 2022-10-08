@@ -45,7 +45,13 @@ namespace Managers
 
         #endregion
 
+        private void Awake()
+        {
+            _data = InitializeDataSignals.Instance.onLoadMilitaryBaseData?.Invoke();
+        }
+
         #region Event Subscription
+
         private void OnEnable()
         {
             SubscribeEvents();
@@ -53,20 +59,16 @@ namespace Managers
         private void SubscribeEvents()
         {
             SoldierAISignals.Instance.onSoldierActivation += OnSoldierActivation;
-            InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
         }
         private void UnsubscribeEvents()
         {
             SoldierAISignals.Instance.onSoldierActivation -= OnSoldierActivation;
-            InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
         }
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
         #endregion
-        private void OnLoadMilitaryBaseData(MilitaryBaseData militaryBaseData) => _data = militaryBaseData;
-
 
         private void OnSoldierActivation()
         {

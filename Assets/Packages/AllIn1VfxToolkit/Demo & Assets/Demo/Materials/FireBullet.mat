@@ -89,7 +89,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Alpha: 0.08
+    - _Alpha: 0.25
     - _AlphaBrightness: 0
     - _AlphaContrast: 1
     - _AlphaCutoffValue: 0.25
@@ -136,6 +136,7 @@ Material:
     - _HsvBright: 1
     - _HsvSaturation: 1
     - _HsvShift: 180
+    - _LightAmount: 0
     - _MaskPow: 0.95
     - _OffsetSh1: 1
     - _OffsetSh2: 1
@@ -144,6 +145,9 @@ Material:
     - _PixelateSize: 32
     - _PosterizeGamma: 0.75
     - _PosterizeNumColors: 8
+    - _RandomSh1Mult: 1
+    - _RandomSh2Mult: 1
+    - _RandomSh3Mult: 1
     - _RenderingMode: 0
     - _RimAddAmount: 1
     - _RimBias: 0
@@ -157,6 +161,12 @@ Material:
     - _ScreenUvSh2DistScale: 1
     - _ScreenUvSh3DistScale: 1
     - _ScreenUvShDistScale: 1
+    - _Sh1BlendOffset: 0
+    - _Sh2BlendOffset: 0
+    - _Sh3BlendOffset: 0
+    - _ShadowAmount: 0.4
+    - _ShadowStepMax: 1
+    - _ShadowStepMin: 0
     - _ShakeUvSpeed: 2.5
     - _ShakeUvX: 1.5
     - _ShakeUvY: 1
@@ -168,6 +178,8 @@ Material:
     - _Shape2DistortAmount: 0.6
     - _Shape2DistortXSpeed: -1.5
     - _Shape2DistortYSpeed: 0.4
+    - _Shape2RotationOffset: 0
+    - _Shape2RotationSpeed: 0
     - _Shape2XSpeed: 0
     - _Shape2YSpeed: 1.09
     - _Shape3AlphaWeight: 2
@@ -177,6 +189,8 @@ Material:
     - _Shape3DistortAmount: 0.5
     - _Shape3DistortXSpeed: 0.1
     - _Shape3DistortYSpeed: 0.1
+    - _Shape3RotationOffset: 0
+    - _Shape3RotationSpeed: 0
     - _Shape3XSpeed: 0
     - _Shape3YSpeed: 0
     - _ShapeAlphaWeight: 2.07
@@ -186,6 +200,8 @@ Material:
     - _ShapeDistortAmount: 0.3
     - _ShapeDistortXSpeed: 0.1
     - _ShapeDistortYSpeed: 1.2
+    - _ShapeRotationOffset: 0
+    - _ShapeRotationSpeed: 0
     - _ShapeXSpeed: 0
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5
@@ -220,7 +236,9 @@ Material:
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
     - _FrontFaceTint: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 1, g: 0.26158226, b: 0, a: 1}
+    - _LightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 0.12074165, b: 0, a: 1}
     - _Shape2Color: {r: 1, g: 1, b: 1, a: 1}
     - _Shape3Color: {r: 1, g: 1, b: 1, a: 1}
     - _ShapeColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

@@ -2,6 +2,7 @@ using Data.ValueObject;
 using Extentions;
 using UnityEngine.Events;
 using Data.ValueObject.LevelDatas;
+using System;
 
 namespace Signals
 {
@@ -14,10 +15,10 @@ namespace Signals
         public UnityAction<int> onSaveLevelID = delegate (int arg0) { };
 
 
-        public UnityAction<BaseRoomDatas> onLoadBaseRoomData = delegate (BaseRoomDatas arg0) { };
-        public UnityAction<MineBaseData> onLoadMineBaseData = delegate (MineBaseData arg0) { };
-        public UnityAction<MilitaryBaseData> onLoadMilitaryBaseData = delegate (MilitaryBaseData arg0) { };
-        public UnityAction<BuyablesData> onLoadBuyablesData = delegate (BuyablesData arg0) { };
+        public Func<MilitaryBaseData> onLoadMilitaryBaseData = delegate { return null; };
+        public Func<BaseRoomDatas> onLoadBaseRoomData = delegate { return null; };
+        public Func<BuyablesData> onLoadBuyablesData = delegate { return null; };
+        public Func<MineBaseData> onLoadMineBaseData = delegate { return null; };
         public UnityAction<int> onLoadLevelID = delegate (int arg0) { };
 
     }

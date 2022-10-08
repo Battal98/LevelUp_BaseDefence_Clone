@@ -91,6 +91,11 @@ public class DataInitManager : MonoBehaviour, ISavable
         InitializeDataSignals.Instance.onSaveMineBaseData += SyncMineBaseDatas;
         InitializeDataSignals.Instance.onSaveMilitaryBaseData += SyncMilitaryBaseData;
         InitializeDataSignals.Instance.onSaveBuyablesData += SyncBuyablesData;
+
+        InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
+        InitializeDataSignals.Instance.onLoadBaseRoomData += OnLoadBaseRoomData;
+        InitializeDataSignals.Instance.onLoadBuyablesData += OnLoadBuyablesData;
+        InitializeDataSignals.Instance.onLoadMineBaseData += OnLoadMineBaseData;
     }
 
     private void UnsubscribeEvents()
@@ -101,6 +106,11 @@ public class DataInitManager : MonoBehaviour, ISavable
         InitializeDataSignals.Instance.onSaveMineBaseData -= SyncMineBaseDatas;
         InitializeDataSignals.Instance.onSaveMilitaryBaseData -= SyncMilitaryBaseData;
         InitializeDataSignals.Instance.onSaveBuyablesData -= SyncBuyablesData;
+
+        InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
+        InitializeDataSignals.Instance.onLoadBaseRoomData -= OnLoadBaseRoomData;
+        InitializeDataSignals.Instance.onLoadBuyablesData -= OnLoadBuyablesData;
+        InitializeDataSignals.Instance.onLoadMineBaseData -= OnLoadMineBaseData;
     }
     private void OnDisable()
     {
@@ -112,10 +122,6 @@ public class DataInitManager : MonoBehaviour, ISavable
     private void SendDataManagers()
     {
         InitializeDataSignals.Instance.onLoadLevelID?.Invoke(_levelID);
-        InitializeDataSignals.Instance.onLoadBaseRoomData?.Invoke(_baseRoomData);
-        InitializeDataSignals.Instance.onLoadMineBaseData?.Invoke(_mineBaseData);
-        InitializeDataSignals.Instance.onLoadMilitaryBaseData?.Invoke(_militaryBaseData);
-        InitializeDataSignals.Instance.onLoadBuyablesData?.Invoke(_buyablesData);
     }
     #region Level Save - Load 
 
@@ -169,6 +175,23 @@ public class DataInitManager : MonoBehaviour, ISavable
     private void SyncBuyablesData(BuyablesData buyablesData)
     {
         cdLevel.LevelDatas[_levelID].BaseData.BuyablesData = buyablesData;
+    }
+
+    private MilitaryBaseData OnLoadMilitaryBaseData()
+    {
+        return _militaryBaseData;
+    }
+    private BaseRoomDatas OnLoadBaseRoomData()
+    {
+        return _baseRoomData;
+    }
+    private MineBaseData OnLoadMineBaseData()
+    {
+        return _mineBaseData;
+    }
+    private BuyablesData OnLoadBuyablesData()
+    {
+        return _buyablesData;
     }
 
     #endregion

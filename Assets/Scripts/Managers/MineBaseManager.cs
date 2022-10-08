@@ -41,15 +41,17 @@ namespace Managers
         #region Private Variables
 
         private Dictionary<MinerAIBrain, GameObject> _mineWorkers=new Dictionary<MinerAIBrain, GameObject>();
-        private int _currentWorkerAmount;
-        private float _gemCollectionOffset;
-
         private MineBaseData _mineBaseData;
-        
+
 
         #endregion
 
         #endregion
+
+        private void Awake()
+        {
+            _mineBaseData = InitializeDataSignals.Instance.onLoadMineBaseData?.Invoke();
+        }
 
         private void Start()
         {
@@ -60,7 +62,7 @@ namespace Managers
 
         private void InstantiateAllMiners()
         {
-            for (int index = 0; index < _currentWorkerAmount; index++)
+            for (int index = 0; index < _mineBaseData.CurrentWorkerAmount; index++)
             {
                 GameObject _currentObject = GetObjectType(PoolType.MinerWorkerAI);
                 _currentObject.transform.position = instantiationPosition.position;
@@ -73,16 +75,10 @@ namespace Managers
         {
             for (int index = 0; index < _mineWorkers.Count; index++)
             {
-                _mineWorkers.ElementAt(index).Key.GemCollectionOffset=_gemCollectionOffset;
+                _mineWorkers.ElementAt(index).Key.GemCollectionOffset= _mineBaseData.GemCollectionOffset;
                 _mineWorkers.ElementAt(index).Key.GemHolder= gemHolderPosition;
             }
             
-        }
-
-        private void AssignDataValues()
-        {
-                _currentWorkerAmount =_mineBaseData.CurrentWorkerAmount;
-                _gemCollectionOffset=_mineBaseData.GemCollectionOffset;
         }
 
         #region Event Subscription
@@ -97,12 +93,9 @@ namespace Managers
             MineBaseSignals.Instance.onGetRandomMineTarget += GetRandomMineTarget;
             MineBaseSignals.Instance.onGetGemHolderPos += OnGetGemHolderPos;
 
-            InitializeDataSignals.Instance.onLoadMineBaseData += OnLoadMineBaseData;
-
         }
         private void UnSubscribeEvents()
         {
-            InitializeDataSignals.Instance.onLoadMineBaseData -= OnLoadMineBaseData;
             MineBaseSignals.Instance.onGetRandomMineTarget -= GetRandomMineTarget;
             MineBaseSignals.Instance.onGetGemHolderPos -= OnGetGemHolderPos;
         }
@@ -111,13 +104,6 @@ namespace Managers
         {
             UnSubscribeEvents();
         }
-
-        private void OnLoadMineBaseData(MineBaseData mineBaseData) 
-        { 
-            _mineBaseData = mineBaseData;
-            AssignDataValues();
-        }
-
 
         private Transform OnGetGemHolderPos()
         {
