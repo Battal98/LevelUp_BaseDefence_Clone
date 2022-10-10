@@ -113,7 +113,6 @@ namespace Managers
 
         private void OnLoadLevelID(int levelID)
         {
-            Debug.Log("onload Levelmanager" + levelID);
             _levelID = levelID;
         }
     }

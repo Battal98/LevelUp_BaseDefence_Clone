@@ -9,8 +9,7 @@ TagManager:
   - Enemy
   - Bullet
   - Collectables
-  - GateExit
-  - GateEntry
+  - Ground
   layers:
   - Default
   - TransparentFX
