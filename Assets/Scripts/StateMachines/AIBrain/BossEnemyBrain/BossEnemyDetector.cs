@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Managers;
-
+using StateMachines.AIBrain.Enemy;
 namespace Controllers
 {
     public class BossEnemyDetector : MonoBehaviour
     {
+        [SerializeField]
+        private BossEnemyBrain bossBrain;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<PlayerPhysicsController>(out PlayerPhysicsController playerManager))
+            if (other.TryGetComponent<PlayerPhysicsController>(out PlayerPhysicsController playerPhysicsController))
             {
-                Debug.Log("Zort Player");
+                bossBrain.PlayerTarget = other.transform.parent.transform;
                 //in AttackState 
             }
         }
@@ -25,7 +27,7 @@ namespace Controllers
         {
             if (other.TryGetComponent<PlayerPhysicsController>(out PlayerPhysicsController playerManager))
             {
-                Debug.Log("Zort Player");
+                bossBrain.PlayerTarget = null;
                 //out AttackState 
             }
         }

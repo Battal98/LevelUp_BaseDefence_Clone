@@ -33,6 +33,11 @@ namespace StateMachines.AIBrain.Enemy
         [SerializeField]
         private BossEnemyDetector detector;
 
+        [BoxGroup("Serializable Variables")]
+        [SerializeField]
+        private Transform bombHolder;
+
+
         #endregion
 
         #region Private Variables
@@ -83,14 +88,14 @@ namespace StateMachines.AIBrain.Enemy
         {
 
             _waitState = new BossWaitState(_animator, this);
-            //_attackState = new BossAttackState( _animator, this, _enemyTypeData.AttackRange);
-            //_deathState = new BossWaitState( _animator, this, enemyType.ToString());
+            _attackState = new BossAttackState( _animator, this, _enemyTypeData.AttackRange, ref bombHolder);
+            _deathState = new BossDeathState( _animator, this, enemyType);
 
             //Statemachine statelerden sonra tanimlanmali ?
             _stateMachine = new StateMachine();
 
-            //At(_waitState, _attackState, IAttackPlayer()); 
-           //At(_attackState, _waitState, INoAttackPlayer()); 
+            At(_waitState, _attackState, IAttackPlayer()); 
+            At(_attackState, _waitState, INoAttackPlayer()); 
 
             _stateMachine.AddAnyTransition(_deathState, AmIDead());
             //SetState state durumlari belirlendikten sonra default deger cagirilmali
@@ -98,7 +103,7 @@ namespace StateMachines.AIBrain.Enemy
 
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
             Func<bool> IAttackPlayer() => () => PlayerTarget != null;
-            Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
+            Func<bool> INoAttackPlayer() => () => PlayerTarget == null;
             Func<bool> AmIDead() => () => Health <= 0;
 
         }

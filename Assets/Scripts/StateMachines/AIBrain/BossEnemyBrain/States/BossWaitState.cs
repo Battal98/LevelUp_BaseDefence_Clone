@@ -9,12 +9,13 @@ namespace StateMachines.AIBrain.Enemy.States
 
         #region Private Variables
 
-        private BossEnemyBrain _bossEnemyBrain;
-        private Animator _animator;
+        private readonly BossEnemyBrain _bossEnemyBrain;
+        private readonly Animator _animator;
+        private readonly string _idle = "Idle";
 
-    #endregion
+        #endregion
 
-    #endregion
+        #endregion
 
         public BossWaitState(Animator animator, BossEnemyBrain bossEnemyBrain)
         {
@@ -23,8 +24,7 @@ namespace StateMachines.AIBrain.Enemy.States
         }
         public void OnEnter()
         {
-            Debug.Log("Waiting Boss");
-            _animator.SetTrigger("Idle");
+            _animator.SetTrigger(_idle);
         }
 
         public void OnExit()

@@ -19,5 +19,6 @@ namespace Enums
         RedEnemy,
         OrangeEnemy,
         Boss,
+        Bomb,
     } 
 }

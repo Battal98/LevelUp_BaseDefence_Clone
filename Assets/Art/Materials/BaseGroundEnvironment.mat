@@ -157,7 +157,7 @@ Material:
     - _OutlineSize: 5
     - _OutlineTab: 0
     - _ReceiveShadows: 0
-    - _RenderFace: 2
+    - _RenderFace: 0
     - _RenderPriority: 0
     - _Rim: 0
     - _RimSize: 1
