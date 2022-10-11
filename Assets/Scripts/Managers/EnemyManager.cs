@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Signals;
-using System;
 using Data.ValueObject.AIDatas;
 using Enums;
+using Controllers;
 
 namespace Managers
 {
@@ -20,7 +18,9 @@ namespace Managers
 
         #region Seriliazable Variables
 
-        
+        [SerializeField]
+        private PortalController portalController;
+
         #endregion
 
         #region Private Variables
@@ -40,11 +40,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             EnemySignals.Instance.onGetEnemyAIData += OnGetEnemyAIData;
+            EnemySignals.Instance.onOpenPortal += OnOpenPortal;
         }
 
         private void UnsubscribeEvents()
         {
             EnemySignals.Instance.onGetEnemyAIData -= OnGetEnemyAIData;
+            EnemySignals.Instance.onOpenPortal -= OnOpenPortal;
         }
 
         private void OnDisable()
@@ -56,6 +58,11 @@ namespace Managers
         private EnemyTypeData OnGetEnemyAIData(EnemyType enemyType)
         {
             return Resources.Load<CD_EnemyAI>("Data/CD_EnemyAI").EnemyAIData.EnemyList[(int)enemyType];
+        }
+
+        private void OnOpenPortal()
+        {
+            portalController.OpenPortal();
         }
     } 
 }

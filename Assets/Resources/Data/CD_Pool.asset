@@ -63,6 +63,6 @@ MonoBehaviour:
     - ObjectType: {fileID: 445013897161806018, guid: 88c897216e7095e4db07cda987bd60fa, type: 3}
       initalAmount: 5
       isDynamic: 1
-    - ObjectType: {fileID: 0}
-      initalAmount: 0
+    - ObjectType: {fileID: 8986287384279758473, guid: 6913c5484633f7d4f97499f9379ccc20, type: 3}
+      initalAmount: 1
       isDynamic: 0

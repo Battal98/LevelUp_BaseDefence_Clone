@@ -70,12 +70,13 @@ namespace Managers
         private GameObject OnGetObjectFromPoolType(PoolType poolType)
         {
             _listCountCache = (int)poolType;
-           return ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
+            return ObjectPoolManager.Instance.GetObject<GameObject>(poolType.ToString());
         }
         private void OnReleaseObjectFromPool(PoolType poolType, GameObject obj)
         {
             _listCountCache = (int)poolType;
             obj.transform.parent = this.transform;
+            obj.transform.position = Vector3.zero;
             ObjectPoolManager.Instance.ReturnObject<GameObject>(obj, poolType.ToString());
         }
 
@@ -91,7 +92,6 @@ namespace Managers
                 _listCountCache = index;
                 InitPool(((PoolType)index), _data[((PoolType)index)].initalAmount, _data[((PoolType)index)].isDynamic);
             }
-
         }
 
         public void InitPool(PoolType poolType, int initalAmount, bool isDynamic)

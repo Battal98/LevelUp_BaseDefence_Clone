@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Extentions;
 using UnityEngine.Events;
@@ -15,6 +13,8 @@ namespace Signals
 
         public UnityAction<Transform> onEnemyDead = delegate { };
         public Func<EnemyType,EnemyTypeData> onGetEnemyAIData = delegate { return null; };
+
+        public UnityAction onOpenPortal = delegate { };
 
     } 
 }
