@@ -119,6 +119,7 @@ namespace Controllers
                 }
                 else
                 {
+                    
                     _gridPositions = new Vector3(modX * _gridData.Offset.x, divideXZ * _gridData.Offset.y,
                         modZ * _gridData.Offset.z);
 

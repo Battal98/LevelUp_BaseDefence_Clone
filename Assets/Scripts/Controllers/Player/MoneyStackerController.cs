@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using Interfaces;
 using DG.Tweening;
 using UnityEngine;
+using Signals;
+using Enums;
 
 namespace Controllers
 {
     [RequireComponent(typeof(StackController))]
-    public class MoneyStackerController : AStacker
+    public class MoneyStackerController : AStacker, IGetPoolObject, IReleasePoolObject
     {
         [SerializeField] private List<Vector3> positionList;
 
@@ -96,8 +98,7 @@ namespace Controllers
                 StackList.Remove(removedStack);
                 removedStack.transform.DOLocalMove(transform.localPosition, .1f).OnComplete(() =>
                 {
-                    removedStack.transform.SetParent(null);
-                    removedStack.SetActive(false);
+                    ReleaseObject(removedStack,PoolType.Money);
                 });
             });
         }
@@ -131,6 +132,16 @@ namespace Controllers
             var randomRotationY = Random.Range(-90, 90);
             var randomRotationZ = Random.Range(-90, 90);
             return new Vector3(randomRotationX,randomRotationY,randomRotationZ);
+        }
+
+        public GameObject GetObjectType(PoolType poolType)
+        {
+            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolType);
+        }
+
+        public void ReleaseObject(GameObject obj, PoolType poolType)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolType, obj);
         }
     }
 }

@@ -40,9 +40,9 @@ MonoBehaviour:
     - isDynamic: 1
       StackerType: 0
       StackAreaType: 0
-      GridSize: {x: 0, y: 0, z: 0}
-      Offset: {x: 0.1, y: 0.1, z: 0.1}
-      DrawnedMesh: {fileID: 0}
+      GridSize: {x: 1, y: 10, z: 15}
+      Offset: {x: 0.1, y: 0.52, z: 0.23}
+      DrawnedMesh: {fileID: -2929563531361107545, guid: e784bc962bb74704c8746354d33d56d9, type: 3}
     - isDynamic: 1
       StackerType: 1
       StackAreaType: 0
