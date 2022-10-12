@@ -17,12 +17,13 @@ namespace Controllers
             var obj = PoolSignals.Instance.onGetObjectFromPool.Invoke(poolName);
             return obj;
         }
-        public void FireBullets(Transform holderTransform)
+        public void FireBullets(Transform aim)
         {
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _weaponTypes.ToString());
             var bullet = GetObjectType(poolType);
-            bullet.transform.position = holderTransform.position;
-            bullet.transform.rotation = holderTransform.rotation;
+            Debug.Log("fireBullet: " + bullet + " Aim: " + aim);
+            bullet.transform.position = aim.position;
+            bullet.transform.rotation = aim.rotation;
         }
     }
 }

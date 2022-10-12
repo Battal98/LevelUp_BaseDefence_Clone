@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using Extentions;
 public interface IStackable
 {
     void SetInit(Transform initTransform, Vector3 position);
@@ -13,5 +14,8 @@ public interface IStackable
     void PlayAnimation();
 
     GameObject SendToStack();
-    void SendPosition(Transform transform);
+    void SendPosition(StackableMoney transform);
+
+    bool IsSelected { get; set; }
+    bool IsCollected { get; set; }
 }

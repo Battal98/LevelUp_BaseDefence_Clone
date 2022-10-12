@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Signals;
+using Extentions;
 
 namespace Interfaces
 {
     public abstract class AStackable : MonoBehaviour, IStackable
     {
+        public virtual bool IsSelected { get; set; }
+        public virtual bool IsCollected { get; set; }
 
         public virtual void SetInit(Transform initTransform, Vector3 position)
         {
@@ -34,7 +37,7 @@ namespace Interfaces
 
         }
 
-        public virtual void SendPosition(Transform transform)
+        public virtual void SendPosition(StackableMoney transform)
         {
             DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(transform));
         }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2028998955}
   - component: {fileID: 2028998956}
+  - component: {fileID: 795341825981187207}
   m_Layer: 0
   m_Name: MoneyWorkerManager
   m_TagString: Untagged
@@ -43,6 +44,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1151d3d66aae3849b6853e485c45488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &795341825981187207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028998954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbabaf876de6cf489d52837569ef123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyWorkerManager: {fileID: 2028998956}
+  stackingSystem: 0
+  stackAreaType: 3
+  stackAreaGridData:
+    isDynamic: 0
+    StackerType: 0
+    StackAreaType: 0
+    GridSize: {x: 0, y: 0, z: 0}
+    Offset: {x: 0, y: 0, z: 0}
+    DrawnedMesh: {fileID: 0}
+  stackerType: 0
+  stackerGridData:
+    isDynamic: 0
+    StackerType: 0
+    StackAreaType: 0
+    GridSize: {x: 0, y: 0, z: 0}
+    Offset: {x: 0, y: 0, z: 0}
+    DrawnedMesh: {fileID: 0}
 --- !u!1 &42719422525289486
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,11 +4885,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85164d7df24882249bb24c2ed8266c27, type: 3}
---- !u!4 &6143364331270805785 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8701084259259244768, guid: 85164d7df24882249bb24c2ed8266c27, type: 3}
-  m_PrefabInstance: {fileID: 3279160697682950649}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6183730874891592731 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8669690073812770274, guid: 85164d7df24882249bb24c2ed8266c27, type: 3}
@@ -4870,6 +4896,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b9db15ff9fe5d469f895bb9fb3dff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6143364331270805785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8701084259259244768, guid: 85164d7df24882249bb24c2ed8266c27, type: 3}
+  m_PrefabInstance: {fileID: 3279160697682950649}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3513106479218324268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7266,6 +7297,10 @@ PrefabInstance:
     - target: {fileID: 7346710405548949958, guid: d6fe7b5dbe4f7fa4682a06876d3b2931, type: 3}
       propertyPath: m_LocalPosition.z
       value: -24.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346710405571218885, guid: d6fe7b5dbe4f7fa4682a06876d3b2931, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6fe7b5dbe4f7fa4682a06876d3b2931, type: 3}

@@ -11,7 +11,7 @@ namespace Controllers
         [SerializeField]
         private MoneyWorkerAIBrain moneyWorkerBrain;
         [SerializeField]
-        private MoneyStackerController moneyStackerController;
+        private StackerController moneyStackerController;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -19,7 +19,8 @@ namespace Controllers
             {
                 if (moneyWorkerBrain.IsAvailable())
                 {
-                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke(other.transform);
+                    stackable.IsCollected = true;
+                    MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
                     moneyStackerController.SetStackHolder(stackable.SendToStack().transform);
                     moneyStackerController.GetStack(other.gameObject);
                     moneyWorkerBrain.SetCurrentStock();

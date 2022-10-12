@@ -51,6 +51,8 @@ namespace StateMachines.AIBrain.Workers
         private StackMoneyState _stackMoneyState;
         private DropMoneyOnGateState _dropMoneyOnGateState;
         private StateMachine _stateMachine;
+        [ShowInInspector]
+        private Vector3 waitPos;
 
         #endregion
 
@@ -70,6 +72,10 @@ namespace StateMachines.AIBrain.Workers
             _workerTypeData = GetWorkerType();
             SetWorkerComponentVariables();
             InitWorker();
+        }
+
+        private void Start()
+        {
             GetReferenceStates();
         }
 
@@ -119,11 +125,12 @@ namespace StateMachines.AIBrain.Workers
 
         private void GetReferenceStates()
         {
+
             _searchState = new SearchState(_navmeshAgent, _animator, this);
-            _moveToGateState = new MoveToGateState(_navmeshAgent, _animator, ref _workerTypeData.StartTarget);
+            _moveToGateState = new MoveToGateState(_navmeshAgent, _animator,  waitPos, _workerTypeData.MaxSpeed);
             _waitOnGateState = new WaitOnGateState(_navmeshAgent, _animator, this);
-            _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator, this);
-            _dropMoneyOnGateState = new DropMoneyOnGateState(_navmeshAgent, _animator, ref _workerTypeData.StartTarget);
+            _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator, this, _workerTypeData.MaxSpeed);
+            _dropMoneyOnGateState = new DropMoneyOnGateState(_navmeshAgent, _animator, waitPos);
 
             _stateMachine = new StateMachine();
 
@@ -158,6 +165,12 @@ namespace StateMachines.AIBrain.Workers
             CurrentTarget = GetMoneyPosition();
             if (CurrentTarget)
                 _navmeshAgent.SetDestination(CurrentTarget.position);
+        }
+
+        public void SetInitPosition(Vector3 slotPosition)
+        {
+            waitPos = slotPosition;
+            Debug.Log(waitPos);
         }
 
         public Transform GetMoneyPosition()

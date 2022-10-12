@@ -45,10 +45,10 @@ namespace Controllers
         {
             _animationStatesMap = new Dictionary<WeaponType, PlayerAnimationStates>()
             {
-                {WeaponType.Pistol, PlayerAnimationStates.Pistol},
-                {WeaponType.Riffle, PlayerAnimationStates.Riffle},
-                {WeaponType.ShotGun, PlayerAnimationStates.ShotGun},
-                {WeaponType.MiniGun, PlayerAnimationStates.MiniGun},
+                {WeaponType.PistolBullet, PlayerAnimationStates.Pistol},
+                {WeaponType.RifleBullet, PlayerAnimationStates.Riffle},
+                {WeaponType.PumpBullet, PlayerAnimationStates.ShotGun},
+                {WeaponType.MiniGunBullet, PlayerAnimationStates.MiniGun},
             };
         }
         private void Init()
@@ -57,7 +57,7 @@ namespace Controllers
         }
         public void PlayAnimation(HorizontalInputParams inputParams)
         { 
-            if (playerManager.currentAreaType == AreaTypes.BattleOn)
+            if (playerManager.CurrentAreaType == AreaTypes.BattleOn)
             {
                 animator.SetLayerWeight(1,1);
                 animator.SetBool("IsBattleOn",true);
@@ -115,6 +115,30 @@ namespace Controllers
             if (animationStates == _currentAnimationState) return;
              animator.Play(animationStates.ToString());
             _currentAnimationState = animationStates;
+        }
+
+        public void HoldTurret(bool hold)
+        {
+            animator.SetLayerWeight(2, hold ? 1 : 0);
+        }
+
+        public void AimTarget(bool hasTarget)
+        {
+            animator.SetBool("Aimed", hasTarget);
+        }
+
+        private bool PlayerAwayFromEnemy(Transform enemyTransform)
+        {
+            Vector3 enemyDistance = enemyTransform.position - playerManager.transform.position;
+            //  Debug.Log(enemyDistance.magnitude);
+            if (enemyDistance.magnitude > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

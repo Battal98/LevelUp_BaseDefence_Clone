@@ -5,8 +5,9 @@ using Data.ValueObject.WeaponData;
 using Enums;
 using Keys;
 using Signals;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Interfaces;
 
 namespace Managers
 {
@@ -16,8 +17,15 @@ namespace Managers
 
         #region Public Variables
 
-        [FormerlySerializedAs("CurrentGameState")] public AreaTypes currentAreaType = AreaTypes.BaseDefense;
+        public AreaTypes CurrentAreaType = AreaTypes.BaseDefense;
         public WeaponType WeaponType;
+
+        public List<IDamagable> EnemyList = new List<IDamagable>();
+
+        public Transform EnemyTarget;
+
+        public bool HasEnemyTarget = false;
+
         #endregion
 
         #region Serialized Variables
@@ -25,6 +33,7 @@ namespace Managers
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private PlayerWeaponController weaponController;
+        [SerializeField] private PlayerShootingController playerShootingController;
 
         #endregion
 
@@ -83,10 +92,12 @@ namespace Managers
         {
             _movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
+            if (!HasEnemyTarget) return;
+            AimEnemy();
         }
         public void CheckAreaStatus(AreaTypes AreaStatus)
         {
-            currentAreaType = AreaStatus;
+            CurrentAreaType = AreaStatus;
             meshController.ChangeAreaStatus(AreaStatus);
         }
         private void OnDisableMovement(InputType ınputHandlers)
@@ -94,6 +105,26 @@ namespace Managers
             if (ınputHandlers == InputType.Turret)
             {
                 _movementController.DisableMovement();
+            }
+        }
+
+        public void SetTurretAnimation(bool isTurretHolded)
+        {
+            animationController.HoldTurret(isTurretHolded);
+        }
+
+        public void SetEnemyTarget()
+        {
+            playerShootingController.SetEnemyTargetTransform();
+            animationController.AimTarget(true);
+            AimEnemy();
+        }
+        private void AimEnemy()
+        {
+            if (EnemyList.Count != 0)
+            {
+                var transformEnemy = EnemyList[0].GetTransform();
+                _movementController.RotatePlayerToTarget(transformEnemy);
             }
         }
     }

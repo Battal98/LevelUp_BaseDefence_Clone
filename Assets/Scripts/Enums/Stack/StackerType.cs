@@ -15,6 +15,7 @@ namespace Enums
         AmmoDropZone,
         GemDropZone,
         SoldierSlotZone,
+        MoneyWorkerSlotZone,
     }
 }
 namespace Enums

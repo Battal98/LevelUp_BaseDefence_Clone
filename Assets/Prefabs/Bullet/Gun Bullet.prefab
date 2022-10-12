@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8530891135317232911}
   - component: {fileID: 6841153439062220822}
   - component: {fileID: 8338172464730012257}
-  - component: {fileID: 699320034252855395}
+  - component: {fileID: 7901516768761303047}
+  - component: {fileID: 105928361580941430}
+  - component: {fileID: 2175692108395970353}
   m_Layer: 19
   m_Name: Gun Bullet
   m_TagString: Untagged
@@ -61,9 +63,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.22186899, y: 0.18020985, z: 0.6599296}
-  m_Center: {x: -0.013017058, y: 0.021181867, z: 0.38775268}
---- !u!114 &699320034252855395
+  m_Size: {x: 0.22186899, y: 0.18020985, z: 0.8203481}
+  m_Center: {x: -0.013017058, y: 0.021181867, z: -0.30317053}
+--- !u!114 &7901516768761303047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,11 +74,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 8530891135317232908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f0125ca06061be44aed2a89b1a9a5f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 604b93478f37cf24895e1d0a16079f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soldierAIBrain: {fileID: 0}
-  Rigidbody: {fileID: 6841153439062220822}
+  rigidbody: {fileID: 6841153439062220822}
+--- !u!114 &105928361580941430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530891135317232908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcbba73fa0a992946966b97620fa2d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletManager: {fileID: 2175692108395970353}
+--- !u!114 &2175692108395970353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530891135317232908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1db153179e7ee842bb76e998b4f2b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  physicsController: {fileID: 105928361580941430}
 --- !u!1001 &4998014737399014265
 PrefabInstance:
   m_ObjectHideFlags: 0

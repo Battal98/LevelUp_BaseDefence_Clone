@@ -8,6 +8,9 @@ namespace Extentions
         [SerializeField] private Rigidbody rbody;
         [SerializeField] private BoxCollider col;
 
+        public override bool IsSelected { get; set; }
+        public override bool IsCollected { get; set; }
+
         public override void SetInit(Transform initTransform, Vector3 position)
         {
             base.SetInit(initTransform, position);
@@ -33,14 +36,14 @@ namespace Extentions
             base.PlayAnimation();
         }
 
-        public override void SendPosition(Transform transform)
+        public override void SendPosition(StackableMoney transform)
         {
             base.SendPosition(transform);
         }
 
         private void OnEnable()
         {
-            SendPosition(this.transform);
+            SendPosition(this);
         }
 
         public override GameObject SendToStack()

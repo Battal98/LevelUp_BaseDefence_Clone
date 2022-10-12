@@ -12,9 +12,11 @@ namespace Data.ValueObject.AIDatas
         [HideIf("WorkerType", WorkerType.SoldierAI)]
         public int CapacityOrDamage;
         [HideIf("WorkerType", WorkerType.SoldierAI)]
-        public float Speed;
+        public float MinSpeed;
         [HideIf("WorkerType", WorkerType.SoldierAI)]
-        public Transform StartTarget;
+        public float MaxSpeed;
+        [HideIf("WorkerType", WorkerType.SoldierAI)]
+        public int CurrentWorkerValue;
 
         [ShowIf("WorkerType", WorkerType.SoldierAI)]
         public SoldierAIData SoldierAIData;

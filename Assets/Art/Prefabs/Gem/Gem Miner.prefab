@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1476181494398777899}
   - component: {fileID: 8546653950891388807}
   - component: {fileID: 2803294809690885795}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Gem Miner
   m_TagString: Gem
   m_Icon: {fileID: 0}

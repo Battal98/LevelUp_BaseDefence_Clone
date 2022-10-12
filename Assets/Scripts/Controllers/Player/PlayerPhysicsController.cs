@@ -32,6 +32,11 @@ namespace Controllers
                 gameObject.layer =  LayerMask.NameToLayer("Base");
                 playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaTypes.BattleOn : AreaTypes.BaseDefense);
             }
+
+            if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))
+            {
+                playerManager.SetTurretAnimation(true);
+            }
         }
         private void OnTriggerExit(Collider other)
         {
@@ -40,6 +45,11 @@ namespace Controllers
                 var playerIsGoingToFrontYard = other.transform.position.z < transform.position.z;
                 gameObject.layer = LayerMask.NameToLayer(playerIsGoingToFrontYard? "BattleYard" : "Base");
                 playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaTypes.BattleOn : AreaTypes.BaseDefense);
+            }
+
+            if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))
+            {
+                playerManager.SetTurretAnimation(false);
             }
         }
     }
