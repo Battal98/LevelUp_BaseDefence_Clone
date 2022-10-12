@@ -15,5 +15,11 @@ namespace Signals
 
         public UnityAction<int> onUpdateGemScore = delegate { };
         public UnityAction<int> onUpdateMoneyScore = delegate { };
+
+        public UnityAction onEnterTurret = delegate { };
+        public UnityAction onLevel = delegate { };
+        public UnityAction onFinish = delegate { };
+
+        public UnityAction<TurretLocationType, GameObject> onSetCurrentTurret = delegate (TurretLocationType arg0, GameObject o) { };
     }
 }

@@ -29,3 +29,27 @@ MonoBehaviour:
     AttackRate: 3
     WeaponLevel: 1
     Bullet: {fileID: 0}
+  - WeaponType: 2
+    WeaponMesh: {fileID: 0}
+    HasSideMesh: 0
+    SideMesh: {fileID: 0}
+    Damage: 15
+    AttackRate: 0
+    WeaponLevel: 1
+    Bullet: {fileID: 0}
+  - WeaponType: 3
+    WeaponMesh: {fileID: 0}
+    HasSideMesh: 0
+    SideMesh: {fileID: 0}
+    Damage: 50
+    AttackRate: 0
+    WeaponLevel: 1
+    Bullet: {fileID: 0}
+  - WeaponType: 4
+    WeaponMesh: {fileID: 0}
+    HasSideMesh: 0
+    SideMesh: {fileID: 0}
+    Damage: 25
+    AttackRate: 3
+    WeaponLevel: 1
+    Bullet: {fileID: 0}

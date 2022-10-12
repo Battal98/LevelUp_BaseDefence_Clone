@@ -10,5 +10,6 @@ namespace Enums
         Riffle,
         ShotGun,
         MiniGun,
+        TurretBullet,
     } 
 }

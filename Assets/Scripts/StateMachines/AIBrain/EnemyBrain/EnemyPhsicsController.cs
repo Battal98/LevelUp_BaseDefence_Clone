@@ -30,5 +30,13 @@ namespace StateMachines.AIBrain.Enemy
             }
             return 0;
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out IDamager damager))
+            {
+                TakeDamage(damager.Damage());
+            }
+        }
     }
 }

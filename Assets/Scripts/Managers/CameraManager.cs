@@ -3,6 +3,7 @@ using Enums;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Managers
 {
@@ -20,6 +21,7 @@ namespace Managers
 
         [ShowInInspector] private Vector3 _initialPosition;
         private Animator _animator;
+        private Transform _playerTarget;
 
         #endregion
 
@@ -45,18 +47,22 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onGetGameState += OnGetGameState;
             CoreGameSignals.Instance.onPlay += OnPlay;
-            CoreGameSignals.Instance.onSetCameraTarget += OnSetCameraTarget;
             CoreGameSignals.Instance.onReset += OnReset;
+            CoreGameSignals.Instance.onSetCameraTarget += OnSetCameraTarget;
+            CoreGameSignals.Instance.onEnterTurret += OnEnterTurret;
+            CoreGameSignals.Instance.onFinish += OnFinish;
+            CoreGameSignals.Instance.onLevel += OnLevel;
         }
 
         private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onGetGameState -= OnGetGameState;
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            CoreGameSignals.Instance.onSetCameraTarget -= OnSetCameraTarget;
             CoreGameSignals.Instance.onReset -= OnReset;
+            CoreGameSignals.Instance.onSetCameraTarget -= OnSetCameraTarget;
+            CoreGameSignals.Instance.onEnterTurret -= OnEnterTurret;
+            CoreGameSignals.Instance.onFinish -= OnFinish;
+            CoreGameSignals.Instance.onLevel -= OnLevel;
         }
 
         private void OnDisable()
@@ -78,26 +84,34 @@ namespace Managers
 
         private void OnSetCameraTarget(Transform _target)
         {
-            stateDrivenCamera.Follow = _target;
+            _playerTarget = _target;
+            stateDrivenCamera.Follow = _playerTarget;
+            stateDrivenCamera.Follow = _playerTarget.transform;
+            SetCameraState(CameraStatesType.IdleCamera);
         }
 
         private void SetCameraState(CameraStatesType cameraState)
         {
-            _animator.SetTrigger(cameraState.ToString());
+            _animator.Play(cameraState.ToString());
         }
 
-        private void OnGetGameState(GameStates states)
+        public void OnFinish()
         {
-            switch (states)
-            {
-                case GameStates.Idle:
-                    SetCameraState(CameraStatesType.Idle);
-                    break;
-                case GameStates.Drone:
-                    break;
-                default:
-                    break;
-            }
+            stateDrivenCamera.Follow = _playerTarget.transform;
+            SetCameraState(CameraStatesType.FinishCamera);
+        }
+
+        private void OnEnterTurret()
+        {
+            SetCameraState(CameraStatesType.TurretCamera);
+            DOVirtual.DelayedCall(2f,() => stateDrivenCamera.Follow = null);
+           
+        }
+
+        private void OnLevel()
+        {
+            stateDrivenCamera.Follow = _playerTarget.transform;
+            SetCameraState(CameraStatesType.IdleCamera);
         }
 
         private void OnPlay()
@@ -111,5 +125,8 @@ namespace Managers
             stateDrivenCamera.LookAt = null;
             MoveToInitialPosition();
         }
+
+
+
     }
 }

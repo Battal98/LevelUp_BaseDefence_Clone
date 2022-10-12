@@ -52,6 +52,12 @@ namespace Controllers
         {
             _isReadyToMove = movementStatus;
         }
+
+        public void DisableMovement()
+        {
+            rigidbody.velocity = Vector3.zero;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
         private void FixedUpdate()
         {
             PlayerMove();
@@ -78,5 +84,6 @@ namespace Controllers
                     0);
             }
         }
+
     }
 }

@@ -29,7 +29,7 @@ namespace Controllers
             {
                 _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
                 //sinyalle çakmayý dene
-                _enemyAIBrain.PlayerTarget = other.transform.parent.transform;
+                _enemyAIBrain.PlayerTarget = other.transform;
             }
 
             if (other.CompareTag("Bullet"))

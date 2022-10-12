@@ -17,7 +17,7 @@ MonoBehaviour:
     - EnemyType: 0
       Health: 30
       Damage: 1
-      AttackRange: 1
+      AttackRange: 2
       AttackSpeed: 0.5
       ScaleSize: {x: 1, y: 1, z: 1}
       BodyColor: {r: 1, g: 0.5587921, b: 0, a: 1}
@@ -28,7 +28,7 @@ MonoBehaviour:
     - EnemyType: 1
       Health: 50
       Damage: 2
-      AttackRange: 1.5
+      AttackRange: 2.5
       AttackSpeed: 1
       ScaleSize: {x: 2, y: 2, z: 2}
       BodyColor: {r: 1, g: 0.19339621, b: 0.19339621, a: 1}
@@ -39,7 +39,7 @@ MonoBehaviour:
     - EnemyType: 2
       Health: 100
       Damage: 10
-      AttackRange: 2
+      AttackRange: 3
       AttackSpeed: 3
       ScaleSize: {x: 3, y: 3, z: 3}
       BodyColor: {r: 0.3301887, g: 0, b: 0, a: 1}

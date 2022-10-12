@@ -67,10 +67,12 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputDragged += OnGetInputValues;
+            InputSignals.Instance.onInputHandlerChange += OnDisableMovement;
         }
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
+            InputSignals.Instance.onInputHandlerChange -= OnDisableMovement;
         }
         private void OnDisable()
         {
@@ -86,6 +88,13 @@ namespace Managers
         {
             currentAreaType = AreaStatus;
             meshController.ChangeAreaStatus(AreaStatus);
+        }
+        private void OnDisableMovement(InputType ınputHandlers)
+        {
+            if (ınputHandlers == InputType.Turret)
+            {
+                _movementController.DisableMovement();
+            }
         }
     }
 }

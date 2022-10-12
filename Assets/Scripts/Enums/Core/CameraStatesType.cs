@@ -2,7 +2,9 @@ namespace Enums
 {
     public enum CameraStatesType
     {
-        Idle,
-        Drone,
+        IdleCamera,
+        TurretCamera,
+        DroneCamera,
+        FinishCamera,
     }
 }
