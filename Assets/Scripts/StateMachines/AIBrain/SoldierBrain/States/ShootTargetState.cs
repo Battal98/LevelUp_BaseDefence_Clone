@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using Interfaces;
 using StateMachines.AIBrain.Soldier;
 using Enums;
+using Controllers;
 
 namespace StateMachines.AIBrain.Soldier.States
 {
@@ -11,13 +12,12 @@ namespace StateMachines.AIBrain.Soldier.States
 
         private SoldierAIBrain _soldierAIBrain;
         private NavMeshAgent _navMeshAgent;
-        private float _timer = 0.2f;
-        private float _attackTime = 0.5f;
+        private float _fireRate = 0.4f;
+        private const float _attackTime = 0.5f;
         private Animator _animator;
-        private static readonly int Attacked = Animator.StringToHash("Attack");
-        private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int HasTarget = Animator.StringToHash("HasTarget");
-
+        private static readonly int _speed = Animator.StringToHash("Speed");
+        private static readonly int _hasTarget = Animator.StringToHash("HasTarget");
+        private FireController _bulletFireController;
 
         public ShootTargetState(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Animator animator)
         {
@@ -25,23 +25,27 @@ namespace StateMachines.AIBrain.Soldier.States
             _navMeshAgent = navMeshAgent;
             _animator = animator;
         }
-
         public void Tick()
         {
+            if (_soldierAIBrain.DamageableEnemy.IsDead)
+            {
+                RemoveTarget();
+            }
             if (_soldierAIBrain.EnemyTarget != null)
             {
                 LookTarget();
             }
-            _timer -= Time.deltaTime * _attackTime;
-            if (_timer <= 0)
+            _fireRate -= Time.deltaTime * _attackTime;
+            if (_fireRate <= 0)
             {
-                _soldierAIBrain.GetObject(PoolType.PistolBullet);
-                _timer = 0.2f;
+                FireBullets();
+                _fireRate = 0.4f;
             }
         }
         private void LookTarget()
         {
-            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
+            _animator.SetFloat(_speed, _navMeshAgent.velocity.magnitude);
+
             var enemyPosition = _soldierAIBrain.EnemyTarget.transform;
 
             var lookDirection = enemyPosition.position - _soldierAIBrain.transform.position;
@@ -55,12 +59,45 @@ namespace StateMachines.AIBrain.Soldier.States
         }
         public void OnEnter()
         {
+            _bulletFireController = new FireController(WeaponType.RifleBullet);
             _navMeshAgent.speed = 1.801268E-05f;
-            _animator.SetBool(HasTarget, true);
+            _animator.SetBool(_hasTarget, true);
         }
         public void OnExit()
         {
-            _animator.SetBool(HasTarget, false);
+            _animator.SetBool(_hasTarget, false);
+        }
+        private void FireBullets()
+        {
+            _bulletFireController.FireBullets(_soldierAIBrain.WeaponHolder);
+        }
+
+        private void SetEnemyTargetTransform()
+        {
+            _soldierAIBrain.HasEnemyTarget = false;
+            if (_soldierAIBrain.enemyList.Count == 0) return;
+            _soldierAIBrain.EnemyTarget = _soldierAIBrain.enemyList[0].GetTransform();
+            _soldierAIBrain.DamageableEnemy = _soldierAIBrain.enemyList[0];
+            _soldierAIBrain.HasEnemyTarget = true;
+        }
+        private void EnemyTargetStatus()
+        {
+            if (_soldierAIBrain.enemyList.Count != 0)
+            {
+                SetEnemyTargetTransform();
+            }
+            else
+            {
+                _soldierAIBrain.HasEnemyTarget = false;
+            }
+        }
+        private void RemoveTarget()
+        {
+            if (_soldierAIBrain.enemyList.Count == 0) return;
+            _soldierAIBrain.enemyList.RemoveAt(0);
+            _soldierAIBrain.enemyList.TrimExcess();
+            _soldierAIBrain.EnemyTarget = null;
+            EnemyTargetStatus();
         }
     }
 }

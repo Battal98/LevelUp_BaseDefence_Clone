@@ -8,19 +8,13 @@ namespace StateMachines.AIBrain.Soldier.States
 {
     public class IdleState : IState
     {
-        public IdleState(SoldierAIBrain soldierAIBrain, Transform tentPosition, NavMeshAgent navMeshAgent, Animator animator)
-        {
-            _soldierAIBrain = soldierAIBrain;
-            _tentPosition = tentPosition;
-            _navMeshAgent = navMeshAgent;
-            _animator = animator;
-        }
-
-        private SoldierAIBrain _soldierAIBrain;
         private Transform _tentPosition;
         private NavMeshAgent _navMeshAgent;
-        private Animator _animator;
-
+        public IdleState(Transform tentPosition, NavMeshAgent navMeshAgent)
+        {
+            _tentPosition = tentPosition;
+            _navMeshAgent = navMeshAgent;
+        }
         public void Tick()
         {
 

@@ -2,6 +2,7 @@
 using Keys;
 using UnityEngine;
 using Managers;
+using Enums;
 
 namespace Controllers
 {
@@ -52,8 +53,9 @@ namespace Controllers
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 30);
         }
 
-        public void RotatePlayerToTarget(Transform enemyTarget)
+        public void LookAtTarget(Transform enemyTarget)
         {
+            if (enemyTarget == null) return;
             transform.LookAt(enemyTarget, Vector3.up * 3f);
         }
 
@@ -62,8 +64,9 @@ namespace Controllers
             _isReadyToMove = movementStatus;
         }
 
-        public void DisableMovement()
+        public void DisableMovement(InputType inputType)
         {
+            if (inputType != InputType.Turret) return;
             rigidbody.velocity = Vector3.zero;
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
@@ -83,6 +86,10 @@ namespace Controllers
                     0.25f),
                     _inputVector.y * _data.PlayerSpeed);
                 rigidbody.velocity = velocity;
+                if (!manager.HasEnemyTarget)
+                {
+                    RotatePlayer();
+                }
             }
             else if(rigidbody.velocity != Vector3.zero)
             {
@@ -92,6 +99,13 @@ namespace Controllers
                     0.25f), 
                     0);
             }
+        }
+        private void RotatePlayer()
+        {
+            Vector3 movementDirection = new Vector3(_inputVector.x, 0, _inputVector.y);
+            if (movementDirection == Vector3.zero) return;
+            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            rigidbody.rotation = Quaternion.RotateTowards(rigidbody.rotation, toRotation, 30);
         }
 
     }

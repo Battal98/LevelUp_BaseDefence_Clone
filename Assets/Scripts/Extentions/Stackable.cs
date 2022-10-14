@@ -43,6 +43,9 @@ namespace Extentions
 
         private void OnEnable()
         {
+            rbody.useGravity = true;
+            rbody.isKinematic = false;
+            col.enabled = true;
             SendStackable(this);
         }
 

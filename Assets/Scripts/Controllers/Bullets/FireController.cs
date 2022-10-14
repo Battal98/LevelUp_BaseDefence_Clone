@@ -21,7 +21,6 @@ namespace Controllers
         {
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _weaponTypes.ToString());
             var bullet = GetObject(poolType);
-            //Debug.Log("fireBullet: " + bullet + " Aim: " + aim);
             bullet.transform.position = aim.position;
             bullet.transform.rotation = aim.rotation;
         }

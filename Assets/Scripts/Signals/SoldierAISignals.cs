@@ -6,5 +6,6 @@ namespace Signals
     public class SoldierAISignals : MonoSingleton<SoldierAISignals>
     {
         public UnityAction onSoldierActivation = delegate { };
+        public UnityAction onSoldierAmountUpgrade = delegate { };
     }
 }

@@ -1,31 +1,25 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Managers;
-using System.Threading.Tasks;
+using Enums;
 
 
 namespace Controllers
 {
     public class PlayerShootingController : MonoBehaviour
     {
-
-        #region Serializable Variables
-
         [SerializeField]
         private PlayerManager manager;
+
         [SerializeField]
-        private Transform aim;
+        private Transform weaponHolder;
 
-        #endregion
+        private FireController _fireController;
+        private const float _fireRate = 0.3f;
 
-        #region Private Variables
-
-        private FireController fireController; 
-
-        #endregion
         private void Awake()
         {
-            fireController = new FireController(manager.WeaponType);
+            _fireController = new FireController(manager.WeaponType);
         }
         public void SetEnemyTargetTransform()
         {
@@ -33,7 +27,7 @@ namespace Controllers
             manager.HasEnemyTarget = true;
             Shoot();
         }
-        public void EnemyTargetStatus()
+        private void EnemyTargetStatus()
         {
             if (manager.EnemyList.Count != 0)
             {
@@ -44,7 +38,7 @@ namespace Controllers
                 manager.HasEnemyTarget = false;
             }
         }
-        public void RemoveTarget()
+        private void RemoveTarget()
         {
             if (manager.EnemyList.Count == 0) return;
             manager.EnemyList.RemoveAt(0);
@@ -52,9 +46,9 @@ namespace Controllers
             manager.EnemyTarget = null;
             EnemyTargetStatus();
         }
-        public async void Shoot()
+        private void Shoot()
         {
-            if (!manager.EnemyTarget)
+            if (!manager.EnemyTarget || manager.CurrentAreaType == AreaTypes.BaseDefense)
                 return;
             if (manager.EnemyList[0].IsDead)
             {
@@ -62,10 +56,14 @@ namespace Controllers
             }
             else
             {
-                await Task.Delay(400);
-                fireController.FireBullets(aim);
-                Shoot();
+                StartCoroutine(FireBullets());
             }
+        }
+        private IEnumerator FireBullets()
+        {
+            yield return new WaitForSeconds(_fireRate);
+            _fireController.FireBullets(weaponHolder);
+            Shoot();
         }
     }
 }

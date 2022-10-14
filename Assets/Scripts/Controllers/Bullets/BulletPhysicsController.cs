@@ -25,7 +25,7 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IDamagable damagable))
+            if (other.TryGetComponent(out IDamageable damagable))
             {
                 if (damagable.IsDead)
                     return;
@@ -34,11 +34,11 @@ namespace Controllers
                 if (health <= 0)
                 {
                     damagable.IsDead = true;
-                    soldierAIBrain.RemoveTarget();
+                   // soldierAIBrain.RemoveTarget();
                 }
                 else
                 {
-                    soldierAIBrain.EnemyTargetStatus();
+                    //soldierAIBrain.EnemyTargetStatus();
                 }
             }
         }

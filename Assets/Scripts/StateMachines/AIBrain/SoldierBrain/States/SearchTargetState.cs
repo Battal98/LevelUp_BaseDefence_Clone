@@ -17,18 +17,13 @@ namespace StateMachines.AIBrain.Soldier.States
         private float _timeStack;
         private Animator _animator;
         private static readonly int Speed = Animator.StringToHash("Speed");
+
         public SearchTargetState(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, Animator animator)
         {
             _soldierAIBrain = soldierAIBrain;
             _navMeshAgent = navMeshAgent;
             _animator = animator;
         }
-        public void OnEnter()
-        {
-            _navMeshAgent.speed = 1.80f;
-            _timeStack = 0;
-        }
-
         public void Tick()
         {
             _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
@@ -53,7 +48,11 @@ namespace StateMachines.AIBrain.Soldier.States
             }
             lastPosition = _soldierAIBrain.transform.position;
         }
-
+        public void OnEnter()
+        {
+            _navMeshAgent.speed = 1.80f;
+            _timeStack = 0;
+        }
         public void OnExit()
         {
 

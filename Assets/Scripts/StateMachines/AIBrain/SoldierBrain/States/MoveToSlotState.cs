@@ -8,14 +8,15 @@ namespace StateMachines.AIBrain.Soldier.States
 {
     public class MoveToSlotState : IState
     {
-        private NavMeshAgent _navMeshAgent;
-        private bool _hasReachToTarget;
-        private Vector3 _soldierPosition;
-        private Vector3 _slotPosition;
-        private float _stoppingDistance;
-        private SoldierAIBrain _soldierAIBrain;
-        private Animator _animator;
+        private readonly NavMeshAgent _navMeshAgent;
+        private readonly Vector3 _soldierPosition;
+        private readonly Vector3 _slotPosition;
+        private readonly float _stoppingDistance;
+        private readonly SoldierAIBrain _soldierAIBrain;
+        private readonly Animator _animator;
         private static readonly int Speed = Animator.StringToHash("Speed");
+        private bool _hasReachToTarget;
+
         public MoveToSlotState(SoldierAIBrain soldierAIBrain, NavMeshAgent navMeshAgent, bool hasReachToTarget, Vector3 slotPosition, Animator animator)
         {
             _soldierAIBrain = soldierAIBrain;
@@ -25,7 +26,6 @@ namespace StateMachines.AIBrain.Soldier.States
             _stoppingDistance = navMeshAgent.stoppingDistance;
             _animator = animator;
         }
-
         public void Tick()
         {
             _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);

@@ -140,5 +140,10 @@ namespace Controllers
                 return false;
             }
         }
+        public void PlayTurretAnimation(bool onTurretHold)
+        {
+            animator.SetLayerWeight(2, onTurretHold ? 1 : 0);
+        }
+
     }
 }

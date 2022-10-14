@@ -40,7 +40,7 @@ namespace Controllers
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IDamagable idDamagable))
+            if (other.TryGetComponent(out IDamageable idDamagable))
             {
                 bulletManager.SetBulletToPool();
             }

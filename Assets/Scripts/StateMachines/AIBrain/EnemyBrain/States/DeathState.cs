@@ -66,7 +66,10 @@ namespace StateMachines.AIBrain.Enemy.States
         {
             DOVirtual.DelayedCall(1f, () =>
             {
-                _brain.transform.DOMoveY(-3f, 1f).OnComplete(() => ReleaseObject(_brain.gameObject, type));
+                _brain.transform.DOMoveY(-3f, 1f).OnComplete(() => 
+                {
+                    ReleaseObject(_brain.gameObject, type); 
+                });
             });
         }
     }

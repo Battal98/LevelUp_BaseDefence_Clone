@@ -18,9 +18,10 @@ namespace Managers
         #region Public Variables
 
         public AreaTypes CurrentAreaType = AreaTypes.BaseDefense;
+
         public WeaponType WeaponType;
 
-        public List<IDamagable> EnemyList = new List<IDamagable>();
+        public List<IDamageable> EnemyList = new List<IDamageable>();
 
         public Transform EnemyTarget;
 
@@ -30,41 +31,40 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private PlayerMeshController meshController;
-        [SerializeField] private PlayerAnimationController animationController;
-        [SerializeField] private PlayerWeaponController weaponController;
-        [SerializeField] private PlayerShootingController playerShootingController;
-
+        [SerializeField]
+        private PlayerMeshController meshController;
+        [SerializeField]
+        private PlayerAnimationController animationController;
+        [SerializeField]
+        private PlayerWeaponController weaponController;
+        [SerializeField]
+        private PlayerShootingController shootingController;
+        [SerializeField]
+        private PlayerMovementController movementController;
         #endregion
 
         #region Private Variables
-        
+
         private PlayerData _data;
 
         private WeaponData _weaponData;
 
-        private PlayerMovementController _movementController;
-        
         #endregion
-        
+
         #endregion
         private void Awake()
         {
             _data = GetPlayerData();
             _weaponData = GetWeaponData();
             Init();
-            CoreGameSignals.Instance.onSetCameraTarget?.Invoke(this.transform);
+            CoreGameSignals.Instance.onSetCameraTarget(transform);
         }
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").PlayerData;
         private WeaponData GetWeaponData() => Resources.Load<CD_Weapons>("Data/CD_Weapons").WeaponDatas[(int)WeaponType];
-        private void Init()
-        {
-            _movementController = GetComponent<PlayerMovementController>();
-            SetDataToControllers();
-        }
+        private void Init() => SetDataToControllers();
         private void SetDataToControllers()
         {
-            _movementController.SetMovementData(_data.PlayerMovementData);
+            movementController.SetMovementData(_data.PlayerMovementData);
             weaponController.SetWeaponData(_weaponData);
             meshController.SetWeaponData(_weaponData);
         }
@@ -90,42 +90,19 @@ namespace Managers
         #endregion
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
-            _movementController.UpdateInputValues(inputParams);
+            movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
-            if (!HasEnemyTarget) return;
             AimEnemy();
         }
-        public void CheckAreaStatus(AreaTypes AreaStatus)
-        {
-            CurrentAreaType = AreaStatus;
-            meshController.ChangeAreaStatus(AreaStatus);
-        }
-        private void OnDisableMovement(InputType ınputHandlers)
-        {
-            if (ınputHandlers == InputType.Turret)
-            {
-                _movementController.DisableMovement();
-            }
-        }
-
-        public void SetTurretAnimation(bool isTurretHolded)
-        {
-            animationController.HoldTurret(isTurretHolded);
-        }
-
         public void SetEnemyTarget()
         {
-            playerShootingController.SetEnemyTargetTransform();
+            shootingController.SetEnemyTargetTransform();
             animationController.AimTarget(true);
             AimEnemy();
         }
-        private void AimEnemy()
-        {
-            if (EnemyList.Count != 0)
-            {
-                var transformEnemy = EnemyList[0].GetTransform();
-                _movementController.RotatePlayerToTarget(transformEnemy);
-            }
-        }
+        private void AimEnemy() => movementController.LookAtTarget(!HasEnemyTarget ? null : EnemyList[0]?.GetTransform());
+        public void CheckAreaStatus(AreaTypes areaType) => meshController.ChangeAreaStatus(CurrentAreaType = areaType);
+        private void OnDisableMovement(InputType inputType) => movementController.DisableMovement(inputType);
+        public void SetTurretAnim(bool onTurret) => animationController.PlayTurretAnimation(onTurret);
     }
 }

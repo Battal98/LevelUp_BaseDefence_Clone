@@ -35,7 +35,7 @@ namespace Controllers
 
             if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))
             {
-                playerManager.SetTurretAnimation(true);
+                playerManager.SetTurretAnim(true);
             }
         }
         private void OnTriggerExit(Collider other)
@@ -45,11 +45,14 @@ namespace Controllers
                 var playerIsGoingToFrontYard = other.transform.position.z < transform.position.z;
                 gameObject.layer = LayerMask.NameToLayer(playerIsGoingToFrontYard? "BattleYard" : "Base");
                 playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaTypes.BattleOn : AreaTypes.BaseDefense);
+                if (!playerIsGoingToFrontYard) return;
+                playerManager.HasEnemyTarget = false;
+                playerManager.EnemyList.Clear();
             }
 
             if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))
             {
-                playerManager.SetTurretAnimation(false);
+                playerManager.SetTurretAnim(false);
             }
         }
     }

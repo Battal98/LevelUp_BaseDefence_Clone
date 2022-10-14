@@ -2,6 +2,7 @@ using Enums;
 using Extentions;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 namespace Signals
 {
@@ -15,6 +16,7 @@ namespace Signals
 
         public UnityAction<int> onUpdateGemScore = delegate { };
         public UnityAction<int> onUpdateMoneyScore = delegate { };
+        public Func<bool> onHasEnoughMoney = delegate { return default; };
 
         public UnityAction onEnterTurret = delegate { };
         public UnityAction onLevel = delegate { };

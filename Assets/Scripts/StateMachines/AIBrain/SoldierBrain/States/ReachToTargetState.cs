@@ -10,24 +10,22 @@ namespace StateMachines.AIBrain.Soldier.States
     {
         private Animator _animator;
         private NavMeshAgent _navMeshAgent;
-        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int _speed = Animator.StringToHash("Speed");
+
         public ReachToTargetState(Animator animator, NavMeshAgent navMeshAgent)
         {
             _animator = animator;
             _navMeshAgent = navMeshAgent;
         }
-        public void OnEnter()
-        {
-            Debug.Log("WaitEntered");
-            _navMeshAgent.speed = 1.801268E-05f;
-            _animator.SetFloat(Speed, _navMeshAgent.velocity.magnitude);
-        }
-
         public void Tick()
         {
 
         }
-
+        public void OnEnter()
+        {
+            _navMeshAgent.speed = 1.801268E-05f;
+            _animator.SetFloat(_speed, _navMeshAgent.velocity.magnitude);
+        }
         public void OnExit()
         {
 

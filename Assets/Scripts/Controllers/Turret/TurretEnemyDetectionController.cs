@@ -9,7 +9,7 @@ namespace Controllers
         [SerializeField] private TurretShootController shootController;
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out IDamagable damageable)) return;
+            if (!other.TryGetComponent(out IDamageable damageable)) return;
             if (!damageable.IsTaken)
                 shootController.EnemyInRange(damageable.GetTransform().gameObject);
             shootController.ShootTheTarget();
@@ -18,7 +18,7 @@ namespace Controllers
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent(out IDamagable damageable)) return;
+            if (!other.TryGetComponent(out IDamageable damageable)) return;
             shootController.EnemyOutOfRange(damageable.GetTransform().gameObject);
             damageable.IsTaken = false;
 

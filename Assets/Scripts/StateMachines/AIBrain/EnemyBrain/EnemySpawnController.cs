@@ -109,6 +109,7 @@ namespace Managers
 
             var poolType = (PoolType)Enum.Parse(typeof(PoolType), ((EnemyType)randomType).ToString());
             var obj = GetObject(poolType);
+            obj.transform.position = enemiesSpawnTransform.position;
             _enemyAIObject.Add(obj);
         }
 

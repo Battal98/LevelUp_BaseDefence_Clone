@@ -23,6 +23,7 @@ namespace StateMachines.AIBrain.Enemy
         [BoxGroup("Targets")]
         public Transform MineTarget;
 
+        [Space]
         public int Health;
         #endregion
 
@@ -36,16 +37,26 @@ namespace StateMachines.AIBrain.Enemy
         [SerializeField]
         private EnemyDetectionController detector;
 
+        [BoxGroup("Serializable Variables")]
+        [SerializeField]
+        private Animator _animator;
+
+        [BoxGroup("Serializable Variables")]
+        [SerializeField]
+        private NavMeshAgent _navmeshAgent;
+
+        [BoxGroup("Serializable Variables")]
+        [SerializeField]
+        private SkinnedMeshRenderer skinnedMeshRenderer;
+
         #endregion
 
         #region Private Variables
-
+        [Space]
         [ShowInInspector]
         private EnemyTypeData _enemyTypeData;
         private EnemyAIData _enemyAIData;
         private StateMachine _stateMachine;
-        private Animator _animator;
-        private NavMeshAgent _navmeshAgent;
 
         #region States
 
@@ -71,6 +82,15 @@ namespace StateMachines.AIBrain.Enemy
 
         #endregion
 
+        private void OnEnable()
+        {
+            skinnedMeshRenderer.material.color = _enemyTypeData.BodyColor;
+            _navmeshAgent.enabled = true;
+            Health = _enemyTypeData.Health;
+            _stateMachine.SetState(_birthState);
+            this.GetComponentInChildren<IDamageable>().IsDead = false;
+        }
+
         private void Awake()
         {
             _spawnPoint = EnemySignals.Instance.onGetSpawnTransform?.Invoke();
@@ -94,16 +114,13 @@ namespace StateMachines.AIBrain.Enemy
 
         private void SetEnemyVariables()
         {
-            _navmeshAgent = GetComponent<NavMeshAgent>();
-            _animator = GetComponentInChildren<Animator>();
-            //datadan health'ý tekrar çekmen gerekebilir
             Health = _enemyTypeData.Health;
         }
 
         private void InitEnemy()
         {
             //mesh controller olusturulabilir
-            this.GetComponentInChildren<SkinnedMeshRenderer>().material.color = _enemyTypeData.BodyColor;
+            skinnedMeshRenderer.material.color = _enemyTypeData.BodyColor;
             //
             this.transform.localScale = _enemyTypeData.ScaleSize;
             _navmeshAgent.height = _enemyTypeData.NavMeshHeight;

@@ -15,7 +15,6 @@ namespace Controllers
 
         #region Serialized Variables,
          
-        [SerializeField] private Transform manager;
         [SerializeField] private MeshRenderer weaponMeshRenderer;
         [SerializeField] private MeshRenderer sideMeshRenderer;
 

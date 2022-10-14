@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 8495928147545377426}
-  aim: {fileID: 3454276501453147234}
+  weaponHolder: {fileID: 3454276501453147234}
 --- !u!1 &1598815932008471100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1221,8 @@ MonoBehaviour:
   meshController: {fileID: 1429477786026016514}
   animationController: {fileID: 3256136071381465238}
   weaponController: {fileID: 1868632370789283655}
-  playerShootingController: {fileID: 1442724066285381607}
+  shootingController: {fileID: 1442724066285381607}
+  movementController: {fileID: 421403684888451369}
 --- !u!114 &421403684888451369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1658,7 +1659,7 @@ GameObject:
   - component: {fileID: 4498633671592508039}
   - component: {fileID: 7593014632168649672}
   m_Layer: 20
-  m_Name: PlayerCollector
+  m_Name: PlayerWallet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1689,8 +1690,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.3838115
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 3
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &7593014632168649672
 MonoBehaviour:
   m_ObjectHideFlags: 0

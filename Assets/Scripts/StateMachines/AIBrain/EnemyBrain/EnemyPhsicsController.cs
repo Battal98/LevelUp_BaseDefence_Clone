@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace StateMachines.AIBrain.Enemy
 {
-    public class EnemyPhsicsController : MonoBehaviour, IDamagable
+    public class EnemyPhsicsController : MonoBehaviour, IDamageable
     {
         [SerializeField]
         private EnemyAIBrain enemyAIBrain;
@@ -24,6 +24,7 @@ namespace StateMachines.AIBrain.Enemy
                 enemyAIBrain.Health -= damage;
                 if (enemyAIBrain.Health <= 0)
                 {
+                    IsDead = true;
                     return enemyAIBrain.Health;
                 }
                 return enemyAIBrain.Health;
