@@ -7,7 +7,7 @@ namespace Data.ValueObject.LevelDatas
     [Serializable]
     public class StageData: ISavableEntity
     {
-        public AvabilityState AvabilityState;
+        public AvabilityType AvabilityState;
         public int StageCost;
         public int StagePayedAmount;
 

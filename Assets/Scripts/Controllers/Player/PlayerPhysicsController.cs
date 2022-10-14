@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class PlayerPhysicsController : Interactable
+    public class PlayerPhysicsController : Interactable, IDamageable
     {
         #region Self Variables
 
@@ -17,12 +17,35 @@ namespace Controllers
         #region Serialized Variables,
         
         [SerializeField] private PlayerManager playerManager;
+
+        public bool IsTaken { get ; set ; }
+        public bool IsDead { get; set; }
+
+        public Transform GetTransform()
+        {
+            return playerManager.transform;
+        }
+
+        public int TakeDamage(int damage)
+        {
+            if (playerManager.Health > 0)
+            {
+                playerManager.Health -= damage;
+                if (playerManager.Health <= 0)
+                {
+                    IsDead = true;
+                    return playerManager.Health;
+                }
+                return playerManager.Health;
+            }
+            return 0;
+        }
         #endregion
 
         #region Private Variables
 
         #endregion
-        
+
         #endregion
         private void OnTriggerEnter(Collider other)
         {
@@ -36,6 +59,12 @@ namespace Controllers
             if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))
             {
                 playerManager.SetTurretAnim(true);
+            }
+
+            if (other.TryGetComponent(out IDamager damager))
+            {
+                Debug.Log("Bomb");
+                TakeDamage(damager.Damage());
             }
         }
         private void OnTriggerExit(Collider other)

@@ -2,9 +2,10 @@ namespace Enums
 {
     public enum BaseRoomTypes
     {
-        RightRoomFirst,
-        RightRoomSecond,
-        LeftRoomFirst,
-        LeftRoomSecond
+        CenterRoom,
+        FirstLeftRoom,
+        FirstRightRoom,
+        SecondLeftRoom,
+        SecondRightRoom
     }
 }

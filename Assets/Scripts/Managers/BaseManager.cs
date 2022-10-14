@@ -4,6 +4,7 @@ using Data.UnityObject;
 using Data.ValueObject.LevelDatas;
 using Signals;
 using Enums;
+using System.Linq;
 
 namespace Managers
 {
@@ -11,19 +12,18 @@ namespace Managers
     {
         #region Self Variables
 
-        #region Serializable Variables
+        #region Serialized Variables
 
-        [SerializeField]
-        private BaseTextController baseTextController;
         [SerializeField] 
-        private BaseRoomExtentionController extentionController;
+        private BaseExtentionController extentionController;
+        [SerializeField] 
+        private BaseTextController baseTextController;
 
         #endregion
 
         #region Private Variables
 
-        private LevelData _levelData;
-        private BaseData _baseData;
+        private BaseRoomDatas baseRoomData;
 
         #endregion
 
@@ -31,49 +31,62 @@ namespace Managers
 
         private void Awake()
         {
-            GetReferences();
-            _levelData = GetLevelData();
-            _baseData = GetBaseData();
-        }
-
-        private void GetReferences()
-        {
+            baseRoomData = GetData();
+            SetExistingRooms();
             baseTextController.SetBaseLevelText();
         }
 
 
         #region Event Subscription
-        private LevelData GetLevelData() => Resources.Load<CD_Level>("Data/CD_Level").LevelDatas[0];
-        private BaseData GetBaseData() => _levelData.BaseData;
 
-        private void OnEnable()
-        {
-            SubscribeEvents();
-        }
+        private void OnEnable() => SubscribeEvents();
         private void SubscribeEvents()
         {
             BaseSignals.Instance.onChangeExtentionVisibility += OnChangeVisibility;
+            BaseSignals.Instance.onSetRoomData += OnSetRoomData;
+            BaseSignals.Instance.onUpdateRoomData += OnUpdateRoomData;
+
         }
         private void UnsubscribeEvents()
         {
             BaseSignals.Instance.onChangeExtentionVisibility -= OnChangeVisibility;
+            BaseSignals.Instance.onSetRoomData += OnSetRoomData;
+            BaseSignals.Instance.onUpdateRoomData += OnUpdateRoomData;
         }
-        private void OnDisable()
+        private void OnDisable() => UnsubscribeEvents();
+        #endregion  
+        private BaseRoomDatas GetData() => InitializeDataSignals.Instance.onLoadBaseRoomData?.Invoke();
+
+        private void SaveData() => InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(baseRoomData);
+
+        private void SetExistingRooms()
         {
-            UnsubscribeEvents();
-        }
-        #endregion
-        private void OnChangeVisibility(BaseRoomTypes baseRoomType)
-        {
-            ChangeVisibility(baseRoomType);
-        }
-        private void ChangeVisibility(BaseRoomTypes baseRoomType)
-        {
-            extentionController.ChangeExtentionVisibility(baseRoomType);
+            foreach (var t in baseRoomData.Rooms.Where(t => t.AvailabilityType == AvabilityType.Unlocked))
+            {
+                ChangeVisibility(t.BaseRoomTypes);
+            }
         }
 
-        //BaseData çekildi. 
-        //buradan sinyallerle room ve diðer manager'lara datalarý yollanmasý gerekiyor
+        private void OnUpdateRoomData(RoomData roomData, BaseRoomTypes roomTypes)
+        {
+            baseRoomData.Rooms[(int)roomTypes] = roomData;
+            SaveData();
+        }
+
+        private RoomData OnSetRoomData(BaseRoomTypes roomTypes) => baseRoomData.Rooms[(int)roomTypes];
+        private void OnChangeVisibility(BaseRoomTypes roomTypes)
+        {
+            ChangeVisibility(roomTypes);
+            ChangeAvailabilityType(roomTypes);
+        }
+
+        private void ChangeAvailabilityType(BaseRoomTypes roomTypes)
+        {
+            baseRoomData.Rooms[(int)roomTypes].AvailabilityType = AvabilityType.Unlocked;
+            InitializeDataSignals.Instance.onSaveBaseRoomData?.Invoke(baseRoomData);
+        }
+
+        private void ChangeVisibility(BaseRoomTypes roomTypes) => extentionController.ChangeExtentionVisibility(roomTypes);
 
 
     }

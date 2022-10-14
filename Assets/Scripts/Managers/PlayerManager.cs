@@ -27,6 +27,8 @@ namespace Managers
 
         public bool HasEnemyTarget = false;
 
+        public int Health = 100;
+
         #endregion
 
         #region Serialized Variables

@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using Data.UnityObject;
 using Data.ValueObject.LevelDatas;
-using Data.ValueObject.AIDatas;
+using Data.ValueObjects;
 using Signals;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Interfaces;
 
@@ -34,6 +32,7 @@ public class DataInitManager : MonoBehaviour, ISavable
     private int _uniqueID = 12123;
 
     private LevelData _levelData;
+    private ScoreData _scoreData;
     private BaseRoomDatas _baseRoomData;
     private MineBaseData _mineBaseData;
     private MilitaryBaseData _militaryBaseData;
@@ -59,6 +58,7 @@ public class DataInitManager : MonoBehaviour, ISavable
         cdLevel = GetLevelDatas();
         _levelID = cdLevel.LevelID;
         levelDatas = cdLevel.LevelDatas;
+        _scoreData = cdLevel.ScoreData;
         if (!ES3.FileExists(this.cdLevel.GetKey()+$"{_uniqueID}.es3"))
         {
             if (!ES3.KeyExists(this.cdLevel.GetKey()))
@@ -66,6 +66,7 @@ public class DataInitManager : MonoBehaviour, ISavable
                 cdLevel = GetLevelDatas();
                 _levelID = cdLevel.LevelID;
                 levelDatas = cdLevel.LevelDatas;
+                _scoreData = cdLevel.ScoreData;
                 Save(_uniqueID);
             }
         }
@@ -85,30 +86,35 @@ public class DataInitManager : MonoBehaviour, ISavable
     {
         InitializeDataSignals.Instance.onSaveLevelID += OnSyncLevelID;
         LevelSignals.Instance.onLevelInitialize += OnSyncLevel;
-        InitializeDataSignals.Instance.onSaveBaseRoomData += SyncBaseRoomDatas;
-        InitializeDataSignals.Instance.onSaveMineBaseData += SyncMineBaseDatas;
-        InitializeDataSignals.Instance.onSaveMilitaryBaseData += SyncMilitaryBaseData;
-        InitializeDataSignals.Instance.onSaveBuyablesData += SyncBuyablesData;
+        InitializeDataSignals.Instance.onSaveBaseRoomData += OnSyncBaseRoomDatas;
+        InitializeDataSignals.Instance.onSaveMineBaseData += OnSyncMineBaseDatas;
+        InitializeDataSignals.Instance.onSaveMilitaryBaseData += OnSyncMilitaryBaseData;
+        InitializeDataSignals.Instance.onSaveBuyablesData += OnSyncBuyablesData;
+        InitializeDataSignals.Instance.onSaveGameScore += OnSyncScoreData;
 
         InitializeDataSignals.Instance.onLoadMilitaryBaseData += OnLoadMilitaryBaseData;
         InitializeDataSignals.Instance.onLoadBaseRoomData += OnLoadBaseRoomData;
         InitializeDataSignals.Instance.onLoadBuyablesData += OnLoadBuyablesData;
         InitializeDataSignals.Instance.onLoadMineBaseData += OnLoadMineBaseData;
+        InitializeDataSignals.Instance.onLoadGameScore += OnLoadScoreData;
     }
 
     private void UnsubscribeEvents()
     {
         InitializeDataSignals.Instance.onSaveLevelID -= OnSyncLevelID;
         LevelSignals.Instance.onLevelInitialize -= OnSyncLevel;
-        InitializeDataSignals.Instance.onSaveBaseRoomData -= SyncBaseRoomDatas;
-        InitializeDataSignals.Instance.onSaveMineBaseData -= SyncMineBaseDatas;
-        InitializeDataSignals.Instance.onSaveMilitaryBaseData -= SyncMilitaryBaseData;
-        InitializeDataSignals.Instance.onSaveBuyablesData -= SyncBuyablesData;
+        InitializeDataSignals.Instance.onSaveBaseRoomData -= OnSyncBaseRoomDatas;
+        InitializeDataSignals.Instance.onSaveMineBaseData -= OnSyncMineBaseDatas;
+        InitializeDataSignals.Instance.onSaveMilitaryBaseData -= OnSyncMilitaryBaseData;
+        InitializeDataSignals.Instance.onSaveBuyablesData -= OnSyncBuyablesData;
+        InitializeDataSignals.Instance.onSaveGameScore -= OnSyncScoreData;
 
         InitializeDataSignals.Instance.onLoadMilitaryBaseData -= OnLoadMilitaryBaseData;
         InitializeDataSignals.Instance.onLoadBaseRoomData -= OnLoadBaseRoomData;
         InitializeDataSignals.Instance.onLoadBuyablesData -= OnLoadBuyablesData;
         InitializeDataSignals.Instance.onLoadMineBaseData -= OnLoadMineBaseData;
+        InitializeDataSignals.Instance.onLoadGameScore -= OnLoadScoreData;
+
     }
     private void OnDisable()
     {
@@ -125,7 +131,7 @@ public class DataInitManager : MonoBehaviour, ISavable
 
     public void Save(int uniqueId)
     {
-        CD_Level cdLevel = new CD_Level(_levelID, levelDatas);
+        cdLevel = new CD_Level(_levelID, levelDatas, _scoreData);
         SaveLoadSignals.Instance.onSaveLevelData.Invoke(cdLevel, uniqueId);
     }
 
@@ -153,24 +159,29 @@ public class DataInitManager : MonoBehaviour, ISavable
     {
         cdLevel.LevelID = levelID;
     }
-    private void SyncBaseRoomDatas(BaseRoomDatas baseRoomData)
+    private void OnSyncBaseRoomDatas(BaseRoomDatas baseRoomData)
     {
         cdLevel.LevelDatas[_levelID].BaseData.BaseRoomDatas = baseRoomData;
     }
 
-    private void SyncMineBaseDatas(MineBaseData mineBaseData)
+    private void OnSyncMineBaseDatas(MineBaseData mineBaseData)
     {
         cdLevel.LevelDatas[_levelID].BaseData.MineBaseData = mineBaseData;
     }
 
-    private void SyncMilitaryBaseData(MilitaryBaseData militaryBaseData)
+    private void OnSyncMilitaryBaseData(MilitaryBaseData militaryBaseData)
     {
         cdLevel.LevelDatas[_levelID].BaseData.MilitaryBaseData = militaryBaseData;
     }
 
-    private void SyncBuyablesData(BuyablesData buyablesData)
+    private void OnSyncBuyablesData(BuyablesData buyablesData)
     {
         cdLevel.LevelDatas[_levelID].BaseData.BuyablesData = buyablesData;
+    }
+
+    private void OnSyncScoreData(ScoreData scoreData)
+    {
+        cdLevel.ScoreData = scoreData;
     }
 
     private MilitaryBaseData OnLoadMilitaryBaseData()
@@ -188,6 +199,16 @@ public class DataInitManager : MonoBehaviour, ISavable
     private BuyablesData OnLoadBuyablesData()
     {
         return _buyablesData;
+    }
+
+    private ScoreData OnLoadScoreData()
+    {
+        return _scoreData;
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save(_uniqueID);
     }
 
     #endregion

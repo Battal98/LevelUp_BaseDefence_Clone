@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Data.ValueObject.LevelDatas;
+using Data.ValueObjects;
 using Interfaces;
 
 namespace Data.UnityObject
@@ -9,19 +10,22 @@ namespace Data.UnityObject
     public class CD_Level : ScriptableObject, ISavableEntity
     {
         public List<LevelData> LevelDatas = new List<LevelData>();
+
+        public ScoreData ScoreData;
+
         public int LevelID;
-        private string Key = "LevelData";
 
         public CD_Level()
         {
 
         }
-        public CD_Level(int levelindex, List<LevelData> levelDatas)
+        public CD_Level(int levelId, List<LevelData> levelDatas, ScoreData scoreData)
         {
-            LevelID = levelindex;
+            LevelID = levelId;
             LevelDatas = levelDatas;
-
+            ScoreData = scoreData;
         }
+        public string Key = "LevelData";
         public string GetKey()
         {
             return Key;

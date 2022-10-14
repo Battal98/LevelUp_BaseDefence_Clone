@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Controllers
 {
-    public class PlayerWalletController : MonoBehaviour
+    public class PlayerWalletController : MonoBehaviour, ICustomer
     {
         #region Self Variables
 
@@ -29,12 +29,13 @@ namespace Controllers
         #endregion
 
         #endregion
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent<Stackable>(out Stackable stackable))
             {
                 CollectMoney(stackable);
-                CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(+1);
+               // CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(+10);
             }
             if (other.TryGetComponent<StackableGem>(out StackableGem stackableGem))
             {
@@ -52,26 +53,18 @@ namespace Controllers
         }
 
         #region Paying Interaction
-        public bool HasMoney { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
-        public async void MakePayment()
+        public bool CanPay { get => CoreGameSignals.Instance.onHasEnoughMoney.Invoke(); set { } }
+        public void MakePayment()
         {
-            while (true)
+            if (!CanPay)
             {
-                CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(-1);
-                if (HasMoney && _canPay)
-                {
-                    await Task.Delay(100);
-                    continue;
-                }
-                break;
+                CoreGameSignals.Instance.onStopMoneyPayment?.Invoke();
+                return;
             }
+            CoreGameSignals.Instance.onStartMoneyPayment?.Invoke();
         }
-        public async void StopPayment()
-        {
-            _canPay = false;
-            await Task.Delay(200);
-            _canPay = true;
-        }
+
+
         #endregion
     }
 }

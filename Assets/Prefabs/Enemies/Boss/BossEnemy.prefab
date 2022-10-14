@@ -658,7 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5522458972541449136}
   - component: {fileID: 1892527764934601162}
-  - component: {fileID: 8986287383302768309}
+  - component: {fileID: 5210437099717315896}
   m_Layer: 0
   m_Name: Character_02
   m_TagString: Untagged
@@ -701,7 +701,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8986287383302768309
+--- !u!114 &5210437099717315896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombHolder: {fileID: 8986287383595011284}
   bossBrain: {fileID: 8986287384279758475}
-  isPathActiveRunTime: 0
+  isPathActiveRunTime: 1
   SpriteTarget: {fileID: 0}
 --- !u!1 &5249041220852981566
 GameObject:

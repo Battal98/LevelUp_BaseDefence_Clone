@@ -8,7 +8,7 @@ namespace Data.ValueObject.LevelDatas
     [Serializable]
     public class TurretData: ISavableEntity
     {
-        public AvabilityState AvabilityState; // player etkilesime gecebilir mi?
+        public AvabilityType AvabilityState; // player etkilesime gecebilir mi?
         public bool HasTurretSoldier; // Has turret soldier savelenecek data
         public int TurretAmmoCapacity;
         public int TurretDamage;

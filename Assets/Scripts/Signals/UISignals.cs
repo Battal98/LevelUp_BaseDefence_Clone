@@ -8,6 +8,7 @@ namespace Signals
     {
         public UnityAction<UIPanels> onOpenPanel;
         public UnityAction<UIPanels> onClosePanel;
-        public UnityAction<int> onSetScoreText;
+        public UnityAction<int> onUpdateMoneyScore = delegate (int arg0) { };
+        public UnityAction<int> onUpdateGemScore = delegate (int arg0) { };
     }
 }

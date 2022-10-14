@@ -4,6 +4,7 @@ using Enums;
 using Signals;
 using StateMachines.AIBrain.Enemy;
 using Data.ValueObjects;
+using DG.Tweening;
 
 public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolObject
 {
@@ -27,6 +28,8 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
     [SerializeField]
     private BossEnemyBrain bossBrain;
 
+    [SerializeField]
+    private BombPhysicController bombPhysicController;
 
     [SerializeField]
     private bool isPathActiveRunTime = true;
@@ -42,14 +45,8 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
         _throwData = Resources.Load<CD_Throw>("Data/CD_Throw").ThrowData;
     }
 
-    private void Update()
-    {
-        if(isPathActiveRunTime && bossBrain.PlayerTarget && _throwBomb)
-            DrawPath();
-    }
     public void ThrowFunc()
     {
-        Debug.Log("Throw in Time");
         if (_throwBomb)
         {
             _throwBomb.transform.SetParent(null);
@@ -91,16 +88,18 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * _throwData.Gravity * _throwData.Height); // y de ki velocity hesabi
         Vector3 velocityXZ = distXZ / time; // zamana bagli olarak alacagi yol 
 
-        Invoke(nameof(DeactiveSpriteTargetDelay), time);
-
+        DOVirtual.DelayedCall(time ,() => DeactiveSpriteTargetDelay());
 
         return new ThrowInputData(velocityXZ + velocityY * -Mathf.Sign(_throwData.Gravity), time);
     }
     private void DeactiveSpriteTargetDelay()
     {
+        bombPhysicController.enabled = true;
         SpriteTarget.SetActive(false);
+        bombPhysicController.enabled = false;
     }
 
+    /*
     private void DrawPath()
     {
         ThrowInputData launchData = CalculateThrowData();
@@ -115,7 +114,7 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
             Debug.DrawLine(previousDrawPoint, drawPoint, Color.green);
             previousDrawPoint = drawPoint;
         }
-    }
+    }*/
 
     public void ReleaseObject(GameObject obj, PoolType poolType)
     {

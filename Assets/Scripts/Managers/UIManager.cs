@@ -12,8 +12,15 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private UIPanelController uiPanelController;
-        [SerializeField] private LevelPanelController levelPanelController;
+        [SerializeField] 
+        private UIPanelController uiPanelController;
+        [SerializeField] 
+        private LevelPanelController levelPanelController;
+        [SerializeField]
+        private TextMeshProUGUI gemText;
+        [SerializeField]
+        private TextMeshProUGUI moneyText;
+
 
         #endregion
 
@@ -36,11 +43,11 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
+            UISignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
+            UISignals.Instance.onUpdateGemScore += OnUpdateGemScore;
 
             CoreGameSignals.Instance.onGetGameState += OnGetGameState;
             CoreGameSignals.Instance.onPlay += OnPlay;
-            CoreGameSignals.Instance.onUpdateMoneyScore += OnUpdateMoneyScore;
-            CoreGameSignals.Instance.onUpdateGemScore += OnUpdateGemScore;
 
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             LevelSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
@@ -51,11 +58,11 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
+            UISignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
+            UISignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
 
             CoreGameSignals.Instance.onGetGameState -= OnGetGameState;
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            CoreGameSignals.Instance.onUpdateMoneyScore -= OnUpdateMoneyScore;
-            CoreGameSignals.Instance.onUpdateGemScore -= OnUpdateGemScore;
 
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             LevelSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
@@ -145,24 +152,15 @@ namespace Managers
             }
         }
 
-        private int totalGemValue;
-        private int totalMoneyValue;
-        [SerializeField]
-        private TextMeshProUGUI gemText;
-        [SerializeField]
-        private TextMeshProUGUI moneyText;
-
         private void OnUpdateGemScore(int gemValue)
         {
-            totalGemValue += gemValue;
-            gemText.text = totalGemValue.ToString();
 
+            gemText.text = gemValue.ToString();
         }
 
         private void OnUpdateMoneyScore(int moneyValue)
         {
-            totalMoneyValue += moneyValue;
-            moneyText.text = totalMoneyValue.ToString();
+            moneyText.text = moneyValue.ToString();
         }
     }
 }

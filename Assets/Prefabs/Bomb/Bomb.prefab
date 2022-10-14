@@ -171,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5619930522692175203}
   - component: {fileID: 7178294310077088717}
+  - component: {fileID: 6056636291323986479}
   m_Layer: 23
   m_Name: Physic
   m_TagString: Untagged
@@ -205,6 +206,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6056636291323986479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132648973057556867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499b61b3a76b2f140ac4c8e743ee4af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1380752035963327856
 PrefabInstance:
   m_ObjectHideFlags: 0

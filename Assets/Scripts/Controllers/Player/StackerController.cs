@@ -93,7 +93,7 @@ namespace Controllers
             GetStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
             {
                 removedStack.transform.rotation = Quaternion.LookRotation(transform.forward);
-
+                CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(+10);
                 StackList.Remove(removedStack);
                 removedStack.transform.DOLocalMove(transform.localPosition, .1f).OnComplete(() =>
                 {

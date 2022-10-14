@@ -13,6 +13,6 @@ namespace Data.ValueObject.LevelDatas
 
         public int MoneyWorkerLevel;
         public int AmmoWorkerLevel;
-        public AvabilityState AvabilityState;
+        public AvabilityType AvabilityState;
     }
 }
