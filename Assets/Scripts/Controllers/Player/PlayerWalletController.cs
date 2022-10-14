@@ -35,7 +35,6 @@ namespace Controllers
             if (other.TryGetComponent<Stackable>(out Stackable stackable))
             {
                 CollectMoney(stackable);
-               // CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(+10);
             }
             if (other.TryGetComponent<StackableGem>(out StackableGem stackableGem))
             {
