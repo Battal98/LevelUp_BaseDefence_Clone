@@ -13,6 +13,9 @@ namespace StateMachines.AIBrain.Enemy.States
         private readonly float _attackRange;
         private readonly float _chaseSpeed;
 
+        private static readonly string Move = "Move";
+        private static readonly int Run = Animator.StringToHash("Run");
+
         private bool _inAttack = false;
         public bool InPlayerAttackRange() => _inAttack;
 
@@ -30,11 +33,9 @@ namespace StateMachines.AIBrain.Enemy.States
             {
                 _inAttack = false;
                 _navMeshAgent.speed = _chaseSpeed;
-                _animator.SetTrigger("Run");
+                _animator.SetTrigger(Run);
                 _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
-
             }
-
         }
 
         public void OnExit()
@@ -47,6 +48,7 @@ namespace StateMachines.AIBrain.Enemy.States
             if (_enemyAIBrain.PlayerTarget)
             {
                 _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+                _animator.SetFloat(Move, _navMeshAgent.velocity.magnitude);
                 CheckDistanceChase();
             }
         }

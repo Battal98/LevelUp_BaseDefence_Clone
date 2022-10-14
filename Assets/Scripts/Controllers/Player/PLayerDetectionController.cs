@@ -16,7 +16,6 @@ namespace Controllers
             if (manager.CurrentAreaType == AreaTypes.BaseDefense) return;
             if (other.TryGetComponent(out IDamagable damagable))
             {
-                Debug.Log("Entry");
                 if (damagable.IsTaken) return;
                 manager.EnemyList.Add(damagable);
                 if (manager.EnemyTarget == null)

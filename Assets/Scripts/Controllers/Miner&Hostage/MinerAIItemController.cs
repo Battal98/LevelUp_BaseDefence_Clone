@@ -56,7 +56,7 @@ namespace Controllers
             }
             if (MinerItems.Gem == currentItem)
             {
-                gem = GetObjectType(PoolType.Gem);
+                gem = GetObject(PoolType.Gem);
                 gem.transform.parent=gemHolder;
                 //gem.Cop
                 gem.transform.localPosition=Vector3.zero;
@@ -77,7 +77,7 @@ namespace Controllers
             PoolSignals.Instance.onReleaseObjectFromPool(poolType,obj);
         }
 
-        public GameObject GetObjectType(PoolType poolType)
+        public GameObject GetObject(PoolType poolType)
         {
             return PoolSignals.Instance.onGetObjectFromPool(poolType);
         }

@@ -30,9 +30,6 @@ namespace StateMachines.AIBrain.Workers
         [BoxGroup("Serializable Variables")]
         [SerializeField]
         private WorkerType workerType;
-        [BoxGroup("Serializable Variables")]
-        [SerializeField]
-        private MoneyWorkerPhysicController moneyWorkerDetector;
 
         #endregion
 
@@ -59,7 +56,7 @@ namespace StateMachines.AIBrain.Workers
         #region Worker Game Variables
         [ShowInInspector]
         private int _currentStock = 0;
-        private float _delay = 0.05f;
+        private const float _delay = 0.05f;
 
         #endregion
 
@@ -71,41 +68,12 @@ namespace StateMachines.AIBrain.Workers
         {
             _workerTypeData = GetWorkerType();
             SetWorkerComponentVariables();
-            InitWorker();
         }
 
         private void Start()
         {
             GetReferenceStates();
         }
-
-        /*#region Event Subscriptions
-
-        private void OnEnable()
-        {
-            SubscribeEvents();
-        }
-
-        private void SubscribeEvents()
-        {
-            EnemySignals.Instance.onEnemyDead += OnGetEnemyPositon;
-        }
-        private void UnsubscribeEvents()
-        {
-            EnemySignals.Instance.onEnemyDead -= OnGetEnemyPositon;
-        }
-
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
-        }
-        private void OnGetEnemyPositon(Transform pos)
-        {
-            moneyTargetList.Add(pos);
-        }
-
-        #endregion*/
-
 
         #region Data Jobs
 
@@ -154,10 +122,7 @@ namespace StateMachines.AIBrain.Workers
         #endregion
 
         #region General Jobs
-        private void InitWorker()
-        {
 
-        }
         public bool IsAvailable() => _currentStock < _workerTypeData.CapacityOrDamage;
 
         public void SetDest()
@@ -170,7 +135,6 @@ namespace StateMachines.AIBrain.Workers
         public void SetInitPosition(Vector3 slotPosition)
         {
             waitPos = slotPosition;
-            Debug.Log(waitPos);
         }
 
         public Transform GetMoneyPosition()
@@ -191,9 +155,7 @@ namespace StateMachines.AIBrain.Workers
             if(isStartedSearch)
                 StartCoroutine(SearchTarget());
             else
-            {
                 StopCoroutine(SearchTarget());
-            }
         }
 
         public void SetCurrentStock()

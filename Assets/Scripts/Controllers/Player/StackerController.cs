@@ -133,7 +133,7 @@ namespace Controllers
             return new Vector3(randomRotationX,randomRotationY,randomRotationZ);
         }
 
-        public GameObject GetObjectType(PoolType poolType)
+        public GameObject GetObject(PoolType poolType)
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolType);
         }

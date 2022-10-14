@@ -5,6 +5,6 @@ namespace Interfaces
 {
     public interface IGetPoolObject
     {
-        GameObject GetObjectType(PoolType poolType);
+        GameObject GetObject(PoolType poolType);
     }
 }

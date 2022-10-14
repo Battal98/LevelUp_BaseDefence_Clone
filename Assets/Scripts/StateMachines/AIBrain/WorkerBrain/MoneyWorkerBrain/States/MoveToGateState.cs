@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Interfaces;
+using DG.Tweening;
 
 namespace StateMachines.AIBrain.Workers.MoneyStates
 {
@@ -25,12 +24,14 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         public void OnEnter()
         {
             //isWalking anim
-            _navmeshAgent.SetDestination(_gateTarget);
+            Debug.Log(_gateTarget);
             _navmeshAgent.speed = _speed;
+            _navmeshAgent.SetDestination(_gateTarget);
         }
 
         public void OnExit()
         {
+            _navmeshAgent.transform.DORotate(Vector3.zero,0.5f);
             IsArrive = false;
         }
 
@@ -38,9 +39,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         {
             _animator.SetFloat(Speed, _navmeshAgent.velocity.magnitude);
             if (_navmeshAgent.remainingDistance <= 0.1f)
-            {
-                IsArrive=true;
-            }
+                IsArrive =true;
         }
     } 
 }

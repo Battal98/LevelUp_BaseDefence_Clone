@@ -63,7 +63,7 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
         if (bossBrain.PlayerTarget)
             bossBrain.transform.LookAt(bossBrain.PlayerTarget, Vector3.up);
 
-        _throwBomb = GetObjectType(PoolType.Bomb);
+        _throwBomb = GetObject(PoolType.Bomb);
         var rb = _throwBomb.GetComponent<Rigidbody>();
         rb.useGravity = false;
         _throwBomb.transform.SetParent(bombHolder);
@@ -122,7 +122,7 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
         PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolType, obj);
     }
 
-    public GameObject GetObjectType(PoolType poolType)
+    public GameObject GetObject(PoolType poolType)
     {
         return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolType);
     }

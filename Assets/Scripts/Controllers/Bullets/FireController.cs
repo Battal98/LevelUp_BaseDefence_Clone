@@ -12,7 +12,7 @@ namespace Controllers
         {
             _weaponTypes = weaponType;
         }
-        public GameObject GetObjectType(PoolType poolName)
+        public GameObject GetObject(PoolType poolName)
         {
             var obj = PoolSignals.Instance.onGetObjectFromPool.Invoke(poolName);
             return obj;
@@ -20,8 +20,8 @@ namespace Controllers
         public void FireBullets(Transform aim)
         {
             var poolType = (PoolType)System.Enum.Parse(typeof(PoolType), _weaponTypes.ToString());
-            var bullet = GetObjectType(poolType);
-            Debug.Log("fireBullet: " + bullet + " Aim: " + aim);
+            var bullet = GetObject(poolType);
+            //Debug.Log("fireBullet: " + bullet + " Aim: " + aim);
             bullet.transform.position = aim.position;
             bullet.transform.rotation = aim.rotation;
         }

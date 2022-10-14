@@ -74,7 +74,7 @@ namespace Managers
         {
             _isTentAvaliable = true;
         }
-        public GameObject GetObjectType(PoolType poolName)
+        public GameObject GetObject(PoolType poolName)
         {
             var soldierAIPrefab = PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
             var soldierBrain = soldierAIPrefab.GetComponent<SoldierAIBrain>();
@@ -111,7 +111,7 @@ namespace Managers
             if (!_isTentAvaliable) return;
             if (_soldierAmount < _data.TentCapacity)
             {
-                GetObjectType(PoolType.SoldierAI);
+                GetObject(PoolType.SoldierAI);
                 _soldierAmount += 1;
             }
             else

@@ -35,7 +35,7 @@ namespace StateMachines.AIBrain.Soldier.States
             _timer -= Time.deltaTime * _attackTime;
             if (_timer <= 0)
             {
-                _soldierAIBrain.GetObjectType(PoolType.PistolBullet);
+                _soldierAIBrain.GetObject(PoolType.PistolBullet);
                 _timer = 0.2f;
             }
         }

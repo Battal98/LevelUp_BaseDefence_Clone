@@ -1220,18 +1220,18 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.52
-  m_Speed: 1.529528
-  m_Acceleration: 8
+  m_Speed: 2.294292
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.28
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &5455066261541432746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,7 +1246,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentTarget: {fileID: 0}
   workerType: 1
-  moneyWorkerDetector: {fileID: 5455066261640143878}
 --- !u!1 &5455066261640143994
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ namespace StateMachines.AIBrain.Enemy.States
             _brain = brain; 
             _type = type;
         }
-        public GameObject GetObjectType(PoolType poolName)
+        public GameObject GetObject(PoolType poolName)
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
@@ -35,13 +35,19 @@ namespace StateMachines.AIBrain.Enemy.States
         public void OnEnter()
         {
             var poolType = (PoolType)Enum.Parse(typeof(PoolType), _type);
+            
             _navMeshAgent.enabled = false;
             _animator.SetTrigger("Die");
+            _brain.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.grey;
+
+            EnemySignals.Instance.onReleaseObjectUpdate?.Invoke(_brain.gameObject);
             ParticleSignals.Instance.onPlayParticleWithSetColor?.Invoke(ParticleType.EnemyDeath,_brain.transform.position,_brain.transform.rotation,Color.red);
+            
             EnemyDoDead(poolType);
+            
             for (int i = 0; i < 3; i++)
             {
-                var creatableObj = GetObjectType(PoolType.Money);
+                var creatableObj = GetObject(PoolType.Money);
                 creatableObj.transform.position = _brain.transform.position;
             }
         }

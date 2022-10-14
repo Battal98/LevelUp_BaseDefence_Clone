@@ -10,7 +10,6 @@ using Signals;
 
 namespace Managers
 {
-
     public class PoolManager : MonoBehaviour
     {
 
@@ -77,6 +76,7 @@ namespace Managers
             _listCountCache = (int)poolType;
             obj.transform.parent = this.transform;
             obj.transform.position = Vector3.zero;
+            obj.transform.rotation = new Quaternion(0, 0, 0,0).normalized;
             ObjectPoolManager.Instance.ReturnObject<GameObject>(obj, poolType.ToString());
         }
 

@@ -19,11 +19,11 @@ MonoBehaviour:
       Damage: 1
       AttackRange: 2
       AttackSpeed: 0.5
-      ScaleSize: {x: 1, y: 1, z: 1}
+      ScaleSize: {x: 1.5, y: 1.5, z: 1.5}
       BodyColor: {r: 1, g: 0.5587921, b: 0, a: 1}
-      ChaseSpeed: 6
-      MoveSpeed: 5
-      NavMeshRadius: 0.3
+      ChaseSpeed: 5.273528
+      MoveSpeed: 3.059056
+      NavMeshRadius: 0.2
       NavMeshHeight: 2
     - EnemyType: 1
       Health: 50
@@ -32,9 +32,9 @@ MonoBehaviour:
       AttackSpeed: 1
       ScaleSize: {x: 2, y: 2, z: 2}
       BodyColor: {r: 1, g: 0.19339621, b: 0.19339621, a: 1}
-      ChaseSpeed: 5
-      MoveSpeed: 4
-      NavMeshRadius: 0.5
+      ChaseSpeed: 5.273528
+      MoveSpeed: 3.059056
+      NavMeshRadius: 0.2
       NavMeshHeight: 2
     - EnemyType: 2
       Health: 100
@@ -43,9 +43,9 @@ MonoBehaviour:
       AttackSpeed: 3
       ScaleSize: {x: 3, y: 3, z: 3}
       BodyColor: {r: 0.3301887, g: 0, b: 0, a: 1}
-      ChaseSpeed: 4
-      MoveSpeed: 3
-      NavMeshRadius: 0.7
+      ChaseSpeed: 5.273528
+      MoveSpeed: 3.059056
+      NavMeshRadius: 0.42
       NavMeshHeight: 2.5
     - EnemyType: 3
       Health: 250
@@ -58,5 +58,8 @@ MonoBehaviour:
       MoveSpeed: 0
       NavMeshRadius: 0
       NavMeshHeight: 0
-    SpawnPosList:
-    - {fileID: 2657516974325152671, guid: e43d4933910e9584b96d8832baf95247, type: 3}
+    enemySpawnData:
+      SpawnAmount: 30
+      SpawnDelay: 0.5
+      MaxRandomRange: 101
+      MaxRandomPercentage: 30

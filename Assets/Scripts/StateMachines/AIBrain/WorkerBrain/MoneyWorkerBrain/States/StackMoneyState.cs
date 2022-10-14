@@ -37,7 +37,7 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         }
         public void Tick()
         {
-            if (_navmeshAgent.remainingDistance <= 0.2f)
+            if (_navmeshAgent.remainingDistance <= 0.1f)
             {
                 _moneyWorkerAIBrain.CurrentTarget = null;
                 isArrive = true;

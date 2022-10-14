@@ -9,15 +9,20 @@ namespace Controllers
     public class PlayerShootingController : MonoBehaviour
     {
 
+        #region Serializable Variables
+
         [SerializeField]
         private PlayerManager manager;
-
         [SerializeField]
         private Transform aim;
 
-        private FireController fireController;
+        #endregion
 
-        private int Speed = 30;
+        #region Private Variables
+
+        private FireController fireController; 
+
+        #endregion
         private void Awake()
         {
             fireController = new FireController(manager.WeaponType);

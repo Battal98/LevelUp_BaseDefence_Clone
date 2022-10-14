@@ -85,7 +85,7 @@ namespace StateMachines.AIBrain.Soldier
             _health = _data.Health;
             _spawnPoint = _data.SpawnPoint;
         }
-        public GameObject GetObjectType(PoolType poolName)
+        public GameObject GetObject(PoolType poolName)
         {
             var bulletPrefab = PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
             bulletPrefab.transform.position = weaponHolder.position;

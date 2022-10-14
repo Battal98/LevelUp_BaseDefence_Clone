@@ -37,9 +37,9 @@ namespace Interfaces
 
         }
 
-        public virtual void SendPosition(StackableMoney transform)
+        public virtual void SendStackable(Stackable stackableMoney)
         {
-            DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetMoneyPosition?.Invoke(transform));
+            DOVirtual.DelayedCall(0.1f, () => MoneyWorkerSignals.Instance.onSetStackable?.Invoke(stackableMoney));
         }
 
         public abstract GameObject SendToStack();

@@ -11,7 +11,9 @@ namespace StateMachines.AIBrain.Enemy.States
         private readonly Animator _animator;
         private readonly float _moveSpeed;
         private readonly Transform _turretTarget;
-        private static readonly int Speed = Animator.StringToHash("Speed");
+
+        private static readonly string Move = "Move";
+        private static readonly int Run = Animator.StringToHash("Run");
 
         public MoveState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain enemyAIBrain , float moveSpeed, ref Transform turretTarget)
         {
@@ -28,19 +30,18 @@ namespace StateMachines.AIBrain.Enemy.States
                 _navMeshAgent.enabled = true;
                 _navMeshAgent.speed = _moveSpeed;
                 _navMeshAgent.SetDestination(_turretTarget.position);
-                _animator.SetTrigger("Walk");
+                _animator.SetTrigger(Run);
             }
-            //_animator.SetInteger(Speed, 1);
         }
 
         public void OnExit()
         {
-            //_animator.SetInteger(Speed, 0);
         }
 
         public void Tick()
         {
-
+            _animator.SetFloat(Move, _navMeshAgent.velocity.magnitude);
         }
+
     } 
 }

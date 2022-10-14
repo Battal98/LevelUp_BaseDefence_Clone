@@ -64,7 +64,7 @@ namespace Managers
         {
             for (int index = 0; index < _mineBaseData.CurrentWorkerAmount; index++)
             {
-                GameObject _currentObject = GetObjectType(PoolType.MinerWorkerAI);
+                GameObject _currentObject = GetObject(PoolType.MinerWorkerAI);
                 _currentObject.transform.position = instantiationPosition.position;
                 MinerAIBrain _currentMinerAIBrain=_currentObject.GetComponent<MinerAIBrain>();
                 _mineWorkers.Add(_currentMinerAIBrain,_currentObject);
@@ -120,7 +120,7 @@ namespace Managers
                 :Tuple.Create(minePlaces[randomMineTargetIndex],GemMineType.Mine);//Tuple ile enum donecek maden tipine gore animasyon degisecek stateler uzerinden
         }
 
-        public GameObject GetObjectType(PoolType poolType)
+        public GameObject GetObject(PoolType poolType)
         {
             return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolType);
         }

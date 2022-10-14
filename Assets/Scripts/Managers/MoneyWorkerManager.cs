@@ -21,7 +21,7 @@ namespace Managers
         #region Private Variables
 
         [ShowInInspector]
-        private List<StackableMoney> _targetList = new List<StackableMoney>();
+        private List<Stackable> _targetList = new List<Stackable>();
         [ShowInInspector]
         private List<MoneyWorkerAIBrain> _workerList = new List<MoneyWorkerAIBrain>();
         [ShowInInspector]
@@ -42,34 +42,29 @@ namespace Managers
             MoneyWorkerSignals.Instance.onGetMoneyAIData += OnGetWorkerAIData;
             MoneyWorkerSignals.Instance.onGetTransformMoney += OnSendMoneyPositionToWorkers;
             MoneyWorkerSignals.Instance.onThisMoneyTaken += OnThisMoneyTaken;
-            MoneyWorkerSignals.Instance.onSetMoneyPosition += OnAddMoneyPositionToList;
-            //MoneyWorkerSignals.Instance.onSendWaitPosition += OnSendWaitPosition;
+            MoneyWorkerSignals.Instance.onSetStackable += OnAddStackableToList;
         }
 
         private void UnsubscribeEvents()
         {
             MoneyWorkerSignals.Instance.onGetMoneyAIData -= OnGetWorkerAIData;
             MoneyWorkerSignals.Instance.onThisMoneyTaken -= OnThisMoneyTaken;
-            MoneyWorkerSignals.Instance.onSetMoneyPosition -= OnAddMoneyPositionToList;
+            MoneyWorkerSignals.Instance.onSetStackable -= OnAddStackableToList;
             MoneyWorkerSignals.Instance.onGetTransformMoney -= OnSendMoneyPositionToWorkers;
-            //MoneyWorkerSignals.Instance.onSendWaitPosition -= OnSendWaitPosition;
         }
 
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
+        #endregion
 
         private WorkerAITypeData OnGetWorkerAIData(WorkerType type)
         {
             return Resources.Load<CD_WorkerAI>("Data/CD_WorkerAI").WorkerAIData.WorkerAITypes[(int)type];
         }
-        /*private Vector3 OnSendWaitPosition()
-        {
-            return _slotTransformList;
-        }*/
 
-        private void OnAddMoneyPositionToList(StackableMoney pos)
+        private void OnAddStackableToList(Stackable pos)
         {
             _targetList.Add(pos);
         }
@@ -79,10 +74,9 @@ namespace Managers
             if (_targetList.Count == 0)
                 return null;
 
-            var _targetT = _targetList.OrderBy(t => Vector3.Distance(t.transform.position, workerTransform.transform.position))
+            var _targetT = _targetList.OrderBy(t => (t.transform.position - workerTransform.transform.position).sqrMagnitude)
             .Where(t => !t.IsSelected)
-            .Take(_targetList.Count)
-            .OrderBy(t => UnityEngine.Random.Range(0, int.MaxValue))
+            .Take(_targetList.Count - 1)
             .LastOrDefault();
             _targetT.IsSelected = true;
             return _targetT.transform;
@@ -99,12 +93,9 @@ namespace Managers
             _targetList.Remove(removedObj);
             _targetList.TrimExcess();
 
-            for (int i = 0; i < _workerList.Count; i++)
+            foreach (var t in _workerList.Where(t => t.CurrentTarget == removedObj))
             {
-                if (_workerList[i].CurrentTarget == removedObj)
-                {
-                    SendMoneyPositionToWorkers(_workerList[i].transform);
-                }
+                SendMoneyPositionToWorkers(t.transform);
             }
         }
 
@@ -126,7 +117,9 @@ namespace Managers
         [Button("Add Money Worker")]
         private void CreateMoneyWorker()
         {
-            var obj = GetObjectType(PoolType.MoneyWorkerAI) ;
+            if (OnGetWorkerAIData(WorkerType.MoneyWorkerAI).CurrentWorkerValue == 5)
+                return;
+            var obj = GetObject(PoolType.MoneyWorkerAI);
             var objComp = obj.GetComponent<MoneyWorkerAIBrain>();
             _workerList.Add(objComp);
             SetWorkerPosition(objComp);
@@ -142,7 +135,7 @@ namespace Managers
                 _workerList.Remove(obj);
             }
         }
-        public GameObject GetObjectType(PoolType poolName)
+        public GameObject GetObject(PoolType poolName)
         {
            return PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
         }
@@ -151,6 +144,6 @@ namespace Managers
         {
             PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolName, obj);
         }
-        #endregion
+
     }
 }

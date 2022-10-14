@@ -46,7 +46,6 @@ namespace StateMachines.AIBrain.Enemy
         private StateMachine _stateMachine;
         private Animator _animator;
         private NavMeshAgent _navmeshAgent;
-        private int _levelID;
 
         #region States
 
@@ -56,6 +55,7 @@ namespace StateMachines.AIBrain.Enemy
         private AttackState _attackState;
         private MoveToBombState _moveToBombState;
         private DeathState _deathState;
+        private BaseAttackState _baseAttackState;
 
         #endregion
 
@@ -73,7 +73,8 @@ namespace StateMachines.AIBrain.Enemy
 
         private void Awake()
         {
-            _levelID = LevelSignals.Instance.onGetLevel();
+            _spawnPoint = EnemySignals.Instance.onGetSpawnTransform?.Invoke();
+            _turretTarget = EnemySignals.Instance.onGetTargetTransform?.Invoke();
             _enemyAIData = GetAIData();
             _enemyTypeData = GetEnemyType();
             SetEnemyVariables();
@@ -97,8 +98,6 @@ namespace StateMachines.AIBrain.Enemy
             _animator = GetComponentInChildren<Animator>();
             //datadan health'ý tekrar çekmen gerekebilir
             Health = _enemyTypeData.Health;
-            _spawnPoint = _enemyAIData.SpawnPosList[_levelID];
-            _turretTarget = _enemyAIData.SpawnPosList[_levelID].GetChild(UnityEngine.Random.Range(0, _enemyAIData.SpawnPosList[_levelID].childCount)) ;
         }
 
         private void InitEnemy()
@@ -122,6 +121,8 @@ namespace StateMachines.AIBrain.Enemy
             _attackState = new AttackState(_navmeshAgent, _animator, this, _enemyTypeData.AttackRange);
             _moveToBombState = new MoveToBombState(_navmeshAgent, _animator);
             _deathState = new DeathState(_navmeshAgent, _animator, this, enemyType.ToString());
+            _baseAttackState = new BaseAttackState(_navmeshAgent, _animator);
+
 
             //Statemachine statelerden sonra tanimlanmali ?
             _stateMachine = new StateMachine();
@@ -131,6 +132,10 @@ namespace StateMachines.AIBrain.Enemy
             At(_chaseState, _attackState, IAttackPlayer()); // remaining distance<1f and playerinattackrange
             At(_chaseState, _moveState, HasNoTargetPlayer());
             At(_attackState, _chaseState, INoAttackPlayer()); // remaining distance> 1f// remaining distance> 1f
+
+            At(_moveState, _baseAttackState, IsEnemyReachedBase());
+            At(_baseAttackState, _chaseState, HasTargetPlayer());
+
 
             _stateMachine.AddAnyTransition(_deathState, AmIDead());
             _stateMachine.AddAnyTransition(_moveToBombState, detector.IsBombInRange);
@@ -146,6 +151,9 @@ namespace StateMachines.AIBrain.Enemy
             Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
             Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
             Func<bool> AmIDead() => () => Health <= 0;
+
+            Func<bool> IsEnemyReachedBase() => () => _navmeshAgent.remainingDistance <= _enemyTypeData.AttackRange;
+
             /*Func<bool> AmIAttackBomb() => () => detector.IsBombInRange() &&
                                                         PlayerTarget == null;*/
             //Func<bool> AmIStuck() => () => _moveState.TimeStuck > 1f;

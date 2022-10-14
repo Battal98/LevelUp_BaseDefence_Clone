@@ -25,23 +25,12 @@ namespace Controllers
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (other.TryGetComponent(out PlayerPhysicsController controller))
             {
                 _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
                 //sinyalle çakmayý dene
-                _enemyAIBrain.PlayerTarget = other.transform;
+                _enemyAIBrain.PlayerTarget = _detectedPlayer;
             }
-
-            if (other.CompareTag("Bullet"))
-            {
-                //_enemyAIBrain._health = 0;
-                //collisionColliderObj.SetActive(false);
-            }
-
-            /*if (other.GetComponent<Mine>())
-            {
-                _detectedMine = other.GetComponent<Mine>();
-            }*/
         }
 
         private void OnTriggerExit(Collider other)
@@ -52,10 +41,6 @@ namespace Controllers
                 this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
             }
 
-            /*if (other.GetComponent<Mine>())
-            {
-
-            }*/
         }
     } 
 }

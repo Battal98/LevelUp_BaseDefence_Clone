@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Extentions
 {
-    public class StackableMoney : AStackable
+    public class Stackable : AStackable
     {
         [SerializeField] private Rigidbody rbody;
         [SerializeField] private BoxCollider col;
@@ -36,14 +36,14 @@ namespace Extentions
             base.PlayAnimation();
         }
 
-        public override void SendPosition(StackableMoney transform)
+        public override void SendStackable(Stackable transform)
         {
-            base.SendPosition(transform);
+            base.SendStackable(transform);
         }
 
         private void OnEnable()
         {
-            SendPosition(this);
+            SendStackable(this);
         }
 
         public override GameObject SendToStack()

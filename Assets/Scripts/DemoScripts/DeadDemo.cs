@@ -4,7 +4,7 @@ using Enums;
 using Signals;
 public class DeadDemo : MonoBehaviour,IGetPoolObject
 {
-    public GameObject GetObjectType(PoolType poolName)
+    public GameObject GetObject(PoolType poolName)
     {
         return  PoolSignals.Instance.onGetObjectFromPool?.Invoke(poolName);
     }
@@ -13,7 +13,7 @@ public class DeadDemo : MonoBehaviour,IGetPoolObject
     {
         for (int i = 0; i < 3; i++)
         {
-            var creatableObj = GetObjectType(PoolType.Money);
+            var creatableObj = GetObject(PoolType.Money);
             creatableObj.transform.position = this.transform.position;
         }
 

@@ -12,7 +12,7 @@ namespace Signals
     {
         public Func<WorkerType, WorkerAITypeData> onGetMoneyAIData = delegate { return null; };
         public UnityAction onSendMoneyPositionToWorkers = delegate { };
-        public UnityAction<StackableMoney> onSetMoneyPosition = delegate { };
+        public UnityAction<Stackable> onSetStackable = delegate { };
         public UnityAction onThisMoneyTaken = delegate { };
 
         public Func<Transform, Transform> onGetTransformMoney = delegate { return null; };
