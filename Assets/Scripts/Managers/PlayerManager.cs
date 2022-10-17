@@ -25,7 +25,7 @@ namespace Managers
 
         public Transform EnemyTarget;
 
-        public bool HasEnemyTarget = false;
+        public IDamageable Damageable;
 
         public int Health = 100;
 
@@ -102,7 +102,7 @@ namespace Managers
             animationController.AimTarget(true);
             AimEnemy();
         }
-        private void AimEnemy() => movementController.LookAtTarget(!HasEnemyTarget ? null : EnemyList[0]?.GetTransform());
+        private void AimEnemy() => movementController.LookAtTarget(!EnemyTarget ? null : EnemyList[0]?.GetTransform());
         public void CheckAreaStatus(AreaTypes areaType) => meshController.ChangeAreaStatus(CurrentAreaType = areaType);
         private void OnDisableMovement(InputType inputType) => movementController.DisableMovement(inputType);
         public void SetTurretAnim(bool onTurret) => animationController.PlayTurretAnimation(onTurret);

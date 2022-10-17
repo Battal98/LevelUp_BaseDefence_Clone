@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
+using Enums;
 
 namespace Managers
 {
@@ -17,98 +18,47 @@ namespace Managers
             }
         }
 
-        private readonly Dictionary<string, AbstractObjectPool> _pools;
+        private readonly Dictionary<PoolType, AbstractObjectPool> _pools;
 
         
         public ObjectPoolManager()
         {
-            _pools = new Dictionary<string, AbstractObjectPool>();
+            _pools = new Dictionary<PoolType, AbstractObjectPool>();
         }
 
-       
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
-        {
-            if(!_pools.ContainsKey(typeof(T)+"ByType"))
-                _pools.Add(typeof(T) + "ByType", new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
-        }
 
        
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, string poolName, int initialStock = 0, bool isDynamic = true)
+        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, PoolType poolName, int initialStock = 0, bool isDynamic = true)
         {
             if (!_pools.ContainsKey(poolName))
                 _pools.Add(poolName, new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
         }
 
         
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, bool isDynamic = true) where T : AbstractObjectPool, new()
-        {
-            if (!_pools.ContainsKey(typeof(T) + "ByType"))
-                _pools.Add(typeof(T) + "ByType", new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
-        }
-
-        
-        public void AddObjectPool<T>(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, List<T> initialStock, string poolName, bool isDynamic = true) where T : AbstractObjectPool, new()
-        {
-            if (!_pools.ContainsKey(poolName))
-                _pools.Add(poolName, new ObjectPool<T>(factoryMethod, turnOnCallback, turnOffCallback, initialStock, isDynamic));
-        }
-
-      
-        public void AddObjectPool(AbstractObjectPool pool)
-        {
-            if (!_pools.ContainsKey(pool.GetType() + "ByType"))
-                _pools.Add(pool.GetType() + "ByType", pool);
-        }
-
-        
-        public void AddObjectPool(AbstractObjectPool pool, string poolName)
+        public void AddObjectPool(AbstractObjectPool pool, PoolType poolName)
         {
             if (_pools.ContainsKey(poolName))
                 _pools.Add(poolName, pool);
         }
 
-        public ObjectPool<T> GetObjectPool<T>()
-        {
-            return (ObjectPool<T>)_pools[typeof(T) + "ByType"];
-        }
-
         
-        public ObjectPool<T> GetObjectPool<T>(string poolName)
+        public ObjectPool<T> GetObjectPool<T>(PoolType poolName)
         {
             return (ObjectPool<T>)_pools[poolName];
         }
 
        
-        public T GetObject<T>()
-        {
-            return ((ObjectPool<T>)_pools[typeof(T) + "ByType"]).GetObject();
-        }
-
-       
-        public T GetObject<T>(string poolName)
+        public T GetObject<T>(PoolType poolName)
         {
             return ((ObjectPool<T>)_pools[poolName]).GetObject();
         }
-
         
-        public void ReturnObject<T>(T o)
-        {
-            ((ObjectPool<T>)_pools[typeof(T) + "ByType"]).ReturnObject(o);
-        }
-        
-        public void ReturnObject<T>(T o, string poolName)
+        public void ReturnObject<T>(T o, PoolType poolName)
         {
             ((ObjectPool<T>)_pools[poolName]).ReturnObject(o);
         }
-        
-        public void RemovePool<T>()
-        {
-
-            _pools[typeof(T) + "ByType"] = null;
-        }
-
      
-        public void RemovePool(string poolName)
+        public void RemovePool(PoolType poolName)
         {
             _pools[poolName] = null;
         }

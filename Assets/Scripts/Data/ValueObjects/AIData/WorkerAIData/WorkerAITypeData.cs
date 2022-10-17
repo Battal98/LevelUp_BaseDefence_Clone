@@ -16,7 +16,7 @@ namespace Data.ValueObject.AIDatas
         [HideIf("WorkerType", WorkerType.SoldierAI)]
         public float MaxSpeed;
         [HideIf("WorkerType", WorkerType.SoldierAI)]
-        public int CurrentWorkerValue;
+        public int MaxWorkerValue;
 
         [ShowIf("WorkerType", WorkerType.SoldierAI)]
         public SoldierAIData SoldierAIData;

@@ -49,6 +49,24 @@ namespace Controllers
             });
             
         }
+
+        public void PaymentStackAnimation(Transform transform)
+        {
+            GetStackSequence = DOTween.Sequence();
+            var randomBouncePosition = CalculateRandomAddStackPositionWithObjTransform();
+            var randomRotation = CalculateRandomStackRotation();
+            var moneyObj = GetObject(PoolType.Money);
+            moneyObj.transform.position = this.transform.parent.transform.position;
+            moneyObj.GetComponent<Collider>().enabled = false;
+            GetStackSequence.Append(moneyObj.transform.DOMove(randomBouncePosition, .5f));
+            GetStackSequence.Join(moneyObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
+            {
+                moneyObj.transform.rotation = Quaternion.LookRotation(transform.forward);
+                moneyObj.transform.DOMove(transform.position, 0.3f).OnComplete(() => ReleaseObject(moneyObj, PoolType.Money));
+
+            });
+        }
+
         public void OnRemoveAllStack()
         {
             if(!canRemove)
@@ -114,8 +132,16 @@ namespace Controllers
             var randomHeight = Random.Range(0.1f, 3f);
             var randomAngle = Random.Range(230,310);
             var rad = randomAngle * Mathf.Deg2Rad;
-            return  new Vector3(radiusAround * Mathf.Cos(rad),
+            return  new Vector3( radiusAround * Mathf.Cos(rad),
                 transform.parent.position.y + randomHeight, -radiusAround * Mathf.Sin(rad));
+        }
+        private Vector3 CalculateRandomAddStackPositionWithObjTransform()
+        {
+            var randomHeight = Random.Range(0.1f, 3f);
+            var randomAngle = Random.Range(230, 310);
+            var rad = randomAngle * Mathf.Deg2Rad;
+            return new Vector3(transform.parent.position.x + radiusAround * Mathf.Cos(rad),
+                transform.parent.position.y + randomHeight, transform.parent.position.z + -radiusAround * Mathf.Sin(rad));
         }
         private Vector3 CalculateRandomRemoveStackPosition()
         {

@@ -62,17 +62,17 @@ namespace Pool
 
         private void ReleaseObjects(int index)
         {
-            ObjectPoolManager.Instance.ReturnObject(createdEnemyObjects[index],"Enemy");
+            //ObjectPoolManager.Instance.ReturnObject(createdEnemyObjects[index],"Enemy");
         }
         private void GetFromPool()
         {
-            createdEnemyObjects.Add(ObjectPoolManager.Instance.GetObject<GameObject>("Enemy"));
+           // createdEnemyObjects.Add(ObjectPoolManager.Instance.GetObject<GameObject>("Enemy"));
         }
 
         private void initPool()
         {
-            ObjectPoolManager.Instance.AddObjectPool<GameObject>(CreateObject,
-                TurnOnEnemy,TurnOffEnemy,"Enemy",initialEnemyStock,true);
+            /*ObjectPoolManager.Instance.AddObjectPool<GameObject>(CreateObject,
+                TurnOnEnemy,TurnOffEnemy,"Enemy",initialEnemyStock,true);*/
         }
 
         private void TurnOnEnemy(GameObject gameObject)

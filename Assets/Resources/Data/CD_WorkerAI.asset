@@ -18,7 +18,7 @@ MonoBehaviour:
       CapacityOrDamage: 3
       MinSpeed: 0
       MaxSpeed: 0
-      CurrentWorkerValue: 0
+      MaxWorkerValue: 0
       SoldierAIData:
         SoldierType: 0
         SoldierPrefab: {fileID: 0}
@@ -32,7 +32,7 @@ MonoBehaviour:
       CapacityOrDamage: 3
       MinSpeed: 1
       MaxSpeed: 2.294292
-      CurrentWorkerValue: 0
+      MaxWorkerValue: 5
       SoldierAIData:
         SoldierType: 0
         SoldierPrefab: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
       CapacityOrDamage: 3
       MinSpeed: 0
       MaxSpeed: 0
-      CurrentWorkerValue: 0
+      MaxWorkerValue: 0
       SoldierAIData:
         SoldierType: 0
         SoldierPrefab: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
       CapacityOrDamage: 3
       MinSpeed: 0
       MaxSpeed: 0
-      CurrentWorkerValue: 0
+      MaxWorkerValue: 0
       SoldierAIData:
         SoldierType: 0
         SoldierPrefab: {fileID: 0}

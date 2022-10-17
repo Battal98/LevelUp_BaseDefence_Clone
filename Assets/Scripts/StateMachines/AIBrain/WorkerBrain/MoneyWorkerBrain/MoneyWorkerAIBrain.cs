@@ -44,7 +44,6 @@ namespace StateMachines.AIBrain.Workers
 
         private MoveToGateState _moveToGateState;
         private SearchState _searchState;
-        private WaitOnGateState _waitOnGateState;
         private StackMoneyState _stackMoneyState;
         private DropMoneyOnGateState _dropMoneyOnGateState;
         private StateMachine _stateMachine;
@@ -96,7 +95,6 @@ namespace StateMachines.AIBrain.Workers
 
             _searchState = new SearchState(_navmeshAgent, _animator, this);
             _moveToGateState = new MoveToGateState(_navmeshAgent, _animator,  waitPos, _workerTypeData.MaxSpeed);
-            _waitOnGateState = new WaitOnGateState(_navmeshAgent, _animator, this);
             _stackMoneyState = new StackMoneyState(_navmeshAgent, _animator, this, _workerTypeData.MaxSpeed);
             _dropMoneyOnGateState = new DropMoneyOnGateState(_navmeshAgent, _animator, waitPos);
 
@@ -127,6 +125,8 @@ namespace StateMachines.AIBrain.Workers
 
         public void SetDest()
         {
+            if (!GetMoneyPosition())
+                return;
             CurrentTarget = GetMoneyPosition();
             if (CurrentTarget)
                 _navmeshAgent.SetDestination(CurrentTarget.position);

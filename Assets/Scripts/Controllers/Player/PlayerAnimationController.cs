@@ -127,19 +127,6 @@ namespace Controllers
             animator.SetBool("Aimed", hasTarget);
         }
 
-        private bool PlayerAwayFromEnemy(Transform enemyTransform)
-        {
-            Vector3 enemyDistance = enemyTransform.position - playerManager.transform.position;
-            //  Debug.Log(enemyDistance.magnitude);
-            if (enemyDistance.magnitude > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         public void PlayTurretAnimation(bool onTurretHold)
         {
             animator.SetLayerWeight(2, onTurretHold ? 1 : 0);

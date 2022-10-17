@@ -49,6 +49,8 @@ namespace Controllers
         {
             moneyStackerController.SetStackHolder(stackable.SendToStack().transform);
             moneyStackerController.GetStack(stackable.SendToStack());
+            stackable.IsCollected = true;
+            MoneyWorkerSignals.Instance.onThisMoneyTaken?.Invoke();
         }
 
         #region Paying Interaction
@@ -63,6 +65,10 @@ namespace Controllers
             CoreGameSignals.Instance.onStartMoneyPayment?.Invoke();
         }
 
+        public void PaymentStackAnimation(Transform transform)
+        {
+            moneyStackerController.PaymentStackAnimation(transform);
+        }
 
         #endregion
     }

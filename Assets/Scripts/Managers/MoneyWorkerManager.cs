@@ -26,6 +26,7 @@ namespace Managers
         private List<MoneyWorkerAIBrain> _workerList = new List<MoneyWorkerAIBrain>();
         [ShowInInspector]
         private List<Vector3> _slotTransformList = new List<Vector3>();
+        private int _currentWorkerValue = 0;
 
         #endregion
 
@@ -73,11 +74,11 @@ namespace Managers
         {
             if (_targetList.Count == 0)
                 return null;
-
             var _targetT = _targetList.OrderBy(t => (t.transform.position - workerTransform.transform.position).sqrMagnitude)
             .Where(t => !t.IsSelected)
             .Take(_targetList.Count - 1)
             .LastOrDefault();
+            Debug.Log(_targetT);
             _targetT.IsSelected = true;
             return _targetT.transform;
         }
@@ -117,11 +118,12 @@ namespace Managers
         [Button("Add Money Worker")]
         private void CreateMoneyWorker()
         {
-            if (OnGetWorkerAIData(WorkerType.MoneyWorkerAI).CurrentWorkerValue == 5)
+            if (_currentWorkerValue == OnGetWorkerAIData(WorkerType.MoneyWorkerAI).MaxWorkerValue)
                 return;
             var obj = GetObject(PoolType.MoneyWorkerAI);
             var objComp = obj.GetComponent<MoneyWorkerAIBrain>();
             _workerList.Add(objComp);
+            _currentWorkerValue++;
             SetWorkerPosition(objComp);
         }
 

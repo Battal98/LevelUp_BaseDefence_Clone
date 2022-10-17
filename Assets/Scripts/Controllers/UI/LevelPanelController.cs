@@ -13,15 +13,22 @@ namespace Controllers
 
         #region Serialized Variables
 
-        //[SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField]
+        private TextMeshProUGUI gemText;
+        [SerializeField]
+        private TextMeshProUGUI moneyText;
 
         #endregion
 
         #endregion
-
-        public void SetLevelText()
+        public void SetGemScoreText(int gemValue)
         {
-            //levelText.text = "Level " + (LevelSignals.Instance.onGetLevel() + 1);
+            gemText.text = gemValue.ToString();
+        }
+
+        public void SetMoneyScoreText(int moneyValue)
+        {
+            moneyText.text = moneyValue.ToString();
         }
     }
 }

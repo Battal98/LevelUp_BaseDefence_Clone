@@ -14,11 +14,11 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
 
     #region Self Variables
 
-    #region Private Variables
+    public GameObject SpriteTarget;
 
-    private GameObject _throwBomb;
-    private ThrowData _throwData;
-    #endregion 
+    #region Public Variables
+
+    #endregion
 
     #region Serializable Variables
 
@@ -31,18 +31,22 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
     [SerializeField]
     private BombPhysicController bombPhysicController;
 
-    [SerializeField]
-    private bool isPathActiveRunTime = true;
-
-    public GameObject SpriteTarget;
 
     #endregion
+
+    #region Private Variables
+
+    private GameObject _throwBomb;
+    private ThrowData _throwData;
+    private readonly string _dataPath = "Data/CD_Throw";
+    #endregion
+
 
     #endregion
 
     private void Awake()
     {
-        _throwData = Resources.Load<CD_Throw>("Data/CD_Throw").ThrowData;
+        _throwData = Resources.Load<CD_Throw>(_dataPath).ThrowData;
     }
 
     public void ThrowFunc()
@@ -94,9 +98,15 @@ public class ThrowEventController : MonoBehaviour, IReleasePoolObject, IGetPoolO
     }
     private void DeactiveSpriteTargetDelay()
     {
-        bombPhysicController.enabled = true;
-        SpriteTarget.SetActive(false);
-        bombPhysicController.enabled = false;
+        if (bombPhysicController)
+        {
+            bombPhysicController.enabled = true;
+            bombPhysicController.enabled = false;
+        }
+        if (SpriteTarget.activeInHierarchy)
+        {
+            SpriteTarget.SetActive(false);
+        }
     }
 
     /*

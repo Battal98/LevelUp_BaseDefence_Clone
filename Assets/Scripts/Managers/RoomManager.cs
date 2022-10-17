@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviour
     private BaseRoomTypes roomTypes;
     [SerializeField]
     private RoomPaymentTextController roomPaymentTextController;
+    [SerializeField]
+    private Transform moneyTarget;
 
     private RoomData _roomData;
     private int _payedAmount = 10;
@@ -47,7 +49,7 @@ public class RoomManager : MonoBehaviour
             BaseSignals.Instance.onChangeExtentionVisibility(roomTypes);
             UpdateRoomData();
         }
-
+        customer.PaymentStackAnimation(moneyTarget);
         _roomData.RoomCost -= _payedAmount;
         CoreGameSignals.Instance.onStartMoneyPayment?.Invoke();
         roomPaymentTextController.UpdateText(_roomData.RoomCost);

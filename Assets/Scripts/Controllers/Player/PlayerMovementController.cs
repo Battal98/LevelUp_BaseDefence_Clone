@@ -42,15 +42,6 @@ namespace Controllers
         {
             _inputVector = inputParams.MovementVector;
             EnableMovement(_inputVector.sqrMagnitude > 0);
-            RotatePlayer(inputParams);
-        }
-
-        private void RotatePlayer(HorizontalInputParams inputParams)
-        {
-            Vector3 movementDirection = new Vector3(inputParams.MovementVector.x, 0, inputParams.MovementVector.y);
-            if (movementDirection == Vector3.zero) return;
-            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 30);
         }
 
         public void LookAtTarget(Transform enemyTarget)
@@ -86,7 +77,7 @@ namespace Controllers
                     0.25f),
                     _inputVector.y * _data.PlayerSpeed);
                 rigidbody.velocity = velocity;
-                if (!manager.HasEnemyTarget)
+                if (!manager.EnemyTarget)
                 {
                     RotatePlayer();
                 }

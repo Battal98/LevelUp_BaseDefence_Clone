@@ -23,9 +23,17 @@ namespace Controllers
         }
         public void SetEnemyTargetTransform()
         {
-            manager.EnemyTarget = manager.EnemyList[0].GetTransform();
-            manager.HasEnemyTarget = true;
-            Shoot();
+            manager.Damageable = manager.EnemyList[0];
+            if (manager.Damageable.IsTaken)
+            {
+                RemoveTarget();
+            }
+            else
+            {
+                manager.Damageable.IsTaken = true;
+                manager.EnemyTarget = manager.Damageable.GetTransform();
+                Shoot();
+            }
         }
         private void EnemyTargetStatus()
         {
@@ -35,7 +43,7 @@ namespace Controllers
             }
             else
             {
-                manager.HasEnemyTarget = false;
+                manager.EnemyTarget = null;
             }
         }
         private void RemoveTarget()

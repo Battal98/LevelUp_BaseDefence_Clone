@@ -16,10 +16,6 @@ namespace Managers
         private UIPanelController uiPanelController;
         [SerializeField] 
         private LevelPanelController levelPanelController;
-        [SerializeField]
-        private TextMeshProUGUI gemText;
-        [SerializeField]
-        private TextMeshProUGUI moneyText;
 
 
         #endregion
@@ -81,11 +77,6 @@ namespace Managers
             InitPanels();
         }
 
-        private void Start()
-        {
-            OnSetLevelText();
-        }
-
         private void OnOpenPanel(UIPanels panelParam)
         {
             uiPanelController.OpenPanel(panelParam);
@@ -102,11 +93,6 @@ namespace Managers
             /*uiPanelController.ClosePanel(UIPanels.StorePanel);
             uiPanelController.ClosePanel(UIPanels.TurretPanel);
             uiPanelController.ClosePanel(UIPanels.DronePanel);*/
-        }
-
-        private void OnSetLevelText()
-        {
-            levelPanelController.SetLevelText();
         }
 
         private void OnPlay()
@@ -132,7 +118,6 @@ namespace Managers
         public void NextLevel()
         {
             LevelSignals.Instance.onNextLevel?.Invoke();
-            OnSetLevelText();
         }
 
         public void Restart()
@@ -154,13 +139,13 @@ namespace Managers
 
         private void OnUpdateGemScore(int gemValue)
         {
-
-            gemText.text = gemValue.ToString();
+            levelPanelController.SetGemScoreText(gemValue);
+            
         }
 
         private void OnUpdateMoneyScore(int moneyValue)
         {
-            moneyText.text = moneyValue.ToString();
+            levelPanelController.SetMoneyScoreText(moneyValue);
         }
     }
 }

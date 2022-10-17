@@ -14,9 +14,8 @@ namespace Controllers
             if (manager.CurrentAreaType == AreaTypes.BaseDefense) return;
             if (other.TryGetComponent(out IDamageable damagable))
             {
-                if (damagable.IsTaken) return;
+                if (damagable.IsTaken || damagable.IsDead) return;
                 manager.EnemyList.Add(damagable);
-                damagable.IsTaken = true;
                 if (manager.EnemyTarget == null)
                 {
                     manager.SetEnemyTarget();
@@ -33,7 +32,6 @@ namespace Controllers
                 if (manager.EnemyList.Count == 0)
                 {
                     manager.EnemyTarget = null;
-                    manager.HasEnemyTarget = false;
                 }
             }
         }
