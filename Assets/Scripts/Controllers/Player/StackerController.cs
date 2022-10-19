@@ -14,7 +14,7 @@ namespace Controllers
 
         [SerializeField] private float radiusAround;
 
-        private Sequence GetStackSequence;
+        private Sequence _getStackSequence;
         private int stackListConstCount;
 
         private bool canRemove = true;
@@ -34,12 +34,12 @@ namespace Controllers
         }
         public override void GetStack(GameObject stackableObj)
         {   
-            GetStackSequence = DOTween.Sequence();
+            _getStackSequence = DOTween.Sequence();
             var randomBouncePosition =CalculateRandomAddStackPosition();
             var randomRotation = CalculateRandomStackRotation();
             
-            GetStackSequence.Append(stackableObj.transform.DOLocalMove(randomBouncePosition, .5f));
-            GetStackSequence.Join(stackableObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
+            _getStackSequence.Append(stackableObj.transform.DOLocalMove(randomBouncePosition, .5f));
+            _getStackSequence.Join(stackableObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
             {
                 stackableObj.transform.rotation = Quaternion.LookRotation(transform.forward);
             
@@ -52,14 +52,14 @@ namespace Controllers
 
         public void PaymentStackAnimation(Transform transform)
         {
-            GetStackSequence = DOTween.Sequence();
+            _getStackSequence = DOTween.Sequence();
             var randomBouncePosition = CalculateRandomAddStackPositionWithObjTransform();
             var randomRotation = CalculateRandomStackRotation();
             var moneyObj = GetObject(PoolType.Money);
             moneyObj.transform.position = this.transform.parent.transform.position;
             moneyObj.GetComponent<Collider>().enabled = false;
-            GetStackSequence.Append(moneyObj.transform.DOMove(randomBouncePosition, .5f));
-            GetStackSequence.Join(moneyObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
+            _getStackSequence.Append(moneyObj.transform.DOMove(randomBouncePosition, .5f));
+            _getStackSequence.Join(moneyObj.transform.DOLocalRotate(randomRotation, .5f)).OnComplete(() =>
             {
                 moneyObj.transform.rotation = Quaternion.LookRotation(transform.forward);
                 moneyObj.transform.DOMove(transform.position, 0.3f).OnComplete(() => ReleaseObject(moneyObj, PoolType.Money));
@@ -74,6 +74,19 @@ namespace Controllers
             canRemove = false;
             stackListConstCount = StackList.Count;
             RemoveAllStack();
+        }
+
+        public async void ResetStack()
+        {
+            if (StackList.Count == 0)
+            {
+                return;
+            }
+            StackList[0].transform.SetParent(null);
+            StackList.Remove(StackList[0]);
+            StackList.TrimExcess();
+            await Task.Delay(10);
+            ResetStack();
         }
 
         private async void RemoveAllStack()
@@ -103,12 +116,12 @@ namespace Controllers
 
         private void RemoveStackAnimation(GameObject removedStack)
         {
-            GetStackSequence = DOTween.Sequence();
+            _getStackSequence = DOTween.Sequence();
             var randomRemovedStackPosition = CalculateRandomRemoveStackPosition();
             var randomRemovedStackRotation = CalculateRandomStackRotation();
             
-            GetStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .2f));
-            GetStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
+            _getStackSequence.Append(removedStack.transform.DOLocalMove(randomRemovedStackPosition, .2f));
+            _getStackSequence.Join(removedStack.transform.DOLocalRotate(randomRemovedStackRotation, .2f)).OnComplete(() =>
             {
                 removedStack.transform.rotation = Quaternion.LookRotation(transform.forward);
                 CoreGameSignals.Instance.onUpdateMoneyScore.Invoke(+10);

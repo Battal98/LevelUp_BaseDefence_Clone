@@ -69,6 +69,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gem
       objectReference: {fileID: 0}
+    - target: {fileID: 181632249035223777, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e17f0b35cee16e648acf1c49cb15b8d8, type: 2}
     - target: {fileID: 181632249035223783, guid: 6fc88ddfb7858af47af6d62288171b8a, type: 3}
       propertyPath: m_RootOrder
       value: 0
