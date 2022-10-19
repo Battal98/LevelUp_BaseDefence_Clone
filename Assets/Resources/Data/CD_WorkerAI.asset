@@ -64,9 +64,9 @@ MonoBehaviour:
       SoldierAIData:
         SoldierType: 0
         SoldierPrefab: {fileID: 0}
-        Damage: 0
+        Damage: 10
         SoldierSpeed: 0
         AttackRadius: 0
         AttackDelay: 0
-        Health: 0
+        Health: 50
         SpawnPoint: {fileID: 0}

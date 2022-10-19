@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3289709351601998011}
   - component: {fileID: 6587627695267048479}
   m_Layer: 18
-  m_Name: EnemyColliderCollison
+  m_Name: EnemyphyCollison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,8 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1dc88d33ef9ef49b378016db0db049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTarget: {fileID: 0}
+  CurrentTarget: {fileID: 0}
   MineTarget: {fileID: 0}
+  PlayerObjectParent: {fileID: 0}
+  SoldierHealthController: {fileID: 0}
   Health: 0
   enemyType: 1
   detector: {fileID: 5135641453845902071}
@@ -179,7 +181,7 @@ GameObject:
   - component: {fileID: 7502888730157564786}
   - component: {fileID: 5135641453845902071}
   m_Layer: 11
-  m_Name: EnemyPhysicController
+  m_Name: EnemyDetectController
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

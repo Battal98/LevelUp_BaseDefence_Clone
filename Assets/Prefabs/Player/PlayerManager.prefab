@@ -1217,7 +1217,6 @@ MonoBehaviour:
   CurrentAreaType: 0
   WeaponType: 1
   EnemyTarget: {fileID: 0}
-  HasEnemyTarget: 0
   Health: 100
   meshController: {fileID: 1429477786026016514}
   animationController: {fileID: 3256136071381465238}

@@ -25,6 +25,7 @@ namespace Controllers
         #region Private Variables
 
         private int _damage;
+        private readonly Vector3 _offset = Vector3.up;
 
         #endregion
 
@@ -42,6 +43,7 @@ namespace Controllers
         {
             if (other.TryGetComponent(out IDamageable idDamagable))
             {
+                ParticleSignals.Instance.onPlayParticleWithSetColor(ParticleType.EnemyDeath, other.transform.position + _offset, Quaternion.identity, Color.red);
                 bulletManager.SetBulletToPool();
             }
         }

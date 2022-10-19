@@ -11,8 +11,6 @@ TagManager:
   - Collectables
   - Ground
   - Portal
-  - GateExit
-  - GateEntry
   - Gem
   layers:
   - Default

@@ -11,6 +11,8 @@ namespace Controllers
         #region Self Variables
 
         #region Public Variables
+        public bool IsTaken { get ; set ; }
+        public bool IsDead { get; set; }
         
         #endregion
 
@@ -18,8 +20,6 @@ namespace Controllers
         
         [SerializeField] private PlayerManager playerManager;
 
-        public bool IsTaken { get ; set ; }
-        public bool IsDead { get; set; }
 
         public Transform GetTransform()
         {
@@ -54,6 +54,8 @@ namespace Controllers
                 var playerIsGoingToFrontYard = other.transform.position.z > transform.position.z;
                 gameObject.layer =  LayerMask.NameToLayer("Base");
                 playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaTypes.BattleOn : AreaTypes.BaseDefense);
+                playerManager.EnemyTarget = null;
+                playerManager.EnemyList.Clear();
             }
 
             if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))
@@ -74,9 +76,18 @@ namespace Controllers
                 var playerIsGoingToFrontYard = other.transform.position.z < transform.position.z;
                 gameObject.layer = LayerMask.NameToLayer(playerIsGoingToFrontYard? "BattleYard" : "Base");
                 playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaTypes.BattleOn : AreaTypes.BaseDefense);
-                if (!playerIsGoingToFrontYard) return;
-                playerManager.EnemyTarget = null;
-                playerManager.EnemyList.Clear();
+                if (!playerIsGoingToFrontYard)
+                {
+                    int enemyListCount = playerManager.EnemyList.Count;
+                    for (int i = 0; i < enemyListCount; i++)
+                    {
+                        playerManager.EnemyList[i].IsTaken = false;
+                    }
+                    playerManager.EnemyTarget = null;
+                    playerManager.EnemyList.Clear();
+                    return;
+                }
+
             }
 
             if (other.TryGetComponent(out TurretPhysicController turretPhysicsController))

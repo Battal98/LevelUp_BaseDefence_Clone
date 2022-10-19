@@ -29,12 +29,12 @@ namespace StateMachines.AIBrain.Enemy.States
         }
         public void OnEnter()
         {
-            if (_enemyAIBrain.PlayerTarget)
+            if (_enemyAIBrain.CurrentTarget)
             {
                 _inAttack = false;
                 _navMeshAgent.speed = _chaseSpeed;
                 _animator.SetTrigger(Run);
-                _navMeshAgent.SetDestination(_enemyAIBrain.PlayerTarget.transform.position);
+                _navMeshAgent.SetDestination(_enemyAIBrain.CurrentTarget.transform.position);
             }
         }
 
@@ -45,9 +45,9 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public void Tick()
         {
-            if (_enemyAIBrain.PlayerTarget)
+            if (_enemyAIBrain.CurrentTarget)
             {
-                _navMeshAgent.destination = _enemyAIBrain.PlayerTarget.transform.position;
+                _navMeshAgent.destination = _enemyAIBrain.CurrentTarget.transform.position;
                 _animator.SetFloat(Move, _navMeshAgent.velocity.magnitude);
                 CheckDistanceChase();
             }

@@ -94,15 +94,13 @@ namespace Managers
         {
             movementController.UpdateInputValues(inputParams);
             animationController.PlayAnimation(inputParams);
-            AimEnemy();
+            //AimEnemy();
         }
         public void SetEnemyTarget()
         {
             shootingController.SetEnemyTargetTransform();
             animationController.AimTarget(true);
-            AimEnemy();
         }
-        private void AimEnemy() => movementController.LookAtTarget(!EnemyTarget ? null : EnemyList[0]?.GetTransform());
         public void CheckAreaStatus(AreaTypes areaType) => meshController.ChangeAreaStatus(CurrentAreaType = areaType);
         private void OnDisableMovement(InputType inputType) => movementController.DisableMovement(inputType);
         public void SetTurretAnim(bool onTurret) => animationController.PlayTurretAnimation(onTurret);

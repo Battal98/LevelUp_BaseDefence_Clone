@@ -27,5 +27,7 @@ namespace Signals
 
         public UnityAction onStartMoneyPayment = delegate { };
         public UnityAction onStopMoneyPayment = delegate { };
+
+        public UnityAction<int> onTakePlayerDamage = delegate { };
     }
 }

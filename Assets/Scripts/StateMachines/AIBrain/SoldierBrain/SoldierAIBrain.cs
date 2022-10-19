@@ -6,10 +6,7 @@ using Data.UnityObject;
 using Data.ValueObject;
 using Data.ValueObject.WeaponData;
 using Enums;
-using Managers;
-using Signals;
 using Sirenix.OdinInspector;
-using StateMachines;
 using StateMachines.AIBrain.Soldier.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,9 +20,9 @@ namespace StateMachines.AIBrain.Soldier
 
         #region Public Variables
 
+        public int Health;
         public bool HasReachedSlotTarget;
         public bool HasReachedFrontYard;
-        public bool HasEnemyTarget = false;
         public bool HasSoldiersActivated;
 
         public Transform TentPosition;
@@ -51,24 +48,14 @@ namespace StateMachines.AIBrain.Soldier
         [ShowInInspector] 
         [Header("Data")]
         private SoldierAIData _data;
-        private int _damage;
-        private float _soldierSpeed;
-        private float _attackRadius;
-        private Coroutine _attackCoroutine;
-        private float _attackDelay;
-        private int _health;
-        private Transform _spawnPoint;
         private StateMachine _stateMachine;
         private Vector3 _slotTransform;
-        private List<WeaponData> _weaponDatas;
-        // private bool dead { get; set; }
 
         #endregion
         #endregion
         private void Awake()
         {
             _data = GetSoldierAIData();
-            _weaponDatas = WeaponData();
             SetSoldierAIData();
 
         }
@@ -80,13 +67,7 @@ namespace StateMachines.AIBrain.Soldier
         private List<WeaponData> WeaponData() => Resources.Load<CD_Weapons>("Data/CD_Weapons").WeaponDatas;
         private void SetSoldierAIData()
         {
-            _damage = _data.Damage;
-            _soldierSpeed = _data.SoldierSpeed;
-            _attackRadius = _data.AttackRadius;
-            _attackCoroutine = _data.AttackCoroutine;
-            _attackDelay = _data.AttackDelay;
-            _health = _data.Health;
-            _spawnPoint = _data.SpawnPoint;
+            Health = _data.Health;
         }
         private void GetStateReferences()
         {
@@ -96,6 +77,7 @@ namespace StateMachines.AIBrain.Soldier
             var moveToFrontYard = new MoveToFrontYardState(this, _navMeshAgent, FrontYardStartPosition, animator);
             var patrol = new SearchTargetState(this, _navMeshAgent, animator);
             var attack = new ShootTargetState(this, _navMeshAgent, animator);
+            var death = new SoldierDeathState(this,animator,_navMeshAgent);
 
             _stateMachine = new StateMachine();
 
@@ -108,14 +90,17 @@ namespace StateMachines.AIBrain.Soldier
             At(attack, patrol, hasNoEnemyTarget());
 
             _stateMachine.SetState(idle);
+
+            _stateMachine.AddAnyTransition(death, hasNoLife());
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
 
             Func<bool> hasSlotTransformList() => () => _slotTransform != null;
             Func<bool> hasReachToSlot() => () => _slotTransform != null && HasReachedSlotTarget;
             Func<bool> hasSoldiersActivated() => () => FrontYardStartPosition != null && HasSoldiersActivated;
             Func<bool> hasReachedFrontYard() => () => FrontYardStartPosition != null && HasReachedFrontYard;
-            Func<bool> hasEnemyTarget() => () => HasEnemyTarget;
-            Func<bool> hasNoEnemyTarget() => () => !HasEnemyTarget;
+            Func<bool> hasEnemyTarget() => () => EnemyTarget;
+            Func<bool> hasNoEnemyTarget() => () => !EnemyTarget;
+            Func<bool> hasNoLife() => () => Health <= 0;
         }
         private void Update() => _stateMachine.Tick();
 

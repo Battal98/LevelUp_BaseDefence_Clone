@@ -97,7 +97,7 @@ namespace Controllers
                 animator.SetFloat("VelocityX",_velocityX);
                 if (inputParams.MovementVector.sqrMagnitude == 0)
                 {
-                    animator.SetBool("Aimed",false);
+                    AimTarget(playerManager.EnemyTarget);
                 }
             }
             else

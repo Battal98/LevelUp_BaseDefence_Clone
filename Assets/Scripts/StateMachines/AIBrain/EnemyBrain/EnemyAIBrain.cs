@@ -19,9 +19,11 @@ namespace StateMachines.AIBrain.Enemy
         #region Public Variables 
 
         [BoxGroup("Targets")]
-        public Transform PlayerTarget;
+        public Transform CurrentTarget;
         [BoxGroup("Targets")]
         public Transform MineTarget;
+        public GameObject PlayerObjectParent; 
+        public SoldierHealthController SoldierHealthController;
 
         [Space]
         public int Health;
@@ -163,10 +165,10 @@ namespace StateMachines.AIBrain.Enemy
 
             void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
             Func<bool> HasTargetTurret() => () => _turretTarget != null /*&& TurretTarget.TryGetComponent(out TurretManager turret)*/;
-            Func<bool> HasTargetPlayer() => () => PlayerTarget != null && PlayerTarget.TryGetComponent(out PlayerManager player);
-            Func<bool> HasNoTargetPlayer() => () => PlayerTarget == null;
-            Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && PlayerTarget != null;
-            Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || PlayerTarget == null;
+            Func<bool> HasTargetPlayer() => () => CurrentTarget != null /*&& CurrentTarget.TryGetComponent(out PlayerManager player)*/;
+            Func<bool> HasNoTargetPlayer() => () => CurrentTarget == null;
+            Func<bool> IAttackPlayer() => () => _chaseState.InPlayerAttackRange() && CurrentTarget != null;
+            Func<bool> INoAttackPlayer() => () => _attackState.InPlayerAttackRange() == false || CurrentTarget == null;
             Func<bool> AmIDead() => () => Health <= 0;
 
             Func<bool> IsEnemyReachedBase() => () => _navmeshAgent.remainingDistance <= _enemyTypeData.AttackRange;
@@ -176,10 +178,44 @@ namespace StateMachines.AIBrain.Enemy
             //Func<bool> AmIStuck() => () => _moveState.TimeStuck > 1f;
 
         }
-
         #endregion
-
         private void Update() => _stateMachine.Tick();
+
+        public void SetTarget(Transform target)
+        {
+            if (target == CurrentTarget)
+                return;
+            if (CurrentTarget != null) 
+                return;
+            CurrentTarget = target;
+            SoldierHealthController = null;
+            PlayerObjectParent = null;
+        }
+        public void CacheSoldier(SoldierHealthController soldierHealthController)
+        {
+            if (soldierHealthController == SoldierHealthController) return;
+            SoldierHealthController = soldierHealthController;
+        }
+        public void CachePlayer(GameObject playerObject)
+        {
+            PlayerObjectParent = playerObject;
+        }
+        public void HitDamage()
+        {
+            if (SoldierHealthController != null)
+            {
+                int soldierHealth = SoldierHealthController.TakeDamage(_enemyTypeData.Damage);
+                if (soldierHealth <= 0)
+                {
+                    SoldierHealthController = null;
+                    SetTarget(_turretTarget);
+                }
+            }
+            if (PlayerObjectParent != null)
+            {
+                CoreGameSignals.Instance.onTakePlayerDamage.Invoke(_enemyTypeData.Damage);
+            }
+        }
 
     } 
 }

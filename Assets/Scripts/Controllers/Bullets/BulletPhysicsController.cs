@@ -29,6 +29,7 @@ namespace Controllers
             {
                 if (damagable.IsDead)
                     return;
+                ParticleSignals.Instance.onPlayParticleWithSetColor(ParticleType.EnemyDeath,this.transform.position,Quaternion.identity, Color.red);
                 var health = damagable.TakeDamage(bulletDamage);
                 Disable();
                 if (health <= 0)

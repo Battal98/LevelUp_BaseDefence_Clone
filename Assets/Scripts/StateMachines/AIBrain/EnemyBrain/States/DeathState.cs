@@ -15,6 +15,7 @@ namespace StateMachines.AIBrain.Enemy.States
         private readonly NavMeshAgent _navMeshAgent;
         private readonly Animator _animator;
         private readonly EnemyAIBrain _brain;
+
         private readonly string _type;
         public DeathState(NavMeshAgent navMeshAgent, Animator animator, EnemyAIBrain brain, string type)
         {
@@ -41,8 +42,7 @@ namespace StateMachines.AIBrain.Enemy.States
             _brain.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.grey;
 
             EnemySignals.Instance.onReleaseObjectUpdate?.Invoke(_brain.gameObject);
-            ParticleSignals.Instance.onPlayParticleWithSetColor?.Invoke(ParticleType.EnemyDeath,_brain.transform.position,_brain.transform.rotation,Color.red);
-            
+
             EnemyDoDead(poolType);
             
             for (int i = 0; i < 3; i++)

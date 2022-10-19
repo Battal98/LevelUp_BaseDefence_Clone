@@ -12,12 +12,9 @@ namespace Controllers
     {
         [SerializeField]
         private GameObject collisionColliderObj;
-        private Transform _detectedPlayer;
         private Transform _detectedMine;
 
         private EnemyAIBrain _enemyAIBrain;
-
-        public bool IsPlayerInRange() => _detectedPlayer != null;
         public bool IsBombInRange() => _detectedMine != null;
         private void Awake()
         {
@@ -27,20 +24,40 @@ namespace Controllers
         {
             if (other.TryGetComponent(out PlayerPhysicsController controller))
             {
-                _detectedPlayer = other.GetComponentInParent<PlayerManager>().transform;
-                //sinyalle çakmayý dene
-                _enemyAIBrain.PlayerTarget = _detectedPlayer;
+                PickOneTarget(other);
+                _enemyAIBrain.CachePlayer(controller.transform.parent.gameObject);
+                _enemyAIBrain.CacheSoldier(null);
+            }
+            if (other.TryGetComponent(out SoldierHealthController soldierHealthController))
+            {
+                _enemyAIBrain.CachePlayer(null);
+                PickOneTarget(other);
+                _enemyAIBrain.CacheSoldier(soldierHealthController);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player"))
+
+            if (other.TryGetComponent(out PlayerPhysicsController controller))
             {
-                _detectedPlayer = null;
-                this.gameObject.GetComponentInParent<EnemyAIBrain>().PlayerTarget = null;
+                this.gameObject.GetComponentInParent<EnemyAIBrain>().CurrentTarget = null;
+                _enemyAIBrain.SetTarget(null);
+                _enemyAIBrain.CachePlayer(null);
+            }
+            if (other.TryGetComponent(out IDamageable Idamageable))
+            {
+                _enemyAIBrain.SetTarget(null);
+                _enemyAIBrain.CacheSoldier(null);
             }
 
+        }
+        private void PickOneTarget(Collider other)
+        {
+            if (_enemyAIBrain.CurrentTarget != other.TryGetComponent(out PlayerPhysicsController physicsController) || !_enemyAIBrain.CurrentTarget)
+            {
+                _enemyAIBrain.SetTarget(other.transform.parent.gameObject.transform);
+            }
         }
     } 
 }
