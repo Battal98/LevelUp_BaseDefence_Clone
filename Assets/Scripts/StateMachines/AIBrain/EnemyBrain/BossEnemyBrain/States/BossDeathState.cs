@@ -7,7 +7,7 @@ using Signals;
 
 namespace StateMachines.AIBrain.Enemy.States
 {
-    public class BossDeathState : IState
+    public class BossDeathState : IState, IReleasePoolObject
     {
         #region Self Variables
 
@@ -29,15 +29,20 @@ namespace StateMachines.AIBrain.Enemy.States
         }
         public void OnEnter()
         {
-            Debug.Log("Boss Death Enter");
             _animator.SetTrigger("Death");
             EnemySignals.Instance.onOpenPortal?.Invoke();
+            ReleaseObject(_bossEnemyBrain.gameObject, PoolType.Boss);
             //Level Completed
         }
 
         public void OnExit()
         {
-            Debug.Log("Boss Death Exit");
+            
+        }
+
+        public void ReleaseObject(GameObject obj, PoolType poolType)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool?.Invoke(poolType, obj);
         }
 
         public void Tick()

@@ -77,11 +77,6 @@ namespace Managers
             _initialPosition = transform.GetChild(0).localPosition;
         }
 
-        private void MoveToInitialPosition()
-        {
-            transform.GetChild(0).localPosition = _initialPosition;
-        }
-
         private void OnSetCameraTarget(Transform _target)
         {
             _playerTarget = _target;
@@ -121,9 +116,8 @@ namespace Managers
 
         private void OnReset()
         {
-            stateDrivenCamera.Follow = null;
-            stateDrivenCamera.LookAt = null;
-            MoveToInitialPosition();
+            SetCameraState(CameraStatesType.IdleCamera);
+            OnSetCameraTarget(_playerTarget);
         }
 
 

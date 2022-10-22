@@ -1,12 +1,12 @@
 ﻿using Interfaces;
-using Controllers;
 using Enums;
 using Managers;
 using UnityEngine;
+using Signals;
 
 namespace Controllers
 {
-    public class PlayerPhysicsController : Interactable, IDamageable
+    public class PlayerPhysicsController : Interactable
     {
         #region Self Variables
 
@@ -17,29 +17,9 @@ namespace Controllers
         #endregion
 
         #region Serialized Variables,
-        
+
         [SerializeField] private PlayerManager playerManager;
 
-
-        public Transform GetTransform()
-        {
-            return playerManager.transform;
-        }
-
-        public int TakeDamage(int damage)
-        {
-            if (playerManager.Health > 0)
-            {
-                playerManager.Health -= damage;
-                if (playerManager.Health <= 0)
-                {
-                    IsDead = true;
-                    return playerManager.Health;
-                }
-                return playerManager.Health;
-            }
-            return 0;
-        }
         #endregion
 
         #region Private Variables
@@ -47,6 +27,12 @@ namespace Controllers
         #endregion
 
         #endregion
+
+        public Transform GetTransform()
+        {
+            return playerManager.transform;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out GatePhysicsController physicsController))
@@ -65,8 +51,12 @@ namespace Controllers
 
             if (other.TryGetComponent(out IDamager damager))
             {
-                Debug.Log("Bomb");
-                TakeDamage(damager.Damage());
+                CoreGameSignals.Instance.onTakePlayerDamage(damager.Damage());
+            }
+
+            if (other.CompareTag("Finish"))
+            {
+                CoreGameSignals.Instance.onPreNextLevel?.Invoke();
             }
         }
         private void OnTriggerExit(Collider other)
@@ -78,6 +68,7 @@ namespace Controllers
                 playerManager.CheckAreaStatus(playerIsGoingToFrontYard ? AreaTypes.BattleOn : AreaTypes.BaseDefense);
                 if (!playerIsGoingToFrontYard)
                 {
+                    PlayerSignals.Instance.onHealthUpgrade?.Invoke();
                     int enemyListCount = playerManager.EnemyList.Count;
                     for (int i = 0; i < enemyListCount; i++)
                     {
@@ -87,6 +78,7 @@ namespace Controllers
                     playerManager.EnemyList.Clear();
                     return;
                 }
+                PlayerSignals.Instance.onHealthVisualOpen?.Invoke();
 
             }
 
@@ -94,6 +86,11 @@ namespace Controllers
             {
                 playerManager.SetTurretAnim(false);
             }
+        }
+
+        public void ResetPlayerLayer()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Base");
         }
     }
 }

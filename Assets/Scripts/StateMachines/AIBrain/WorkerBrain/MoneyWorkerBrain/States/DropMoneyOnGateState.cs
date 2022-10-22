@@ -20,7 +20,6 @@ namespace StateMachines.AIBrain.Workers.MoneyStates
         }
         public void OnEnter()
         {
-            Debug.Log("OnEnter: " + _startPos);
             _navmeshAgent.SetDestination(_startPos);
 
         }

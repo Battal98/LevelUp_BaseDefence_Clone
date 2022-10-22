@@ -38,7 +38,10 @@ namespace StateMachines.AIBrain.Enemy.States
             var poolType = (PoolType)Enum.Parse(typeof(PoolType), _type);
             
             _navMeshAgent.enabled = false;
-            _animator.SetTrigger("Die");
+            _animator.SetTrigger("Die"); 
+            _animator.ResetTrigger("Run");
+            _animator.ResetTrigger("Throw");
+            _animator.ResetTrigger("Attack");
             _brain.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.grey;
 
             EnemySignals.Instance.onReleaseObjectUpdate?.Invoke(_brain.gameObject);

@@ -6,9 +6,8 @@ namespace Enums
     public enum UIPanels
     {
         IdlePanel,
-        TurretPanel,
-        DronePanel,
-        StorePanel,
+        FailedPanel,
+        StartPanel,
 
     }
 }

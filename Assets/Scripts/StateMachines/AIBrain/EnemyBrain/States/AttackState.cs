@@ -36,6 +36,7 @@ namespace StateMachines.AIBrain.Enemy.States
 
         public void OnExit()
         {
+            _animator.SetTrigger(_run);
         }
 
         public void Tick()

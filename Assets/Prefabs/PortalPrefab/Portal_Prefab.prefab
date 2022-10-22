@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5035389639400279699}
   m_Layer: 0
   m_Name: Portal_Prefab
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,8 @@ MonoBehaviour:
   - {fileID: 8122554364718410640}
   - {fileID: 7035113750543497246}
   portalCollider: {fileID: 77842144572573357}
-  dissolveValue: 6
+  dissolveOpenValue: 6
+  dissolveCloseValue: 50
 --- !u!1 &7688285965216264822
 GameObject:
   m_ObjectHideFlags: 0

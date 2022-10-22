@@ -49,13 +49,14 @@ namespace StateMachines.AIBrain.Workers
         private StateMachine _stateMachine;
         [ShowInInspector]
         private Vector3 waitPos;
+        private Transform _getTransform;
 
         #endregion
 
         #region Worker Game Variables
         [ShowInInspector]
         private int _currentStock = 0;
-        private const float _delay = 0.05f;
+        private const float _delay = 1f;
 
         #endregion
 
@@ -125,10 +126,12 @@ namespace StateMachines.AIBrain.Workers
 
         public void SetDest()
         {
-            if (!GetMoneyPosition())
+            GetMoneyPosition();
+            if (_getTransform == null)
                 return;
-            CurrentTarget = GetMoneyPosition();
-            if (CurrentTarget)
+            CurrentTarget = _getTransform;
+            Debug.Log("Brain: " + CurrentTarget);
+            if (CurrentTarget != null)
                 _navmeshAgent.SetDestination(CurrentTarget.position);
         }
 
@@ -139,12 +142,13 @@ namespace StateMachines.AIBrain.Workers
 
         public Transform GetMoneyPosition()
         {
-            return MoneyWorkerSignals.Instance.onGetTransformMoney?.Invoke(this.transform);
+            _getTransform = MoneyWorkerSignals.Instance.onGetTransformMoney?.Invoke(this.transform);
+            return _getTransform;
         }
 
         private IEnumerator SearchTarget()
         {
-            while (!CurrentTarget)
+            while (CurrentTarget == null)
             {
                 SetDest();
                 yield return new WaitForSeconds(_delay);

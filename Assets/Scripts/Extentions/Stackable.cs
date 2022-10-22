@@ -43,9 +43,7 @@ namespace Extentions
 
         private void OnEnable()
         {
-            rbody.useGravity = true;
-            rbody.isKinematic = false;
-            col.enabled = true;
+            OpenPhysics();
             SendStackable(this);
         }
 
@@ -55,6 +53,13 @@ namespace Extentions
             rbody.isKinematic = true;
             col.enabled = false;
             return transform.gameObject;
+        }
+
+        public void OpenPhysics()
+        {
+            rbody.useGravity = true;
+            rbody.isKinematic = false;
+            col.enabled = true;
         }
     }
 }

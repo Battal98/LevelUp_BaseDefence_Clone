@@ -89,20 +89,22 @@ namespace Managers
 
         private void InitPanels()
         {
-            uiPanelController.OpenPanel(UIPanels.IdlePanel);
-            /*uiPanelController.ClosePanel(UIPanels.StorePanel);
-            uiPanelController.ClosePanel(UIPanels.TurretPanel);
-            uiPanelController.ClosePanel(UIPanels.DronePanel);*/
+            uiPanelController.OpenPanel(UIPanels.IdlePanel); 
+            uiPanelController.OpenPanel(UIPanels.StartPanel);
+            uiPanelController.ClosePanel(UIPanels.FailedPanel);
         }
 
         private void OnPlay()
         {
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
+            uiPanelController.ClosePanel(UIPanels.FailedPanel);
+            uiPanelController.ClosePanel(UIPanels.StartPanel);
         }
 
         private void OnLevelFailed()
         {
             //UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
+            uiPanelController.OpenPanel(UIPanels.FailedPanel);
         }
 
         private void OnLevelSuccessful()

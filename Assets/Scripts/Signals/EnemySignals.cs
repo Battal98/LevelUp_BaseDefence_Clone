@@ -20,7 +20,5 @@ namespace Signals
         public Func<Transform> onGetSpawnTransform = delegate { return null; };
         public Func<Transform> onGetTargetTransform = delegate { return null; };
 
-
-
     } 
 }

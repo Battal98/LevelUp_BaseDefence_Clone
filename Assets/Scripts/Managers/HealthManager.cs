@@ -10,7 +10,7 @@ namespace Managers
     public class HealthManager : MonoBehaviour
     {
 
-        #region Serializable Variables
+       /* #region Serializable Variables
 
         [SerializeField]
         private TextMeshProUGUI _healthText;
@@ -37,6 +37,7 @@ namespace Managers
 
             //_maxHealth = 
         }
+        
 
         private void OnEnable()
         {
@@ -57,11 +58,11 @@ namespace Managers
         {
             healthCanvasController.SetHealthBar();
         }
-
+       */
         public void Update()
         {
             Camera camera = Camera.main;
-            transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
+            transform.LookAt(transform.position + camera.transform.rotation * Vector3.back, camera.transform.rotation * Vector3.up);
         }
 
     } 

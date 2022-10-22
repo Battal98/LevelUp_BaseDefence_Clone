@@ -106,8 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1dc88d33ef9ef49b378016db0db049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTarget: {fileID: 0}
+  CurrentTarget: {fileID: 0}
   MineTarget: {fileID: 0}
+  PlayerObjectParent: {fileID: 0}
+  SoldierHealthController: {fileID: 0}
   Health: 0
   enemyType: 2
   detector: {fileID: 4398268705012726938}

@@ -76,9 +76,9 @@ namespace Managers
                 return null;
             var _targetT = _targetList.OrderBy(t => (t.transform.position - workerTransform.transform.position).sqrMagnitude)
             .Where(t => !t.IsSelected)
-            .Take(_targetList.Count - 1)
+            .Take(1)
+            .OrderBy(t => UnityEngine.Random.Range(0, int.MaxValue))
             .LastOrDefault();
-            Debug.Log(_targetT);
             _targetT.IsSelected = true;
             return _targetT.transform;
         }
@@ -116,12 +116,13 @@ namespace Managers
         }
 
         [Button("Add Money Worker")]
-        private void CreateMoneyWorker()
+        public void CreateMoneyWorker(Transform Spawntransform)
         {
             if (_currentWorkerValue == OnGetWorkerAIData(WorkerType.MoneyWorkerAI).MaxWorkerValue)
                 return;
             var obj = GetObject(PoolType.MoneyWorkerAI);
             var objComp = obj.GetComponent<MoneyWorkerAIBrain>();
+            obj.transform.position = Spawntransform.position;
             _workerList.Add(objComp);
             _currentWorkerValue++;
             SetWorkerPosition(objComp);

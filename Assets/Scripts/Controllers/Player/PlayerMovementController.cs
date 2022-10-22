@@ -55,10 +55,12 @@ namespace Controllers
             _isReadyToMove = movementStatus;
         }
 
-        public void DisableMovement(InputType inputType)
+        public void DisableMovement(InputType inputHandlers)
         {
-            if (inputType != InputType.Turret) return;
+            _isReadyToMove = false;
             rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            rigidbody.angularDrag = 0f;
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
         private void LateUpdate()

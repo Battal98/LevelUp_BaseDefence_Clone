@@ -30,8 +30,8 @@ MonoBehaviour:
             Key: TurretData
         - BaseRoomTypes: 1
           TurretLocationType: 2
-          AvailabilityType: 1
-          RoomCost: -10
+          AvailabilityType: 0
+          RoomCost: 500
           RoomPayedAmount: 0
           TurretData:
             AvabilityState: 0
@@ -42,8 +42,8 @@ MonoBehaviour:
             Key: TurretData
         - BaseRoomTypes: 2
           TurretLocationType: 1
-          AvailabilityType: 1
-          RoomCost: -10
+          AvailabilityType: 0
+          RoomCost: 500
           RoomPayedAmount: 0
           TurretData:
             AvabilityState: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
         - BaseRoomTypes: 4
           TurretLocationType: 3
           AvailabilityType: 0
-          RoomCost: 2890
+          RoomCost: 3000
           RoomPayedAmount: 0
           TurretData:
             AvabilityState: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
       HostageData:
         HostagePlaces: []
   ScoreData:
-    TotalGemScore: 500
-    TotalMoneyScore: 3830
+    TotalGemScore: 600
+    TotalMoneyScore: 5000
   LevelID: 0
   Key: LevelData

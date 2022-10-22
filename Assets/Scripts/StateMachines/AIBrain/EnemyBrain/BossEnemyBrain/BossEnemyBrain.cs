@@ -35,6 +35,10 @@ namespace StateMachines.AIBrain.Enemy
         [SerializeField]
         private Transform bombHolder;
 
+        [BoxGroup("Serializable Variables")]
+        [SerializeField]
+        private BossHealthController bossHealthController;
+
 
         #endregion
 
@@ -62,6 +66,7 @@ namespace StateMachines.AIBrain.Enemy
             _enemyTypeData = GetEnemyType();
             SetEnemyVariables(); 
             GetReferenceStates();
+            bossHealthController.SetHealth(_enemyTypeData.Health);
         }
 
         private void SetEnemyVariables()

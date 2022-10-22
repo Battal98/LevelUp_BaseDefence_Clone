@@ -13,6 +13,8 @@ namespace Controllers
 
         #region Public Variables
 
+        public Collider Col;
+
         #endregion
 
         #region Serialized Variables

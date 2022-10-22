@@ -24,6 +24,7 @@ namespace Managers
         #region Private Variables
         private InputType _inputHandlers = InputType.Character;
         private bool _hasTouched;
+        private bool _isReadyToTouch = false;
         #endregion
 
         #endregion
@@ -38,11 +39,15 @@ namespace Managers
         private void SubscribeEvents()
         {
             InputSignals.Instance.onInputHandlerChange += OnInputHandlerChange;
+            CoreGameSignals.Instance.onReset += OnReset;
+            CoreGameSignals.Instance.onPlay += OnPlay;
         }
 
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputHandlerChange -= OnInputHandlerChange;
+            CoreGameSignals.Instance.onReset -= OnReset;
+            CoreGameSignals.Instance.onPlay -= OnPlay;
         }
 
         private void OnDisable()
@@ -55,7 +60,13 @@ namespace Managers
 
         private void Update()
         {
+            if (!_isReadyToTouch) return;
             JoystickInputUpdate();
+        }
+
+        private void OnReset()
+        {
+            _hasTouched = false;
         }
         private void JoystickInputUpdate()
         {
@@ -109,5 +120,7 @@ namespace Managers
         {
             _inputHandlers = inputHandlers;
         }
+
+        private void OnPlay() => _isReadyToTouch = true;
     }
 }

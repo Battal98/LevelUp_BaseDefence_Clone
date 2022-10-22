@@ -8028,6 +8028,7 @@ GameObject:
   - component: {fileID: 3361640918342956094}
   - component: {fileID: 5127682137468064690}
   - component: {fileID: 1070433848}
+  - component: {fileID: 6711757044728022516}
   m_Layer: 0
   m_Name: Level 0
   m_TagString: Untagged
@@ -8116,6 +8117,36 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 6d9b2e39699d7434c9349be5bd76aa09, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!114 &6711757044728022516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361640918342956093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -902729914
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: c88cd08ba88b5f642a5f27a5b481c162, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &3361886390012997006
 GameObject:
@@ -29457,6 +29488,42 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -4918373443893110478, guid: e21d9fa883341484f8393b51730ca170, type: 2}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.topLeft.b
+      value: 0.34709862
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.topLeft.g
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.topLeft.r
+      value: 0.59287566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.topRight.b
+      value: 0.26321647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.topRight.g
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.topRight.r
+      value: 0.4939688
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.b
+      value: 0.13659368
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.g
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178658173978130478, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.r
+      value: 0.051397286
+      objectReference: {fileID: 0}
     - target: {fileID: 8266145764032618712, guid: beef444c60e4e7a4caf6d0be1b675605, type: 3}
       propertyPath: m_Size.x
       value: 14.246235
@@ -29753,6 +29820,10 @@ PrefabInstance:
     - target: {fileID: 5679289173941739326, guid: 581af5fd003600c45a77fb1b327062c7, type: 3}
       propertyPath: m_Name
       value: ForceShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679289173941739326, guid: 581af5fd003600c45a77fb1b327062c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581af5fd003600c45a77fb1b327062c7, type: 3}

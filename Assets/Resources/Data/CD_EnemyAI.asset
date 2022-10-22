@@ -48,7 +48,7 @@ MonoBehaviour:
       NavMeshRadius: 0.42
       NavMeshHeight: 2.5
     - EnemyType: 3
-      Health: 250
+      Health: 500
       Damage: 50
       AttackRange: 10
       AttackSpeed: 2

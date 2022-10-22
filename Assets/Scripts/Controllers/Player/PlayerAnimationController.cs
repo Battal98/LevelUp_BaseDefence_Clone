@@ -102,19 +102,27 @@ namespace Controllers
             }
             else
             {
-                animator.SetBool("Aimed",false);
-                animator.SetLayerWeight(1,0);
-                animator.SetBool("IsBattleOn",false);
+                InitAnim();
                 ChangeAnimations( inputParams.MovementVector.sqrMagnitude > 0
                     ? PlayerAnimationStates.Run
                     : PlayerAnimationStates.Idle);
             }
         }
-        private void ChangeAnimations(PlayerAnimationStates animationStates)
+        public void ChangeAnimations(PlayerAnimationStates animationStates)
         {
             if (animationStates == _currentAnimationState) return;
              animator.Play(animationStates.ToString());
             _currentAnimationState = animationStates;
+            if (playerManager.CurrentAreaType != AreaTypes.BaseDefense) return;
+            InitAnim();
+
+        }
+
+        private void InitAnim()
+        {
+            animator.SetBool("Aimed", false);
+            animator.SetLayerWeight(1, 0);
+            animator.SetBool("IsBattleOn", false);
         }
 
         public void HoldTurret(bool hold)
@@ -130,6 +138,11 @@ namespace Controllers
         public void PlayTurretAnimation(bool onTurretHold)
         {
             animator.SetLayerWeight(2, onTurretHold ? 1 : 0);
+        }
+
+        public void DeathAnimation()
+        {
+            animator.Play(PlayerAnimationStates.Die.ToString());
         }
 
     }

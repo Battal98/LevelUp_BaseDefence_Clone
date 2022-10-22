@@ -97,11 +97,12 @@ namespace Controllers
 
             if (StackList.Count > 0)
             {
+                CoreGameSignals.Instance.onUpdateGemScore.Invoke(+5);
                 RemoveStackAnimation(StackList[StackList.Count - 1],targetTransform);
                 StackList.TrimExcess();
                 if (StackList.Count % 9==0)
                 {
-                    await Task.Delay(100);
+                    await Task.Delay(200);
                 }
                 await Task.Delay(1);
                 RemoveAllStack(targetTransform);
@@ -121,7 +122,7 @@ namespace Controllers
             {
                 removedStack.transform.rotation = Quaternion.LookRotation(targetTransform.forward);
                             StackList.Remove(removedStack);
-                //removedStack.transform.parent=targetTransform;           
+                //removedStack.transform.parent=targetTransform;
                 removedStack.transform.DOMove(targetTransform.localPosition+new Vector3(0,targetTransform.localScale.y*2,0), .1f).OnComplete(() =>
                 {
                     
