@@ -3057,7 +3057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1448915204418317122}
   - component: {fileID: 4385600139559284387}
-  - component: {fileID: 5577824942323187105}
+  - component: {fileID: 7740120953815679292}
   m_Layer: 21
   m_Name: PlayerDetection
   m_TagString: Untagged
@@ -3092,7 +3092,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5577824942323187105
+--- !u!114 &7740120953815679292
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
